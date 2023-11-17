@@ -41,21 +41,19 @@ public class Main extends javax.swing.JFrame {
 
     public Main() {
         initComponents();
-       
+
         init();
-      
+
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelBody = new javax.swing.JPanel();
+        panelBody = new com.g5.ui.PanelBody();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-
-        panelBody.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout panelBodyLayout = new javax.swing.GroupLayout(panelBody);
         panelBody.setLayout(panelBodyLayout);
@@ -83,7 +81,7 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     void init() {
-        setSize(1000, 750);
+        setSize(1000, 800);
         setLocationRelativeTo(null);
         layout = new MigLayout("fill", "0[]5[]0", "0[fill]0"); // layout cua form chinh
         panelBody.setLayout(layout);
@@ -109,19 +107,19 @@ public class Main extends javax.swing.JFrame {
             @Override
             public void selected(int index) {
                 if (index == 0) {
-                 //   showForm(new Form1());  
+                    //   showForm(new Form1());  
                 }
                 if (index == 1) {
                     showForm(new NhanVienJPanel());
                 }
                 if (index == 2) {
-                 //  showForm(new HoaDonJPanel());              
+                    //  showForm(new HoaDonJPanel());              
                 }
                 if (index == 3) {
-                 //   showForm(new Form4());
+                    //   showForm(new Form4());
                 }
                 if (index == 4) {
-                 //   showForm(new Form5());
+                    //   showForm(new Form5());
                 }
             }
         });
@@ -134,6 +132,8 @@ public class Main extends javax.swing.JFrame {
 
         panelBody.add(menu, "w 62!");
         panelBody.add(main, "w 100%");
+
+
         TimingTarget target = new TimingTargetAdapter() {
             @Override
             public void timingEvent(float fraction) {
@@ -181,6 +181,6 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel panelBody;
+    private com.g5.ui.PanelBody panelBody;
     // End of variables declaration//GEN-END:variables
 }

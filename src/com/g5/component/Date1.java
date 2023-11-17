@@ -3,28 +3,40 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.g5.ui;
+package com.g5.component;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
-import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+import javax.swing.Timer;
 
 /**
  *
  * @author anhba
  */
-public class PanelBody extends javax.swing.JPanel {
+public class Date1 extends javax.swing.JPanel {
+
+    private float alpha;
+
+    public void setAlpha(float alpha) {
+        this.alpha = alpha;
+    }
 
     /**
-     * Creates new form PanelBody
+     * Creates new form Date
      */
-    public PanelBody() {
+    public Date1() {
         initComponents();
-        
         setOpaque(false);
+        setBackground(new Color(65, 152, 216));
     }
+    
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -35,30 +47,37 @@ public class PanelBody extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
+
+        jButton1.setText("jButton1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1)
+                .addContainerGap(87, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1)
+                .addContainerGap(11, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        System.out.println("haha");
+    public void paint(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
-     //   GradientPaint gra = new GradientPaint(0, 0, Color.decode("#ffd89b"), 0, getHeight(), Color.decode("#19547b"));
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setColor(getBackground());
-        g2.fillRect(0, 0, getWidth(), getHeight());
-        super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
-        
+        g2.fillRoundRect(5, 5, getWidth() - 15, getHeight() - 10, 20, 20);
+        super.paint(g); //To change body of generated methods, choose Tools | Templates.
     }
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }

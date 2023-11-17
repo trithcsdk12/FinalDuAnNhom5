@@ -38,6 +38,7 @@ public class Menu extends javax.swing.JPanel {
     private Header header;
     private Info bottom;
     private Date date;
+    private Date1 date1;
     private Setting setting;
     private EventMenuSelected eventMenuSelected;
 
@@ -66,6 +67,7 @@ public class Menu extends javax.swing.JPanel {
         panelMenu.setOpaque(false);
         layout = new MigLayout("fillx, wrap", "0[fill]5", "0[]0[]5"); // component | []: Khoang cac ngang | [][]: Khoang cach doc
         panelMenu.setLayout(layout);
+        date1 = new Date1();
         add(cmdMenu, "pos 1al 0al 100% 50");
         add(cmdExit, "pos 1al 1al 100% 50, height 50!");
         add(header);
@@ -74,8 +76,10 @@ public class Menu extends javax.swing.JPanel {
         add(bottom);
         add(setting);
         add(date);
+        add(date1);
         
         date.startClock();
+        
     }
 
     public void addMenu(Model_Menu menu) {
@@ -108,7 +112,7 @@ public class Menu extends javax.swing.JPanel {
         cmdExit.setContentAreaFilled(false);
         cmdExit.setCursor(new Cursor(Cursor.HAND_CURSOR));
         cmdExit.setIcon(new ImageIcon(Menu.class.getResource("/com/g5/image/Cancel.png")));
-        cmdExit.setBorder(new EmptyBorder(0, 1, 15, 16)); // vị trí của Button exit
+        cmdExit.setBorder(new EmptyBorder(0, 1, 0, 16)); // vị trí của Button exit
     }
 
     public void addEventButtonMenu(ActionListener evt) {
@@ -166,7 +170,7 @@ public class Menu extends javax.swing.JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
-        GradientPaint gra = new GradientPaint(0, 0, Color.decode("#0575E6"), 0, getHeight(), Color.decode("#021B79"));
+        GradientPaint gra = new GradientPaint(0, 0, Color.decode("#136a8a"), 0, getHeight(), Color.decode("#267871"));
         g2.setPaint(gra);
         g2.fillRect(0, 0, getWidth(), getHeight());
         super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
@@ -192,6 +196,7 @@ public class Menu extends javax.swing.JPanel {
         bottom.setAlpha(alpha);
         date.setAlpha(alpha);
         setting.setAlpha(alpha);
+        date1.setAlpha(alpha);
     }
 
 

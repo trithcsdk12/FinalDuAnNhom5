@@ -30,7 +30,7 @@ public class Info extends javax.swing.JPanel {
     public Info() {
         initComponents();
         setOpaque(false);
-        setBackground(new Color(65, 152, 216));
+          setBackground(new Color(65, 152, 216));
         setInfo();
     }
 
@@ -63,6 +63,8 @@ public class Info extends javax.swing.JPanel {
         lblImage = new javax.swing.JLabel();
         txtName = new javax.swing.JLabel();
         txtRole = new javax.swing.JLabel();
+
+        setBackground(new java.awt.Color(204, 204, 255));
 
         lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/g5/image/Name.png"))); // NOI18N
         lblImage.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));

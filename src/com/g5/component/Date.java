@@ -41,8 +41,8 @@ public class Date extends javax.swing.JPanel {
         SimpleDateFormat day = new SimpleDateFormat("EEEE", new Locale("vi"));
         SimpleDateFormat time = new SimpleDateFormat("hh:mm:ss a");
         new Timer(1000, (ActionEvent e) -> {
-            txtDate.setText("Ngày: " + date.format(new java.util.Date()) + " [" + day.format(new java.util.Date()) + "]");
-            txtTime.setText("Giờ: " + time.format(new java.util.Date()));
+            txtDate.setText("Ngày:" + date.format(new java.util.Date()) + " [" + day.format(new java.util.Date()) + "]");
+            txtTime.setText("Giờ:" + time.format(new java.util.Date()));
         }).start();
     }
 
@@ -62,12 +62,12 @@ public class Date extends javax.swing.JPanel {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/g5/image/Clock.png"))); // NOI18N
 
         txtDate.setBackground(new java.awt.Color(255, 255, 255));
-        txtDate.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtDate.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtDate.setForeground(new java.awt.Color(255, 255, 255));
         txtDate.setText("Ngày:");
 
         txtTime.setBackground(new java.awt.Color(255, 255, 255));
-        txtTime.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtTime.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtTime.setForeground(new java.awt.Color(255, 255, 255));
         txtTime.setText("Giờ:");
 
@@ -76,25 +76,27 @@ public class Date extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtDate, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-                    .addComponent(txtTime, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtTime, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(txtDate, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10))
         );
     }// </editor-fold>//GEN-END:initComponents
 
