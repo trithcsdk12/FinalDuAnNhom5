@@ -107,19 +107,19 @@ public class Main extends javax.swing.JFrame {
             @Override
             public void selected(int index) {
                 if (index == 0) {
-                    showForm(new Form1());  
+                 //   showForm(new Form1());  
                 }
                 if (index == 1) {
                     showForm(new NhanVienJPanel());
                 }
                 if (index == 2) {
-                   showForm(new HoaDonJPanel());              
+                 //  showForm(new HoaDonJPanel());              
                 }
                 if (index == 3) {
-                    showForm(new Form4());
+                 //   showForm(new Form4());
                 }
                 if (index == 4) {
-                    showForm(new Form5());
+                 //   showForm(new Form5());
                 }
             }
         });
