@@ -12,6 +12,7 @@ import com.g5.form.Form2;
 import com.g5.form.Form3;
 import com.g5.form.Form4;
 import com.g5.form.Form5;
+import com.g5.form.HoaDonJPanel;
 import com.g5.form.NhanVienJPanel;
 import com.g5.model.Model_Menu;
 import java.awt.BorderLayout;
@@ -40,6 +41,7 @@ public class Main extends javax.swing.JFrame {
     public Main() {
         initComponents();
         init();
+        System.out.println("123");
     }
 
     @SuppressWarnings("unchecked")
@@ -105,19 +107,20 @@ public class Main extends javax.swing.JFrame {
             @Override
             public void selected(int index) {
                 if (index == 0) {
-                    showForm(new Form1());  
+                    //showForm(new Form1());  
                 }
                 if (index == 1) {
-                    showForm(new NhanVienJPanel());
+                    //showForm(new NhanVienJPanel());
                 }
                 if (index == 2) {
-                    showForm(new Form3());
+                   // showForm(new HoaDonJPanel());
+                    
                 }
                 if (index == 3) {
-                    showForm(new Form4());
+                    //showForm(new Form4());
                 }
                 if (index == 4) {
-                    showForm(new Form5());
+                    //showForm(new Form5());
                 }
             }
         });

@@ -19,6 +19,7 @@ public class Form3 extends javax.swing.JPanel {
     public Form3() {
         initComponents();
         setOpaque(false);
+        System.out.println("Anh3");
         XImage.selectImage2("cos3.png", jLabel1, 900, 750);
     }
     
