@@ -22,6 +22,7 @@ public class PanelBody extends javax.swing.JPanel {
      */
     public PanelBody() {
         initComponents();
+        System.out.println("haha");
        // setOpaque(false);
     }
 
