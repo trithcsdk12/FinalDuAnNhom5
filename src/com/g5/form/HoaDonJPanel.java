@@ -14,18 +14,17 @@ import java.awt.Graphics2D;
  * @author triphan
  */
 public class HoaDonJPanel extends javax.swing.JPanel {
- GradientPaint gra = new GradientPaint(0, 0, Color.decode("#1A2980"), 0, getHeight(), Color.decode("#26D0CE"));
     /**
      * Creates new form HoaDonJPanel
      */
     public HoaDonJPanel() {
         initComponents();
+        setOpaque(false);
     }
 
      @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D)g;
-        g2.setPaint(gra);
         super.paintComponent(g); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
     /**
@@ -152,7 +151,7 @@ public class HoaDonJPanel extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Bảng Hóa Đơn");
 
-        btnTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Search.png"))); // NOI18N
+        btnTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/g5/image/Search.png"))); // NOI18N
         btnTimKiem.setText("Tìm Kiếm");
 
         tblHoaDon.setModel(new javax.swing.table.DefaultTableModel(
