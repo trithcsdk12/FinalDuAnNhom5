@@ -53,6 +53,7 @@ public class PanelBody extends javax.swing.JPanel {
         g2.setPaint(gra);
         g2.fillRect(0, 0, getWidth(), getHeight());
         super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("haha");
     }
 
 
