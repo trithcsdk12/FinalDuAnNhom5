@@ -35,6 +35,7 @@ public class Menu extends javax.swing.JPanel {
     private JPanel panelMenu;
     private JButton cmdMenu;
     private JButton cmdExit;
+    private JButton cmdMini;
     private Header header;
     private Info bottom;
     private Date date;
@@ -64,12 +65,14 @@ public class Menu extends javax.swing.JPanel {
         setting = new Setting();
         createButtonMenu();
         createButtonLogout();
+        createButtonMini();
         panelMenu.setOpaque(false);
         layout = new MigLayout("fillx, wrap", "0[fill]5", "0[]0[]5"); // component | []: Khoang cac ngang | [][]: Khoang cach doc
         panelMenu.setLayout(layout);
         date1 = new Date1();
         add(cmdMenu, "pos 1al 0al 100% 50");
         add(cmdExit, "pos 1al 1al 100% 50, height 50!");
+        add(cmdMini, "pos 1al 1al 100% 50, height 50!");
         add(header);
         add(panelMenu);
 
@@ -77,9 +80,9 @@ public class Menu extends javax.swing.JPanel {
         add(setting);
         add(date);
         add(date1);
-        
+
         date.startClock();
-        
+
     }
 
     public void addMenu(Model_Menu menu) {
@@ -98,7 +101,6 @@ public class Menu extends javax.swing.JPanel {
         }
     }
 
-
     public void createButtonMenu() {
         cmdMenu = new JButton();
         cmdMenu.setContentAreaFilled(false);
@@ -115,6 +117,14 @@ public class Menu extends javax.swing.JPanel {
         cmdExit.setBorder(new EmptyBorder(0, 1, 0, 16)); // vị trí của Button exit
     }
 
+    public void createButtonMini() {
+        cmdMini = new JButton();
+        cmdMini.setContentAreaFilled(false);
+        cmdMini.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        cmdMini.setIcon(new ImageIcon(Menu.class.getResource("/com/g5/image/Menu_1.png")));
+        cmdMini.setBorder(new EmptyBorder(0, 1, 0, 165));
+    }
+
     public void addEventButtonMenu(ActionListener evt) {
         cmdMenu.addActionListener(evt);
     }
@@ -122,9 +132,6 @@ public class Menu extends javax.swing.JPanel {
     public void addEventButtonLogout(ActionListener evt) {
         cmdExit.addActionListener(evt);
     }
-    
-    
-    
 
     private int x;
     private int y;
