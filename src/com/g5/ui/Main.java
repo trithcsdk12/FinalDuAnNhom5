@@ -16,6 +16,7 @@ import com.g5.form.HoaDonJPanel;
 import com.g5.form.NhanVienJPanel;
 import com.g5.model.Model_Menu;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -40,7 +41,7 @@ public class Main extends javax.swing.JFrame {
 
     public Main() {
         initComponents();
-        panelBody.setOpaque(false);
+       
         init();
       
     }
