@@ -49,10 +49,9 @@ public class PanelBody extends javax.swing.JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); 
         GradientPaint gra = new GradientPaint(0, 0, Color.decode("#1A2980"), 0, getHeight(), Color.decode("#26D0CE"));
         g2.setPaint(gra);
-     //   g2.fillRoundRect(0, 0, getWidth(), getHeight(), 0, 0);
+        g2.fillRect(0, 0, getWidth(), getHeight());
         super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
     }
 
