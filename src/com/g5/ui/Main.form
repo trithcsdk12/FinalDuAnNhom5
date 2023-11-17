@@ -35,11 +35,6 @@
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JPanel" name="panelBody">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="cc" type="rgb"/>
-        </Property>
-      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">

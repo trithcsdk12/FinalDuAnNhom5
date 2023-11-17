@@ -40,8 +40,9 @@ public class Main extends javax.swing.JFrame {
 
     public Main() {
         initComponents();
+        panelBody.setOpaque(false);
         init();
-        System.out.println("123");
+      
     }
 
     @SuppressWarnings("unchecked")
@@ -52,8 +53,6 @@ public class Main extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-
-        panelBody.setBackground(new java.awt.Color(204, 255, 255));
 
         javax.swing.GroupLayout panelBodyLayout = new javax.swing.GroupLayout(panelBody);
         panelBody.setLayout(panelBodyLayout);
