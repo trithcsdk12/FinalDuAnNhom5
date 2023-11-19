@@ -14,6 +14,7 @@ import com.g5.form.Form4;
 import com.g5.form.Form5;
 import com.g5.form.HoaDonJPanel;
 import com.g5.form.NhanVienJPanel;
+import com.g5.form.TrangChuJPanel;
 import com.g5.model.Model_Menu;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -107,7 +108,7 @@ public class Main extends javax.swing.JFrame {
             @Override
             public void selected(int index) {
                 if (index == 0) {
-                    //   showForm(new Form1());  
+                    showForm(new TrangChuJPanel());  
                 }
                 if (index == 1) {
                     showForm(new NhanVienJPanel());
