@@ -116,7 +116,7 @@ public class Main extends javax.swing.JFrame {
                     showForm(new HoaDonJPanel());
                 }
                 if (index == 3) {
-                    //   showForm(new Form4());
+                    showForm(new Form4());
                 }
                 if (index == 4) {
                     //   showForm(new Form5());
