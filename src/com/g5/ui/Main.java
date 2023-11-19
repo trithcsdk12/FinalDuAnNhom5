@@ -88,7 +88,7 @@ public class Main extends javax.swing.JFrame {
         panelBody.setLayout(layout);
 
         main.setOpaque(false);
-
+        showForm(new TrangChuJPanel());
         main.setLayout(new BorderLayout());
         menu.addEventButtonMenu(new ActionListener() {
             @Override
@@ -108,13 +108,13 @@ public class Main extends javax.swing.JFrame {
             @Override
             public void selected(int index) {
                 if (index == 0) {
-                    showForm(new TrangChuJPanel());  
+                    showForm(new TrangChuJPanel());
                 }
                 if (index == 1) {
                     showForm(new NhanVienJPanel());
                 }
                 if (index == 2) {
-                    showForm(new HoaDonJPanel());              
+                    showForm(new HoaDonJPanel());
                 }
                 if (index == 3) {
                     //   showForm(new Form4());
@@ -133,7 +133,6 @@ public class Main extends javax.swing.JFrame {
 
         panelBody.add(menu, "w 62!");
         panelBody.add(main, "w 100%");
-
 
         TimingTarget target = new TimingTargetAdapter() {
             @Override
