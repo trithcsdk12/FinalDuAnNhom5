@@ -88,7 +88,6 @@ public class Main extends javax.swing.JFrame {
         panelBody.setLayout(layout);
 
         main.setOpaque(false);
-        showForm(new TrangChuJPanel());
         main.setLayout(new BorderLayout());
         menu.addEventButtonMenu(new ActionListener() {
             @Override
