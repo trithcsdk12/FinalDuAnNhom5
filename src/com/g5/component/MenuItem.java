@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.g5.swing;
+package com.g5.component;
 
 import com.g5.event.EventMenuSelected;
 import java.awt.AlphaComposite;

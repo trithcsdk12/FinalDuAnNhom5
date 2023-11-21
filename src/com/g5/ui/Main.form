@@ -34,7 +34,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="com.g5.ui.PanelBody" name="panelBody">
+    <Container class="com.g5.swing.PanelBody" name="panelBody">
 
       <Layout>
         <DimensionLayout dim="0">

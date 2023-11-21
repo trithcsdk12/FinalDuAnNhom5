@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.g5.ui;
+package com.g5.swing;
 
 import java.awt.Color;
 import java.awt.GradientPaint;
@@ -14,12 +14,12 @@ import java.awt.RenderingHints;
  *
  * @author Asus
  */
-public class NewJPanel extends javax.swing.JPanel {
+public class ColorForm extends javax.swing.JPanel {
 
     /**
      * Creates new form NewJPanel
      */
-    public NewJPanel() {
+    public ColorForm() {
         initComponents();
         this.setOpaque(false);
         
@@ -33,7 +33,7 @@ public class NewJPanel extends javax.swing.JPanel {
         g2.setPaint(gra);
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
         g2.fillRect(getWidth() , 0, getWidth(), getHeight());
-        super.paintComponent(g); 
+        super.paintComponent(g); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
     
 

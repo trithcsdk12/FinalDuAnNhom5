@@ -4,23 +4,29 @@
  */
 package com.g5.ui;
 
+import com.DAO.NhanVienDAO;
 import com.Entity.NhanVien;
 import com.EntityDAOImpl.NhanVienDAOImpl;
 import com.g5.util.Auth;
+import java.awt.*;
+import javax.swing.JFrame;
 import java.util.List;
 import javax.swing.JOptionPane;
-
 /**
  *
  * @author KIM NGAN
  */
-public class DoiMatKhauJDialog extends javax.swing.JDialog {
+public class  XacNhanMatKhauJDiaLog extends javax.swing.JDialog {
+     NhanVienDAO dao = new NhanVienDAOImpl();
+     
+    private JFrame frame;
 
     /**
      * Creates new form DoiMatKhauJDialog
      */
-    public DoiMatKhauJDialog(java.awt.Frame parent, boolean modal) {
+    public XacNhanMatKhauJDiaLog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        this.frame = (JFrame) parent;
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Đổi mật khẩu");
@@ -36,12 +42,10 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         btnHoanThanh = new javax.swing.JButton();
         btnThoat = new javax.swing.JButton();
-        txtMkCu = new javax.swing.JTextField();
         txtMKMoi = new javax.swing.JTextField();
         txtXNMK = new javax.swing.JTextField();
 
@@ -50,10 +54,7 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 204, 255));
-        jLabel2.setText("Đổi Mật Khẩu");
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel3.setText("Mật khẩu cũ");
+        jLabel2.setText("Xác nhân mật khẩu");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setText("Mật khẩu mới");
@@ -84,33 +85,27 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(93, Short.MAX_VALUE)
+                .addContainerGap(94, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnHoanThanh, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnThoat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jLabel5)
-                    .addComponent(jLabel3)
-                    .addComponent(txtMkCu, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(txtMKMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtXNMK, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
+                        .addGap(12, 12, 12)
                         .addComponent(jLabel2)))
-                .addGap(83, 83, 83))
+                .addGap(82, 82, 82))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtMkCu, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtMKMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -122,21 +117,23 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnHoanThanh, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnThoat, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnHoanThanhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHoanThanhActionPerformed
-        PasswordChange();
+        
+       DoiMatKhau();
+  
     }//GEN-LAST:event_btnHoanThanhActionPerformed
 
     private void btnThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoatActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnThoatActionPerformed
 
-    /**
+    /**     
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -153,14 +150,18 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DoiMatKhauJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(XacNhanMatKhauJDiaLog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DoiMatKhauJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(XacNhanMatKhauJDiaLog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DoiMatKhauJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(XacNhanMatKhauJDiaLog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DoiMatKhauJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(XacNhanMatKhauJDiaLog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -169,7 +170,7 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                DoiMatKhauJDialog dialog = new DoiMatKhauJDialog(new javax.swing.JFrame(), true);
+                XacNhanMatKhauJDiaLog dialog = new XacNhanMatKhauJDiaLog(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -185,35 +186,41 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
     private javax.swing.JButton btnHoanThanh;
     private javax.swing.JButton btnThoat;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JTextField txtMKMoi;
-    private javax.swing.JTextField txtMkCu;
     private javax.swing.JTextField txtXNMK;
     // End of variables declaration//GEN-END:variables
-    NhanVienDAOImpl nvdao = new NhanVienDAOImpl();
-
-    void PasswordChange() {
-        String mkcu = txtMkCu.getText().trim(); // Giả sử txtMKCu là ô nhập mật khẩu cũ
-        String mkmoi = txtMKMoi.getText().trim();
-        String XNMK = txtXNMK.getText().trim();
-
-        if (mkcu.length() == 0 || mkmoi.length() == 0 || XNMK.length() == 0) {
-            JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin.");
-            return;
-        }
-
-        if (!Auth.user.getMatkhau().equals(mkcu)) {
-            JOptionPane.showMessageDialog(null, "Sai mật khẩu.");
-        } else if (!mkmoi.equals(XNMK)) {
-            JOptionPane.showMessageDialog(null, "Mật khẩu xác nhận không đúng.");
-        } else {
-            Auth.user.setMatkhau(mkmoi);
-            nvdao.update(Auth.user);
-            JOptionPane.showMessageDialog(null, "Thay đổi mật khẩu thành công.");
-            System.out.println("Thay đổi thành công");
-        }
+    private String maNV;
+   
+    public String getmaNV() {
+        return maNV;
     }
 
+    public void setmaNV(String maNV) {
+        this.maNV = maNV;
+    }
+    NhanVienDAOImpl nvdao = new NhanVienDAOImpl();
+    NhanVien nv = new NhanVien();
+    void DoiMatKhau(){
+        String maNVFromFrame = getmaNV();
+        System.out.println(maNVFromFrame);
+        String mkmoi = txtMKMoi.getText().trim();
+        String XNmk = txtXNMK.getText().trim();
+        if(mkmoi.length() == 0 || XNmk.length() == 0){
+            return;
+        }
+        List<NhanVien> list = dao.getAll();
+        if(!mkmoi.equals(XNmk)){
+            JOptionPane.showMessageDialog(null, "Xác nhận mật khẩu không đúng");
+        }
+        else{
+            for (NhanVien nhanVien : list) {
+                if(getmaNV().equalsIgnoreCase(Auth.accountXNNV(String.valueOf(nhanVien.getMaNV())))){
+                    nvdao.forgotpass(Integer.parseInt(mkmoi), maNV);
+                }
+            }
+            System.out.println("Thay đổi thành công");
+        }
+    } 
 }

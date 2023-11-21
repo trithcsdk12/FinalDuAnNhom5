@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.g5.ui;
+package com.g5.swing;
 
 import java.awt.Color;
 import java.awt.GradientPaint;
@@ -49,7 +49,6 @@ public class PanelBody extends javax.swing.JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
-        System.out.println("haha");
         Graphics2D g2 = (Graphics2D) g;
      //   GradientPaint gra = new GradientPaint(0, 0, Color.decode("#ffd89b"), 0, getHeight(), Color.decode("#19547b"));
         g2.setColor(getBackground());

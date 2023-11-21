@@ -6,7 +6,7 @@ package com.EntityDAOImpl;
 
 import com.DAO.NhanVienDAO;
 import com.Entity.NhanVien;
-import com.Utils.JDBCHelper;
+import com.g5.util.JDBCHelper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -108,5 +108,13 @@ public class NhanVienDAOImpl implements NhanVienDAO {
         model.setVaitro(rs.getInt("VaiTro"));
         return model;
     }
+      public void forgotpass(int rdpass, String manv) {
+        String sql = "UPDATE NhanVien SET MatKhau=? WHERE MaNV=?";
+        JDBCHelper.executeUpdate(sql,
+                rdpass,
+                    manv
+        );
 
+    }
+    
 }
