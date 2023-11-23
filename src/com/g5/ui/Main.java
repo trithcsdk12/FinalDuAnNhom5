@@ -102,7 +102,7 @@ public class Main extends javax.swing.JFrame {
                 System.exit(0);
             }
         });
-        menu.addEventButtonMni(new ActionListener() {
+        menu.addEventButtonMini(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
              Main.this.setState(Frame.ICONIFIED);

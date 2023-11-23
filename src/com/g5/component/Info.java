@@ -45,6 +45,7 @@ public class Info extends javax.swing.JPanel {
     }
 
     public void setInfo() {
+        txtMaNV.setText("Mã NV: 1");
         txtName.setText("Tên: Anhbao5cm");
         txtRole.setText("Chức vụ: Nhân viên");
        
@@ -62,7 +63,7 @@ public class Info extends javax.swing.JPanel {
 
         txtName = new javax.swing.JLabel();
         txtRole = new javax.swing.JLabel();
-        txtName1 = new javax.swing.JLabel();
+        txtMaNV = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(204, 204, 255));
 
@@ -74,9 +75,9 @@ public class Info extends javax.swing.JPanel {
         txtRole.setForeground(new java.awt.Color(255, 255, 255));
         txtRole.setText("Chức vụ:");
 
-        txtName1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtName1.setForeground(new java.awt.Color(255, 255, 255));
-        txtName1.setText("Mã NV:");
+        txtMaNV.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtMaNV.setForeground(new java.awt.Color(255, 255, 255));
+        txtMaNV.setText("Mã NV:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -86,7 +87,7 @@ public class Info extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtName)
-                    .addComponent(txtName1)
+                    .addComponent(txtMaNV)
                     .addComponent(txtRole))
                 .addContainerGap(248, Short.MAX_VALUE))
         );
@@ -94,7 +95,7 @@ public class Info extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtName1)
+                .addComponent(txtMaNV)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtName)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -105,8 +106,8 @@ public class Info extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel txtMaNV;
     private javax.swing.JLabel txtName;
-    private javax.swing.JLabel txtName1;
     private javax.swing.JLabel txtRole;
     // End of variables declaration//GEN-END:variables
 }

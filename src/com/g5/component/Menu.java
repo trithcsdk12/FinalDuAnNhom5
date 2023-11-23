@@ -85,6 +85,7 @@ public class Menu extends javax.swing.JPanel {
 
     }
 
+    
     public void addMenu(Model_Menu menu) {
         MenuItem item = new MenuItem(menu.getIcon(), menu.getMenuName(), panelMenu.getComponentCount());
         item.addEvent(new EventMenuSelected() {
@@ -99,6 +100,7 @@ public class Menu extends javax.swing.JPanel {
         if (item.getIndex() == 0) {
             item.setSelected(true);
         }
+        
     }
 
     public void createButtonMenu() {
@@ -137,7 +139,7 @@ public class Menu extends javax.swing.JPanel {
         cmdExit.addActionListener(evt);
     }
 
-    public void addEventButtonMni(ActionListener evt) {
+    public void addEventButtonMini(ActionListener evt) {
         cmdMini.addActionListener(evt);
     }
 
