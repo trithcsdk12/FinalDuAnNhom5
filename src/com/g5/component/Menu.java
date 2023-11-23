@@ -70,9 +70,10 @@ public class Menu extends javax.swing.JPanel {
         panelMenu.setLayout(layout);
         date1 = new About();
         add(cmdMenu, "pos 1al 0al 100% , height 50!");
+        add(cmdMini, "pos 1al 770 100% , height 50!");
         add(cmdExit, "pos 1al 1al 100% , height 50!");
-     //   add(cmdMini, "pos 1al 1al 100% 50, height 50!"); // pos trái phải rộng 
-      //  add(cmdMini,"pos 1al 1al 50% , height 50!");
+        //   add(cmdMini, "pos 1al 1al 100% 50, height 50!"); // pos trái phải rộng 
+        //  add(cmdMini,"pos 1al 1al 50% , height 50!");
         add(header);
         add(panelMenu);
 
@@ -85,7 +86,6 @@ public class Menu extends javax.swing.JPanel {
 
     }
 
-    
     public void addMenu(Model_Menu menu) {
         MenuItem item = new MenuItem(menu.getIcon(), menu.getMenuName(), panelMenu.getComponentCount());
         item.addEvent(new EventMenuSelected() {
@@ -100,7 +100,7 @@ public class Menu extends javax.swing.JPanel {
         if (item.getIndex() == 0) {
             item.setSelected(true);
         }
-        
+
     }
 
     public void createButtonMenu() {
@@ -115,20 +115,28 @@ public class Menu extends javax.swing.JPanel {
         cmdMenu.setEnabled(bl);
     }
 
+    public void setEnableButtonMini(boolean bl) {
+        cmdMini.setEnabled(bl);
+    }
+
+    public void setEnableButtonExit(boolean bl) {
+        cmdExit.setEnabled(bl);
+    }
+
     public void createButtonLogout() {
         cmdExit = new JButton();
         cmdExit.setContentAreaFilled(false);
         cmdExit.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        cmdExit.setIcon(new ImageIcon(Menu.class.getResource("/com/g5/image/Cancel.png")));
-        cmdExit.setBorder(new EmptyBorder(0, 1, 0, 16)); // vị trí của Button exit
+        cmdExit.setIcon(new ImageIcon(Menu.class.getResource("/com/g5/image/Cancel_1.png")));
+        cmdExit.setBorder(new EmptyBorder(0, 1, 0, 11)); // vị trí của Button exit
     }
 
     public void createButtonMini() {
         cmdMini = new JButton();
         cmdMini.setContentAreaFilled(false);
         cmdMini.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        cmdMini.setIcon(new ImageIcon(Menu.class.getResource("/com/g5/image/Minimize.png")));
-        cmdMini.setBorder(new EmptyBorder(0, 1, 0, 16));
+        cmdMini.setIcon(new ImageIcon(Menu.class.getResource("/com/g5/image/Minimize_3.png")));
+        cmdMini.setBorder(new EmptyBorder(0, 1, 0, 11));
     }
 
     public void addEventButtonMenu(ActionListener evt) {
@@ -162,7 +170,6 @@ public class Menu extends javax.swing.JPanel {
 //            }
 //        });
 //    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

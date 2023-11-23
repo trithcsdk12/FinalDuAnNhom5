@@ -82,7 +82,6 @@ public class DangNhapJFrame extends javax.swing.JFrame {
 
         btnDangNhap.setBackground(new java.awt.Color(51, 204, 255));
         btnDangNhap.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnDangNhap.setForeground(new java.awt.Color(0, 0, 0));
         btnDangNhap.setText("Đăng nhập");
         btnDangNhap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,7 +110,6 @@ public class DangNhapJFrame extends javax.swing.JFrame {
 
         btnDangNhap1.setBackground(new java.awt.Color(51, 204, 255));
         btnDangNhap1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnDangNhap1.setForeground(new java.awt.Color(0, 0, 0));
         btnDangNhap1.setText("Đăng nhập");
         btnDangNhap1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,7 +117,7 @@ public class DangNhapJFrame extends javax.swing.JFrame {
             }
         });
 
-        txtPass.setText("123");
+        txtPass.setText("password1");
         txtPass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPassActionPerformed(evt);

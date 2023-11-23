@@ -5,6 +5,8 @@
  */
 package com.g5.component;
 
+import com.g5.ui.Main;
+import com.g5.util.Message;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -14,6 +16,7 @@ import java.awt.RenderingHints;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
+import javax.swing.JOptionPane;
 import org.w3c.dom.events.MouseEvent;
 
 /**
@@ -47,7 +50,11 @@ public class Setting extends javax.swing.JPanel {
         addEvenLogOut(new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                System.out.println("Log out");
+                if(Message.Comform(null, "Bạn chắc chắn muốn thoát đăng xuất")){
+                    System.out.println("a");
+                };
+                
+                
             }
 
         });

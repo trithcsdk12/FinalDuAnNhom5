@@ -43,6 +43,10 @@ public class Main extends javax.swing.JFrame {
 
     }
 
+    public void off() {
+        this.dispose();
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -80,8 +84,7 @@ public class Main extends javax.swing.JFrame {
         //setSize(1000, 800);
         setLocationRelativeTo(null);
         this.setExtendedState(this.MAXIMIZED_BOTH);
-        
-        
+
         layout = new MigLayout("fill", "0[]3[]0", "0[fill]0"); // layout cua form chinh "giản cách bên trái[]giản cách ở giữ[] giản cách bên phải
         panelBody.setLayout(layout); // set layout cho form chinh
 
@@ -92,7 +95,10 @@ public class Main extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (!animator.isRunning()) {
                     menu.setEnableButtonMenu(false);
+                    menu.setEnableButtonMini(false);
+                    menu.setEnableButtonExit(false);
                     animator.start();
+
                 }
             }
         });
@@ -105,7 +111,7 @@ public class Main extends javax.swing.JFrame {
         menu.addEventButtonMini(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-             Main.this.setState(Frame.ICONIFIED);
+                Main.this.setState(Frame.ICONIFIED);
             }
         });
         menu.setEventMenuSelected(new EventMenuSelected() {
@@ -121,7 +127,7 @@ public class Main extends javax.swing.JFrame {
                     showForm(new HoaDonJPanel());
                 }
                 if (index == 3) {
-                    
+
                 }
                 if (index == 4) {
                     //   showForm(new Form5());
@@ -156,17 +162,21 @@ public class Main extends javax.swing.JFrame {
 
             @Override
             public void end() {
-                if(menu.getWidth() > 63){
-                menuShow = true;
-                menu.setEnableButtonMenu(true);
-                return;
+                if (menu.getWidth() > 63) {
+                    menuShow = true;
+                    menu.setEnableButtonMenu(true);
+                    menu.setEnableButtonMini(true);
+                    menu.setEnableButtonExit(true);
+                    return;
                 }
-                if(menu.getWidth() < 63){
-                menuShow = false;
-                menu.setEnableButtonMenu(true);
-                return;
+                if (menu.getWidth() < 63) {
+                    menuShow = false;
+                    menu.setEnableButtonMenu(true);
+                    menu.setEnableButtonMini(true);
+                    menu.setEnableButtonExit(true);
+                    return;
                 }
-                
+
             }
 
         };
@@ -174,7 +184,7 @@ public class Main extends javax.swing.JFrame {
         animator.setResolution(0);
         animator.setAcceleration(0.5f);
         animator.setDeceleration(0.5f);
-      //  menu.initMoving(Main.this);
+        //  menu.initMoving(Main.this);
         showForm(new TrangChuJPanel());
     }
 
@@ -190,8 +200,13 @@ public class Main extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                new Main().setVisible(true);
+                //  Main main = new Main();
+                //  if (main.isVisible()) {
+                //  return;
+                //  }
+                //  main.setVisible(true);
             }
         });
     }
