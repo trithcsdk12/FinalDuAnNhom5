@@ -70,7 +70,7 @@ public class Menu extends javax.swing.JPanel {
         panelMenu.setLayout(layout);
         date1 = new Date1();
         add(cmdMenu, "pos 1al 0al 100% , height 50!");
-        add(cmdExit, "pos 1al 1al 50% , height 50!");
+        add(cmdExit, "pos 1al 1al 100% , height 50!");
      //   add(cmdMini, "pos 1al 1al 100% 50, height 50!"); // pos trái phải rộng 
       //  add(cmdMini,"pos 1al 1al 50% , height 50!");
         add(header);

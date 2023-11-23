@@ -133,6 +133,7 @@ public class Main extends javax.swing.JFrame {
         menu.addMenu(new Model_Menu("Nhân viên", new ImageIcon(Main.class.getResource("/com/g5/image/Person_1.png"))));
         menu.addMenu(new Model_Menu("Hóa đơn", new ImageIcon(Main.class.getResource("/com/g5/image/Bill.png"))));
         menu.addMenu(new Model_Menu("Sản phẩm", new ImageIcon(Main.class.getResource("/com/g5/image/Box.png"))));
+        menu.addMenu(new Model_Menu("Khuyến mãi", new ImageIcon(Main.class.getResource("/com/g5/image/Voucher_1.png"))));
         menu.addMenu(new Model_Menu("Thống kê", new ImageIcon(Main.class.getResource("/com/g5/image/Combo_Chart.png"))));
 
         panelBody.add(menu, "w 62!");
