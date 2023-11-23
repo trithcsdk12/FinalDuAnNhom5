@@ -81,7 +81,7 @@ public class Main extends javax.swing.JFrame {
         this.setExtendedState(this.MAXIMIZED_BOTH);
         
         
-        layout = new MigLayout("fill", "0[]5[]0", "0[fill]0"); // layout cua form chinh
+        layout = new MigLayout("fill", "0[]3[]0", "0[fill]0"); // layout cua form chinh "giản cách bên trái[]giản cách ở giữ[] giản cách bên phải
         panelBody.setLayout(layout); // set layout cho form chinh
 
         main.setOpaque(false);
@@ -147,15 +147,23 @@ public class Main extends javax.swing.JFrame {
 
             @Override
             public void end() {
-                menuShow = !menuShow;
+                if(menu.getWidth() > 63){
+                menuShow = true;
+                return;
+                }
+                if(menu.getWidth() < 63){
+                menuShow = false;
+                return;
+                }
+                
             }
 
         };
-        animator = new Animator(400, target);
+        animator = new Animator(500, target);
         animator.setResolution(0);
         animator.setAcceleration(0.5f);
         animator.setDeceleration(0.5f);
-        menu.initMoving(Main.this);
+      //  menu.initMoving(Main.this);
         showForm(new TrangChuJPanel());
     }
 
