@@ -43,17 +43,8 @@ public class Main extends javax.swing.JFrame {
         this.setUndecorated(true);
         initComponents();
         init();
-      //  openDangNhap();
+        openDangNhap();
 
-    }
-
-    public void off() {
-        Main.this.dispose();
-        if (this.isVisible()) {
-            System.out.println("Dang mo");
-            return;
-        }
-        System.out.println("Dang dong");
     }
 
     @SuppressWarnings("unchecked")
@@ -136,16 +127,20 @@ public class Main extends javax.swing.JFrame {
         menu.addEventButtonChangePass(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("doi mk");
-                Main.this.dispose();
+                if (Message.Comform(main, "Bạn có chắc muốn đổi mật khẩu?")) {
+                    Main.this.dispose();
+                }
+           
             }
         });
 
         menu.addEventButtonLogOut(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Dang xuat");
-                Main.this.dispose();
+                if (Message.Comform(main, "Bạn có chắc muốn đăng xuất?")) {
+                    Main.this.dispose();
+                }
+
             }
         });
 
@@ -250,7 +245,7 @@ public class Main extends javax.swing.JFrame {
             @Override
             public void run() {
 
-                new Main().setVisible(true);
+                new Main();
             }
         });
     }

@@ -5,9 +5,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class XDate {
+
     static SimpleDateFormat formater = new SimpleDateFormat();
+
     /**
      * Chuyển đổi String sang Date
+     *
      * @param date là String cần chuyển
      * @param pattern là định dạng thời gian
      * @return Date kết quả
@@ -16,13 +19,14 @@ public class XDate {
         try {
             formater.applyPattern(pattern);
             return formater.parse(date);
-        } 
-        catch (ParseException ex) {
+        } catch (ParseException ex) {
             throw new RuntimeException(ex);
         }
     }
+
     /**
      * Chuyển đổi từ Date sang String
+     *
      * @param date là Date cần chuyển đổi
      * @param pattern là định dạng thời gian
      * @return String kết quả
@@ -34,12 +38,27 @@ public class XDate {
 
     /**
      * Bổ sung số ngày vào thời gian
+     *
      * @param date thời gian hiện có
      * @param days số ngày cần bổ sung váo date
      * @return Date kết quả
      */
     public static Date addDays(Date date, long days) {
-        date.setTime(date.getTime() + days*24*60*60*1000);
+        date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
         return date;
+    }
+
+    public static String ChuyenNgay(Date date) {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        if (date == null) {
+            return formatter.format(XDate.now());
+        }
+        String strDate = formatter.format(date);
+        return strDate;
+    }
+
+    public static Date now() {
+
+        return new Date();
     }
 }

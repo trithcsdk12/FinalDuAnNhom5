@@ -24,10 +24,16 @@ public class NhanVienDAOImpl implements NhanVienDAO {
             + "values (?,?,?,?,?,?,?,?,?,?)";
     String update = "Update NhanVien set HoTen=?, Email=?, SDT=?, GioiTinh=?, VaiTro=?, MatKhau=?, Hinh=? where MaNV =?";
     String delete = "Delete from NhanVien where MaNV = ?";
+    String selectLast = "select * from NhanVien order by MaNV desc";
 
     @Override
     public NhanVien getByID(Integer maNV) {
         List<NhanVien> list = select(selectByID, maNV);
+        return list.size() > 0 ? list.get(0) : null;
+    }
+
+    public NhanVien getByIDLast() {
+        List<NhanVien> list = select(selectLast);
         return list.size() > 0 ? list.get(0) : null;
     }
 
@@ -106,15 +112,19 @@ public class NhanVienDAOImpl implements NhanVienDAO {
         model.setMatkhau(rs.getString("MatKhau"));
         model.setHoTen(rs.getString("HoTen"));
         model.setVaitro(rs.getInt("VaiTro"));
+        model.setNgaysinh(rs.getDate("NgaySinh"));
+        model.setDiachi(rs.getString("DiaChi"));
+        model.setTrangthai(rs.getInt("TrangThai"));
         return model;
     }
-      public void forgotpass(int rdpass, String manv) {
+
+    public void forgotpass(int rdpass, String manv) {
         String sql = "UPDATE NhanVien SET MatKhau=? WHERE MaNV=?";
         JDBCHelper.executeUpdate(sql,
                 rdpass,
-                    manv
+                manv
         );
 
     }
-    
+
 }

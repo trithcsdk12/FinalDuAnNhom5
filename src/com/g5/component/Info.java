@@ -5,6 +5,9 @@
  */
 package com.g5.component;
 
+import com.g5.entity.NhanVien;
+import com.g5.entityDAO.NhanVienDAOImpl;
+import com.g5.util.Auth;
 import com.g5.util.XImage;
 import java.awt.AlphaComposite;
 import java.awt.Color;
@@ -30,7 +33,7 @@ public class Info extends javax.swing.JPanel {
     public Info() {
         initComponents();
         setOpaque(false);
-          setBackground(new Color(65, 152, 216));
+        setBackground(new Color(65, 152, 216));
         setInfo();
     }
 
@@ -45,10 +48,29 @@ public class Info extends javax.swing.JPanel {
     }
 
     public void setInfo() {
+        NhanVienDAOImpl nvDAO = new NhanVienDAOImpl();
+        if (Auth.isLogin()) {
+            NhanVien nv = nvDAO.getByID(Auth.user.getMaNV());
+            if (nv != null) {
+                String vaitro = "";
+                if (nv.getVaitro() == 0) {
+                    vaitro = "Nhân viên";
+                }
+                if (nv.getVaitro() == 1) {
+                    vaitro = "Quản lí";
+                }
+                if (nv.getVaitro() == 2) {
+                    vaitro = "Chủ";
+                }
+                txtMaNV.setText("Mã NV: " + nv.getMaNV());
+                txtName.setText("Tên: " + nv.getHoTen());
+                txtRole.setText("Chức vụ: " + vaitro);
+                return;
+            }
+        }
         txtMaNV.setText("Mã NV: 1");
         txtName.setText("Tên: Anhbao5cm");
         txtRole.setText("Chức vụ: Nhân viên");
-       
 
     }
 
