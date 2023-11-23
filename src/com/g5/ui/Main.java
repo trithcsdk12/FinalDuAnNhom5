@@ -45,7 +45,11 @@ public class Main extends javax.swing.JFrame {
 
     public void off() {
         Main.this.dispose();
-        System.out.println("haha");
+        if(this.isVisible()){
+        System.out.println("Dang mo");
+        return;
+        }
+        System.out.println("Dang dong");
     }
 
     @SuppressWarnings("unchecked")
@@ -112,8 +116,8 @@ public class Main extends javax.swing.JFrame {
         menu.addEventButtonMini(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                //  Main.this.setState(Frame.ICONIFIED);
-Main.this.dispose();
+                  Main.this.setState(Frame.ICONIFIED);
+
             }
         });
         menu.setEventMenuSelected(new EventMenuSelected() {

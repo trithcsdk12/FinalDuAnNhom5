@@ -51,7 +51,8 @@ public class Setting extends javax.swing.JPanel {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
                 if(Message.Comform(null, "Bạn chắc chắn muốn thoát đăng xuất")){
-                    new Main().off();
+                    Main main = new Main();
+                    main.off();
                 };
                 
                 

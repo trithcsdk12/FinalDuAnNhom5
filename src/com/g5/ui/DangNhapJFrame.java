@@ -336,7 +336,8 @@ public class DangNhapJFrame extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Đăng nhập thành công");
                 this.dispose();
                 if (Auth.isLogin()) {
-                    new Main().setVisible(true);
+                    Main main = new Main();
+                    main.setVisible(true);
                 }
 
                 found = true;
