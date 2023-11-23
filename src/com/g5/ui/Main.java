@@ -41,6 +41,7 @@ public class Main extends javax.swing.JFrame {
     private boolean menuShow;
 
     public Main() {
+        this.setUndecorated(true);
         initComponents();
 
         init();
@@ -54,7 +55,6 @@ public class Main extends javax.swing.JFrame {
         panelBody = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
 
         javax.swing.GroupLayout panelBodyLayout = new javax.swing.GroupLayout(panelBody);
         panelBody.setLayout(panelBodyLayout);
@@ -82,8 +82,11 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     void init() {
-        setSize(1000, 800);
+        //setSize(1000, 800);
         setLocationRelativeTo(null);
+        this.setExtendedState(this.MAXIMIZED_BOTH);
+        
+        
         layout = new MigLayout("fill", "0[]5[]0", "0[fill]0"); // layout cua form chinh
         panelBody.setLayout(layout);
 
