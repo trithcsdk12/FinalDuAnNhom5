@@ -219,11 +219,12 @@ public class DangNhapJDialog extends javax.swing.JDialog {
                     && password.equalsIgnoreCase(nhanVien.getMatkhau())) {
                 Auth.user = nhanVien;
                 JOptionPane.showMessageDialog(null, "Đăng nhập thành công");
-                this.dispose();
+                DangNhapJDialog.this.dispose();
+                System.out.println("a");
                 if (Auth.isLogin()) {
+                    System.out.println("b");
                     this.dispose();
-                    Main main = new Main();
-                    main.setVisible(true);
+                    new Main().setVisible(true);
 
                 }
 
