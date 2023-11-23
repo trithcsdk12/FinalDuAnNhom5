@@ -315,8 +315,12 @@ public class DangNhapJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField txtMatKhau;
     private javax.swing.JPasswordField txtPass;
     // End of variables declaration//GEN-END:variables
-
+    private boolean loginSusess = false;
     NhanVienDAO dao = new NhanVienDAOImpl();
+
+    public boolean LoginOK() {
+        return loginSusess;
+    }
 
     void Login() {
         String account = txtMaNV1.getText().trim();
@@ -331,13 +335,14 @@ public class DangNhapJFrame extends javax.swing.JFrame {
 
         for (NhanVien nhanVien : list) {
             if (account.equalsIgnoreCase(Auth.accountNV(String.valueOf(nhanVien.getMaNV())))
-                && password.equalsIgnoreCase(nhanVien.getMatkhau())) {
+                    && password.equalsIgnoreCase(nhanVien.getMatkhau())) {
                 Auth.user = nhanVien;
                 JOptionPane.showMessageDialog(null, "Đăng nhập thành công");
                 this.dispose();
                 if (Auth.isLogin()) {
-                    Main main = new Main();
-                    main.setVisible(true);
+//                    Main main = new Main();
+//                    main.setVisible(true);
+                      this.loginSusess = true;
                 }
 
                 found = true;
@@ -348,9 +353,10 @@ public class DangNhapJFrame extends javax.swing.JFrame {
         if (!found) {
             JOptionPane.showMessageDialog(null, "Tài khoản hoặc mật khẩu không đúng");
         }
-    
-}
-public void addEvenPassWordChange(MouseListener evt) {
+
+    }
+
+    public void addEvenPassWordChange(MouseListener evt) {
         jLabel8.setCursor(new Cursor(Cursor.HAND_CURSOR));
         jLabel8.addMouseListener(evt);
     }
