@@ -13,6 +13,7 @@ import com.g5.form.TrangChuJPanel;
 import com.g5.model.Model_Menu;
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
@@ -101,6 +102,12 @@ public class Main extends javax.swing.JFrame {
                 System.exit(0);
             }
         });
+        menu.addEventButtonMni(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+             Main.this.setState(Frame.ICONIFIED);
+            }
+        });
         menu.setEventMenuSelected(new EventMenuSelected() {
             @Override
             public void selected(int index) {
@@ -136,10 +143,10 @@ public class Main extends javax.swing.JFrame {
             public void timingEvent(float fraction) {
                 double width;
                 if (menuShow) {
-                    width = 62 + (150 * (1f - fraction));
+                    width = 62 + (180 * (1f - fraction));
                     menu.setAlpha(1f - fraction);
                 } else {
-                    width = 62 + (150 * fraction);
+                    width = 62 + (180 * fraction);
                     menu.setAlpha(fraction);
                 }
                 layout.setComponentConstraints(menu, "w " + width + "!");

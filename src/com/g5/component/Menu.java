@@ -56,8 +56,8 @@ public class Menu extends javax.swing.JPanel {
     }
 
     void init() {
-        setLayout(new MigLayout("wrap, fillx, insets 0", "5[fill]0", "5[]0[]5"));// vi tri cua toan menu ( item + component )
-        panelMenu = new JPanel();
+        setLayout(new MigLayout("wrap, fillx, insets 0", "5[fill]0", "5[]0[]5"));// wrap: xuống dòng mỗi khi thêm, fillx: full độ dài, insets 0: không khoảng cách
+        panelMenu = new JPanel();                                                              // [fill]: khoảng cách ngang, [][]: khoảng cách dọc
         header = new Header();
         bottom = new Info();
         date = new Date();
@@ -69,9 +69,10 @@ public class Menu extends javax.swing.JPanel {
         layout = new MigLayout("fillx, wrap", "0[fill]5", "0[]0[]5"); // component | []: Khoang cac ngang | [][]: Khoang cach doc
         panelMenu.setLayout(layout);
         date1 = new Date1();
-        add(cmdMenu, "pos 1al 0al 100% 50");
-        add(cmdExit, "pos 1al 1al 100% 50, height 50!");
-        add(cmdMini, "pos 1al 1al 100% 50, height 50!");
+        add(cmdMenu, "pos 1al 0al 100% , height 50!");
+        add(cmdExit, "pos 1al 1al 50% , height 50!");
+     //   add(cmdMini, "pos 1al 1al 100% 50, height 50!"); // pos trái phải rộng 
+      //  add(cmdMini,"pos 1al 1al 50% , height 50!");
         add(header);
         add(panelMenu);
 
@@ -124,8 +125,8 @@ public class Menu extends javax.swing.JPanel {
         cmdMini = new JButton();
         cmdMini.setContentAreaFilled(false);
         cmdMini.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        cmdMini.setIcon(new ImageIcon(Menu.class.getResource("/com/g5/image/Menu_1.png")));
-        cmdMini.setBorder(new EmptyBorder(0, 1, 0, 165));
+        cmdMini.setIcon(new ImageIcon(Menu.class.getResource("/com/g5/image/Minimize.png")));
+        cmdMini.setBorder(new EmptyBorder(0, 1, 0, 16));
     }
 
     public void addEventButtonMenu(ActionListener evt) {
@@ -136,25 +137,29 @@ public class Menu extends javax.swing.JPanel {
         cmdExit.addActionListener(evt);
     }
 
-    private int x;
-    private int y;
-
-    public void initMoving(JFrame frame) {
-        header.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent me) {
-                x = me.getX();
-                y = me.getY();
-            }
-
-        });
-        header.addMouseMotionListener(new MouseMotionAdapter() {
-            @Override
-            public void mouseDragged(MouseEvent me) {
-                frame.setLocation(me.getXOnScreen() - x, me.getYOnScreen() - y);
-            }
-        });
+    public void addEventButtonMni(ActionListener evt) {
+        cmdMini.addActionListener(evt);
     }
+
+//    private int x;
+//    private int y;
+//
+//    public void initMoving(JFrame frame) {
+//        header.addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mousePressed(MouseEvent me) {
+//                x = me.getX();
+//                y = me.getY();
+//            }
+//
+//        });
+//        header.addMouseMotionListener(new MouseMotionAdapter() {
+//            @Override
+//            public void mouseDragged(MouseEvent me) {
+//                frame.setLocation(me.getXOnScreen() - x, me.getYOnScreen() - y);
+//            }
+//        });
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
