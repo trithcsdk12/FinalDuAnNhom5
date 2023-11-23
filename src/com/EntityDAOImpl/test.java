@@ -4,7 +4,7 @@
  */
 package com.EntityDAOImpl;
 
-import com.Utils.XDate;
+import com.g5.util.XDate;
 import com.Entity.HoaDon;
 import com.Entity.KhuyenMai;
 import com.Entity.NhanVien;

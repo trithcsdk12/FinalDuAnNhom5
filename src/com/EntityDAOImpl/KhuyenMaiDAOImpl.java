@@ -7,7 +7,7 @@ package com.EntityDAOImpl;
 import com.DAO.KhuyenMaiDAO;
 import com.Entity.HoaDon;
 import com.Entity.KhuyenMai;
-import com.Utils.JDBCHelper;
+import com.g5.util.JDBCHelper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
