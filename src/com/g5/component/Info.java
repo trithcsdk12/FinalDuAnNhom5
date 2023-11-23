@@ -47,7 +47,7 @@ public class Info extends javax.swing.JPanel {
     public void setInfo() {
         txtName.setText("Tên: Anhbao5cm");
         txtRole.setText("Chức vụ: Nhân viên");
-        XImage.selectImage2("haha.png", lblImage,180,120);
+       
 
     }
 
