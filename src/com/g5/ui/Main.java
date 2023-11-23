@@ -7,17 +7,11 @@ package com.g5.ui;
 
 import com.g5.component.Menu;
 import com.g5.event.EventMenuSelected;
-import com.g5.form.Form1;
-import com.g5.form.Form2;
-import com.g5.form.Form3;
-import com.g5.form.Form4;
-import com.g5.form.Form5;
 import com.g5.form.HoaDonJPanel;
 import com.g5.form.NhanVienJPanel;
 import com.g5.form.TrangChuJPanel;
 import com.g5.model.Model_Menu;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -119,7 +113,7 @@ public class Main extends javax.swing.JFrame {
                     showForm(new HoaDonJPanel());
                 }
                 if (index == 3) {
-                    showForm(new Form4());
+                    
                 }
                 if (index == 4) {
                     //   showForm(new Form5());
@@ -162,6 +156,7 @@ public class Main extends javax.swing.JFrame {
         animator.setAcceleration(0.5f);
         animator.setDeceleration(0.5f);
         menu.initMoving(Main.this);
+        showForm(new TrangChuJPanel());
     }
 
     private void showForm(Component com) {
