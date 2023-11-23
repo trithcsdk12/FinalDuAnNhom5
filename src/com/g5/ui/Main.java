@@ -44,7 +44,8 @@ public class Main extends javax.swing.JFrame {
     }
 
     public void off() {
-        this.dispose();
+        Main.this.dispose();
+        System.out.println("haha");
     }
 
     @SuppressWarnings("unchecked")
@@ -111,7 +112,8 @@ public class Main extends javax.swing.JFrame {
         menu.addEventButtonMini(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                Main.this.setState(Frame.ICONIFIED);
+                //  Main.this.setState(Frame.ICONIFIED);
+Main.this.dispose();
             }
         });
         menu.setEventMenuSelected(new EventMenuSelected() {
@@ -202,11 +204,12 @@ public class Main extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                //  Main main = new Main();
-                //  if (main.isVisible()) {
-                //  return;
-                //  }
-                //  main.setVisible(true);
+                  Main main = new Main();
+                  new DangNhapJFrame().setVisible(true);
+//                  if (main.isVisible()) {
+//                  return;
+//                  }
+//                   main.setVisible(true);
             }
         });
     }
