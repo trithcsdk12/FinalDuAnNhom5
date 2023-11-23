@@ -33,8 +33,6 @@ public class Setting extends javax.swing.JPanel {
         this.alpha = alpha;
     }
 
-
-
     /**
      * Creates new form Setting
      */
@@ -42,12 +40,26 @@ public class Setting extends javax.swing.JPanel {
         initComponents();
         setOpaque(false);
         setBackground(new Color(65, 152, 216));
-        jPanel1.setBackground(new Color(65, 152, 216));
-        jPanel2.setBackground(new Color(65, 152, 216));
+        panelPassChange.setBackground(new Color(65, 152, 216));
+        panelLogOut.setBackground(new Color(65, 152, 216));
         addEvenPassWordChange(new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                System.out.println("PassWord Change");
+                if (Message.Comform(null, "Bạn chắc chắn muốn đổi mật khẩu")) {
+                    System.exit(0);
+
+                };
+            }
+
+        });
+        addEvenLogOut(new MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                if (Message.Comform(null, "Bạn chắc chắn muốn thoát đăng xuất")) {
+                    System.exit(0);
+
+                };
+
             }
 
         });
@@ -55,14 +67,14 @@ public class Setting extends javax.swing.JPanel {
     }
 
     public void addEvenPassWordChange(MouseListener evt) {
-        jPanel1.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        jPanel1.addMouseListener(evt);
+        panelPassChange.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        panelPassChange.addMouseListener(evt);
 
     }
 
     public void addEvenLogOut(MouseListener evt) {
-        jPanel2.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        jPanel2.addMouseListener(evt);
+        panelLogOut.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        panelLogOut.addMouseListener(evt);
     }
 
     /**
@@ -77,10 +89,10 @@ public class Setting extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jPanel1 = new javax.swing.JPanel();
+        panelPassChange = new javax.swing.JPanel();
         lblPass = new javax.swing.JLabel();
         txtPassChange = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        panelLogOut = new javax.swing.JPanel();
         lblLog = new javax.swing.JLabel();
         txtLogout = new javax.swing.JLabel();
 
@@ -90,7 +102,7 @@ public class Setting extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Hệ thống");
 
-        jPanel1.setPreferredSize(new java.awt.Dimension(206, 20));
+        panelPassChange.setPreferredSize(new java.awt.Dimension(206, 20));
 
         lblPass.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/g5/image/Password_Reset.png"))); // NOI18N
 
@@ -98,20 +110,20 @@ public class Setting extends javax.swing.JPanel {
         txtPassChange.setForeground(new java.awt.Color(255, 255, 255));
         txtPassChange.setText("Hi");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelPassChangeLayout = new javax.swing.GroupLayout(panelPassChange);
+        panelPassChange.setLayout(panelPassChangeLayout);
+        panelPassChangeLayout.setHorizontalGroup(
+            panelPassChangeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelPassChangeLayout.createSequentialGroup()
                 .addComponent(lblPass)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtPassChange)
                 .addGap(0, 82, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        panelPassChangeLayout.setVerticalGroup(
+            panelPassChangeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(panelPassChangeLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(txtPassChange))
         );
@@ -122,21 +134,21 @@ public class Setting extends javax.swing.JPanel {
         txtLogout.setForeground(new java.awt.Color(255, 255, 255));
         txtLogout.setText("hi");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelLogOutLayout = new javax.swing.GroupLayout(panelLogOut);
+        panelLogOut.setLayout(panelLogOutLayout);
+        panelLogOutLayout.setHorizontalGroup(
+            panelLogOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelLogOutLayout.createSequentialGroup()
                 .addComponent(lblLog)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtLogout)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        panelLogOutLayout.setVerticalGroup(
+            panelLogOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelLogOutLayout.createSequentialGroup()
                 .addGap(2, 2, 2)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelLogOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblLog, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtLogout, javax.swing.GroupLayout.Alignment.TRAILING)))
         );
@@ -156,8 +168,8 @@ public class Setting extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(panelPassChange, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(panelLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -170,9 +182,9 @@ public class Setting extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(9, 9, 9)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelPassChange, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(7, 7, 7)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelLogOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -189,11 +201,11 @@ public class Setting extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblLog;
     private javax.swing.JLabel lblPass;
+    private javax.swing.JPanel panelLogOut;
+    private javax.swing.JPanel panelPassChange;
     private javax.swing.JLabel txtLogout;
     private javax.swing.JLabel txtPassChange;
     // End of variables declaration//GEN-END:variables

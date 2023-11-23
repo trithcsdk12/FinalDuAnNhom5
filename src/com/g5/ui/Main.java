@@ -38,13 +38,12 @@ public class Main extends javax.swing.JFrame {
     private MigLayout layout;
     private Animator animator;
     private boolean menuShow;
-    private Setting setting = new Setting();
 
     public Main() {
         this.setUndecorated(true);
         initComponents();
         init();
-        openDangNhap();
+      //  openDangNhap();
 
     }
 
@@ -107,12 +106,14 @@ public class Main extends javax.swing.JFrame {
                     menu.setEnableButtonMenu(false);
                     menu.setEnableButtonMini(false);
                     menu.setEnableButtonExit(false);
+                    menu.setEnableButtonChangePass(false);
+                    menu.setEnableButtonLogOut(false);
                     animator.start();
 
                 }
             }
         });
-        menu.addEventButtonLogout(new ActionListener() {
+        menu.addEventButtonExit(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
@@ -132,6 +133,22 @@ public class Main extends javax.swing.JFrame {
                 //    Main.this.dispose();
             }
         });
+        menu.addEventButtonChangePass(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("doi mk");
+                Main.this.dispose();
+            }
+        });
+
+        menu.addEventButtonLogOut(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Dang xuat");
+                Main.this.dispose();
+            }
+        });
+
         menu.setEventMenuSelected(new EventMenuSelected() {
             @Override
             public void selected(int index) {
@@ -163,19 +180,6 @@ public class Main extends javax.swing.JFrame {
         panelBody.add(menu, "w 62!");
         panelBody.add(main, "w 100%");
 
-        setting.addEvenLogOut(new MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent e) {
-                if (Message.Comform(null, "Bạn chắc chắn muốn thoát đăng xuất")) {
-                  Main.this.dispose();
-                    
-                };
-
-            }
-
-        });
-        
-        
         TimingTarget target = new TimingTargetAdapter() {
             @Override
             public void timingEvent(float fraction) {
@@ -198,6 +202,8 @@ public class Main extends javax.swing.JFrame {
                     menu.setEnableButtonMenu(true);
                     menu.setEnableButtonMini(true);
                     menu.setEnableButtonExit(true);
+                    menu.setEnableButtonChangePass(true);
+                    menu.setEnableButtonLogOut(true);
                     return;
                 }
                 if (menu.getWidth() < 63) {
@@ -205,6 +211,8 @@ public class Main extends javax.swing.JFrame {
                     menu.setEnableButtonMenu(true);
                     menu.setEnableButtonMini(true);
                     menu.setEnableButtonExit(true);
+                    menu.setEnableButtonChangePass(true);
+                    menu.setEnableButtonLogOut(true);
                     return;
                 }
 
@@ -242,7 +250,7 @@ public class Main extends javax.swing.JFrame {
             @Override
             public void run() {
 
-                new Main();
+                new Main().setVisible(true);
             }
         });
     }

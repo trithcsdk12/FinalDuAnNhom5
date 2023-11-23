@@ -7,6 +7,8 @@ package com.g5.component;
 
 import com.g5.event.EventMenuSelected;
 import com.g5.model.Model_Menu;
+import com.g5.ui.Main;
+import com.g5.util.Message;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
@@ -39,7 +41,9 @@ public class Menu extends javax.swing.JPanel {
     private Info bottom;
     private Date date;
     private About about;
-    private Setting setting;
+    private JButton cmdLogOut;
+    private JButton cmdChangePass;
+/////////    private Setting setting;
     private EventMenuSelected eventMenuSelected;
 
     public void setEventMenuSelected(EventMenuSelected eventMenuSelected) {
@@ -61,10 +65,12 @@ public class Menu extends javax.swing.JPanel {
         header = new Header();
         bottom = new Info();
         date = new Date();
-        setting = new Setting();
+        //////     setting = new Setting();
         createButtonMenu();
         createButtonLogout();
         createButtonMini();
+        createButtonChangePass();
+        createButtonLogOut();
         panelMenu.setOpaque(false);
         layout = new MigLayout("fillx, wrap", "0[fill]5", "0[]0[]5"); // component | []: Khoang cac ngang | [][]: Khoang cach doc
         panelMenu.setLayout(layout);
@@ -72,13 +78,15 @@ public class Menu extends javax.swing.JPanel {
         add(cmdMenu, "pos 1al 0al 100% , height 50!");
         add(cmdMini, "pos 1al 770 100% , height 50!");
         add(cmdExit, "pos 1al 1al 100% , height 50!");
+        add(cmdLogOut, "pos -170 1al 100% , height 50!");
+        add(cmdChangePass, "pos -170 770 100% , height 50!");
         //   add(cmdMini, "pos 1al 1al 100% 50, height 50!"); // pos trái phải rộng 
         //  add(cmdMini,"pos 1al 1al 50% , height 50!");
         add(header);
         add(panelMenu);
 
         add(bottom);
-        add(setting);
+        ////////   add(setting);
         add(date);
         add(about);
 
@@ -123,6 +131,14 @@ public class Menu extends javax.swing.JPanel {
         cmdExit.setEnabled(bl);
     }
 
+    public void setEnableButtonChangePass(boolean bl) {
+        cmdChangePass.setEnabled(bl);
+    }
+
+    public void setEnableButtonLogOut(boolean bl) {
+        cmdLogOut.setEnabled(bl);
+    }
+
     public void createButtonLogout() {
         cmdExit = new JButton();
         cmdExit.setContentAreaFilled(false);
@@ -139,11 +155,27 @@ public class Menu extends javax.swing.JPanel {
         cmdMini.setBorder(new EmptyBorder(0, 1, 0, 11));
     }
 
+    public void createButtonChangePass() {
+        cmdChangePass = new JButton();
+        cmdChangePass.setContentAreaFilled(false);
+        cmdChangePass.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        cmdChangePass.setIcon(new ImageIcon(Menu.class.getResource("/com/g5/image/Password_Reset.png")));
+        cmdChangePass.setBorder(new EmptyBorder(0, 1, 0, 11));
+    }
+
+    public void createButtonLogOut() {
+        cmdLogOut = new JButton();
+        cmdLogOut.setContentAreaFilled(false);
+        cmdLogOut.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        cmdLogOut.setIcon(new ImageIcon(Menu.class.getResource("/com/g5/image/Logout_2.png")));
+        cmdLogOut.setBorder(new EmptyBorder(0, 1, 0, 11));
+    }
+
     public void addEventButtonMenu(ActionListener evt) {
         cmdMenu.addActionListener(evt);
     }
 
-    public void addEventButtonLogout(ActionListener evt) {
+    public void addEventButtonExit(ActionListener evt) {
         cmdExit.addActionListener(evt);
     }
 
@@ -151,7 +183,13 @@ public class Menu extends javax.swing.JPanel {
         cmdMini.addActionListener(evt);
     }
 
+    public void addEventButtonChangePass(ActionListener evt) {
+        cmdChangePass.addActionListener(evt);
+    }
 
+    public void addEventButtonLogOut(ActionListener evt) {
+        cmdLogOut.addActionListener(evt);
+    }
 
 //    private int x;
 //    private int y;
@@ -221,7 +259,7 @@ public class Menu extends javax.swing.JPanel {
         header.setAlpha(alpha);
         bottom.setAlpha(alpha);
         date.setAlpha(alpha);
-        setting.setAlpha(alpha);
+        /////      setting.setAlpha(alpha);
         about.setAlpha(alpha);
     }
 
