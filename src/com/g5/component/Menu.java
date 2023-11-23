@@ -102,10 +102,14 @@ public class Menu extends javax.swing.JPanel {
 
     public void createButtonMenu() {
         cmdMenu = new JButton();
-        cmdMenu.setContentAreaFilled(false);
+        cmdMenu.setContentAreaFilled(false); //  không cho phép vẽ nền của button
         cmdMenu.setCursor(new Cursor(Cursor.HAND_CURSOR));
         cmdMenu.setIcon(new ImageIcon(Menu.class.getResource("/com/g5/image/Menu_1.png")));
         cmdMenu.setBorder(new EmptyBorder(0, 1, 0, 16));
+    }
+
+    public void setEnableButtonMenu(boolean bl) {
+        cmdMenu.setEnabled(bl);
     }
 
     public void createButtonLogout() {

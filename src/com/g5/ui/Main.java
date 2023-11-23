@@ -90,6 +90,7 @@ public class Main extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!animator.isRunning()) {
+                    menu.setEnableButtonMenu(false);
                     animator.start();
                 }
             }
@@ -149,10 +150,12 @@ public class Main extends javax.swing.JFrame {
             public void end() {
                 if(menu.getWidth() > 63){
                 menuShow = true;
+                menu.setEnableButtonMenu(true);
                 return;
                 }
                 if(menu.getWidth() < 63){
                 menuShow = false;
+                menu.setEnableButtonMenu(true);
                 return;
                 }
                 

@@ -10,7 +10,7 @@ package com.g5.event;
  * @author anhba
  */
 public interface EventMenuSelected {
+
     public void selected(int index);
-    
-    
+
 }

@@ -36,7 +36,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jLabel1"/>
+        <Property name="text" type="java.lang.String" value="Gi&#x1edb;i thi&#x1ec7;u"/>
       </Properties>
     </Component>
   </SubComponents>
