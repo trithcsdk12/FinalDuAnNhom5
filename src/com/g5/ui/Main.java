@@ -88,7 +88,7 @@ public class Main extends javax.swing.JFrame {
         
         
         layout = new MigLayout("fill", "0[]5[]0", "0[fill]0"); // layout cua form chinh
-        panelBody.setLayout(layout);
+        panelBody.setLayout(layout); // set layout cho form chinh
 
         main.setOpaque(false);
         main.setLayout(new BorderLayout());
