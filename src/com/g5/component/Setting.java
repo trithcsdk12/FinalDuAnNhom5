@@ -52,6 +52,7 @@ public class Setting extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent e) {
                 if(Message.Comform(null, "Bạn chắc chắn muốn thoát đăng xuất")){
                     new Main().off();
+                    System.out.println("thoat");
                 };
                 
                 
