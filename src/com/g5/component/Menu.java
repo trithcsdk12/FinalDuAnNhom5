@@ -38,7 +38,7 @@ public class Menu extends javax.swing.JPanel {
     private Header header;
     private Info bottom;
     private Date date;
-    private About date1;
+    private About about;
     private Setting setting;
     private EventMenuSelected eventMenuSelected;
 
@@ -68,7 +68,7 @@ public class Menu extends javax.swing.JPanel {
         panelMenu.setOpaque(false);
         layout = new MigLayout("fillx, wrap", "0[fill]5", "0[]0[]5"); // component | []: Khoang cac ngang | [][]: Khoang cach doc
         panelMenu.setLayout(layout);
-        date1 = new About();
+        about = new About();
         add(cmdMenu, "pos 1al 0al 100% , height 50!");
         add(cmdMini, "pos 1al 770 100% , height 50!");
         add(cmdExit, "pos 1al 1al 100% , height 50!");
@@ -80,7 +80,7 @@ public class Menu extends javax.swing.JPanel {
         add(bottom);
         add(setting);
         add(date);
-        add(date1);
+        add(about);
 
         date.startClock();
 
@@ -151,6 +151,8 @@ public class Menu extends javax.swing.JPanel {
         cmdMini.addActionListener(evt);
     }
 
+
+
 //    private int x;
 //    private int y;
 //
@@ -220,7 +222,7 @@ public class Menu extends javax.swing.JPanel {
         bottom.setAlpha(alpha);
         date.setAlpha(alpha);
         setting.setAlpha(alpha);
-        date1.setAlpha(alpha);
+        about.setAlpha(alpha);
     }
 
 

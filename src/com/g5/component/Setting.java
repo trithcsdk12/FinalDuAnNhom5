@@ -51,17 +51,7 @@ public class Setting extends javax.swing.JPanel {
             }
 
         });
-        addEvenLogOut(new MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent e) {
-                if (Message.Comform(null, "Bạn chắc chắn muốn thoát đăng xuất")) {
-                    new Main().dispose();
-                    System.out.println("hi");
-                };
 
-            }
-
-        });
     }
 
     public void addEvenPassWordChange(MouseListener evt) {
@@ -106,7 +96,7 @@ public class Setting extends javax.swing.JPanel {
 
         txtPassChange.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txtPassChange.setForeground(new java.awt.Color(255, 255, 255));
-        txtPassChange.setText("Đổi mật khẩu");
+        txtPassChange.setText("Hi");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -116,7 +106,7 @@ public class Setting extends javax.swing.JPanel {
                 .addComponent(lblPass)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtPassChange)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 82, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,7 +120,7 @@ public class Setting extends javax.swing.JPanel {
 
         txtLogout.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txtLogout.setForeground(new java.awt.Color(255, 255, 255));
-        txtLogout.setText("Đăng xuất");
+        txtLogout.setText("hi");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);

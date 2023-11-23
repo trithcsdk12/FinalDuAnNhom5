@@ -220,10 +220,10 @@ public class DangNhapJDialog extends javax.swing.JDialog {
                 Auth.user = nhanVien;
                 JOptionPane.showMessageDialog(null, "Đăng nhập thành công");
                 DangNhapJDialog.this.dispose();
-                System.out.println("a");
+          
                 if (Auth.isLogin()) {
                     new Main().setVisible(true);
-                    System.out.println("mo main");
+            
                 }
 
                 found = true;

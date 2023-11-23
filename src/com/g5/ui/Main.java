@@ -6,16 +6,20 @@
 package com.g5.ui;
 
 import com.g5.component.Menu;
+import com.g5.component.Setting;
 import com.g5.event.EventMenuSelected;
 import com.g5.form.HoaDonJPanel;
 import com.g5.form.NhanVienJPanel;
 import com.g5.form.TrangChuJPanel;
 import com.g5.model.Model_Menu;
+import com.g5.util.Auth;
+import com.g5.util.Message;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
@@ -34,6 +38,7 @@ public class Main extends javax.swing.JFrame {
     private MigLayout layout;
     private Animator animator;
     private boolean menuShow;
+    private Setting setting = new Setting();
 
     public Main() {
         this.setUndecorated(true);
@@ -120,6 +125,13 @@ public class Main extends javax.swing.JFrame {
                 //    Main.this.dispose();
             }
         });
+        menu.addEventButtonMini(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                Main.this.setState(Frame.ICONIFIED);
+                //    Main.this.dispose();
+            }
+        });
         menu.setEventMenuSelected(new EventMenuSelected() {
             @Override
             public void selected(int index) {
@@ -151,6 +163,19 @@ public class Main extends javax.swing.JFrame {
         panelBody.add(menu, "w 62!");
         panelBody.add(main, "w 100%");
 
+        setting.addEvenLogOut(new MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                if (Message.Comform(null, "Bạn chắc chắn muốn thoát đăng xuất")) {
+                  Main.this.dispose();
+                    
+                };
+
+            }
+
+        });
+        
+        
         TimingTarget target = new TimingTargetAdapter() {
             @Override
             public void timingEvent(float fraction) {
@@ -202,6 +227,10 @@ public class Main extends javax.swing.JFrame {
     }
 
     void openDangNhap() {
+        if (Auth.isLogin()) {
+
+            return;
+        }
         new DangNhapJDialog(this, true).setVisible(true);
     }
 
