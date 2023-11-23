@@ -222,10 +222,8 @@ public class DangNhapJDialog extends javax.swing.JDialog {
                 DangNhapJDialog.this.dispose();
                 System.out.println("a");
                 if (Auth.isLogin()) {
-                    System.out.println("b");
-                    this.dispose();
                     new Main().setVisible(true);
-
+                    System.out.println("mo main");
                 }
 
                 found = true;
