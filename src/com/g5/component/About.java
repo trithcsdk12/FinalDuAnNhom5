@@ -19,7 +19,7 @@ import javax.swing.Timer;
  *
  * @author anhba
  */
-public class Date1 extends javax.swing.JPanel {
+public class About extends javax.swing.JPanel {
 
     private float alpha;
 
@@ -30,7 +30,7 @@ public class Date1 extends javax.swing.JPanel {
     /**
      * Creates new form Date
      */
-    public Date1() {
+    public About() {
         initComponents();
         setOpaque(false);
         setBackground(new Color(65, 152, 216));

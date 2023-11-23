@@ -60,15 +60,11 @@ public class Info extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblImage = new javax.swing.JLabel();
         txtName = new javax.swing.JLabel();
         txtRole = new javax.swing.JLabel();
+        txtName1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(204, 204, 255));
-
-        lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/g5/image/Name.png"))); // NOI18N
-        lblImage.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        lblImage.setPreferredSize(new java.awt.Dimension(150, 120));
 
         txtName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtName.setForeground(new java.awt.Color(255, 255, 255));
@@ -78,35 +74,39 @@ public class Info extends javax.swing.JPanel {
         txtRole.setForeground(new java.awt.Color(255, 255, 255));
         txtRole.setText("Chức vụ:");
 
+        txtName1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtName1.setForeground(new java.awt.Color(255, 255, 255));
+        txtName1.setText("Mã NV:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(9, 9, 9)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtName)
-                    .addComponent(txtRole)
-                    .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(126, Short.MAX_VALUE))
+                    .addComponent(txtName1)
+                    .addComponent(txtRole))
+                .addContainerGap(248, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(9, 9, 9)
+                .addComponent(txtName1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtName)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtRole)
-                .addGap(10, 10, 10))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel lblImage;
     private javax.swing.JLabel txtName;
+    private javax.swing.JLabel txtName1;
     private javax.swing.JLabel txtRole;
     // End of variables declaration//GEN-END:variables
 }
