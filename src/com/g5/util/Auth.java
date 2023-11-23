@@ -1,6 +1,6 @@
 package com.g5.util;
 
-import com.Entity.NhanVien;
+import com.g5.entity.NhanVien;
 import com.g5.util.Auth;
 
 public class Auth {

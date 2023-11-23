@@ -2,14 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.DAO;
+package com.g5.DAO;
 
-import com.Entity.HoaDon;
+import com.g5.entity.SanPham;
 
 /**
  *
  * @author Asus
  */
-public interface HoaDonDAO extends EntityDAO<HoaDon, Integer>{
+public interface SanPhamDAO extends EntityDAO<SanPham, Integer>{
     
 }

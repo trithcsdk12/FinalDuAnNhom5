@@ -4,8 +4,8 @@
  */
 package com.g5.ui;
 
-import com.Entity.NhanVien;
-import com.EntityDAOImpl.NhanVienDAOImpl;
+import com.g5.entity.NhanVien;
+import com.g5.entityDAO.NhanVienDAOImpl;
 import com.g5.util.Auth;
 import java.util.List;
 import javax.swing.JOptionPane;

@@ -4,7 +4,7 @@
  */
 package com.g5.util;
 
-import com.Entity.NhanVien;
+import com.g5.entity.NhanVien;
 import java.awt.Image;
 import java.io.File;
 import java.nio.file.Files;

@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.EntityDAOImpl;
+package com.g5.entityDAO;
 
-import com.DAO.HoaDonDAO;
-import com.Entity.HoaDon;
-import com.Entity.NhanVien;
+import com.g5.DAO.HoaDonDAO;
+import com.g5.entity.HoaDon;
+import com.g5.entity.NhanVien;
 import com.g5.util.JDBCHelper;
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -4,9 +4,9 @@
  */
 package com.g5.ui;
 
-import com.DAO.NhanVienDAO;
-import com.Entity.NhanVien;
-import com.EntityDAOImpl.NhanVienDAOImpl;
+import com.g5.DAO.NhanVienDAO;
+import com.g5.entity.NhanVien;
+import com.g5.entityDAO.NhanVienDAOImpl;
 import com.g5.util.Auth;
 import java.awt.*;
 import javax.swing.JFrame;
