@@ -10,12 +10,14 @@ import com.g5.util.Message;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.w3c.dom.events.MouseEvent;
 
@@ -30,6 +32,8 @@ public class Setting extends javax.swing.JPanel {
     public void setAlpha(float alpha) {
         this.alpha = alpha;
     }
+
+
 
     /**
      * Creates new form Setting
@@ -50,12 +54,11 @@ public class Setting extends javax.swing.JPanel {
         addEvenLogOut(new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                if(Message.Comform(null, "Bạn chắc chắn muốn thoát đăng xuất")){
-                    Main main = new Main();
-                    main.off();
+                if (Message.Comform(null, "Bạn chắc chắn muốn thoát đăng xuất")) {
+                    new Main().dispose();
+                    System.out.println("hi");
                 };
-                
-                
+
             }
 
         });

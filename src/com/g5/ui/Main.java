@@ -28,21 +28,21 @@ import org.jdesktop.animation.timing.TimingTargetAdapter;
  * @author anhba
  */
 public class Main extends javax.swing.JFrame {
-    
+
     private Menu menu = new Menu();
     private JPanel main = new JPanel();
     private MigLayout layout;
     private Animator animator;
     private boolean menuShow;
-    
+
     public Main() {
         this.setUndecorated(true);
         initComponents();
-        
         init();
-        
+        openDangNhap();
+
     }
-    
+
     public void off() {
         Main.this.dispose();
         if (this.isVisible()) {
@@ -51,7 +51,7 @@ public class Main extends javax.swing.JFrame {
         }
         System.out.println("Dang dong");
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -89,7 +89,7 @@ public class Main extends javax.swing.JFrame {
         //setSize(1000, 800);
         setLocationRelativeTo(null);
         this.setExtendedState(this.MAXIMIZED_BOTH);
-        
+
         layout = new MigLayout("fill", "0[]3[]0", "0[fill]0"); // layout cua form chinh "giản cách bên trái[]giản cách ở giữ[] giản cách bên phải
         panelBody.setLayout(layout); // set layout cho form chinh
 
@@ -103,7 +103,7 @@ public class Main extends javax.swing.JFrame {
                     menu.setEnableButtonMini(false);
                     menu.setEnableButtonExit(false);
                     animator.start();
-                    
+
                 }
             }
         });
@@ -117,7 +117,7 @@ public class Main extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 Main.this.setState(Frame.ICONIFIED);
-                
+                //    Main.this.dispose();
             }
         });
         menu.setEventMenuSelected(new EventMenuSelected() {
@@ -133,24 +133,24 @@ public class Main extends javax.swing.JFrame {
                     showForm(new HoaDonJPanel());
                 }
                 if (index == 3) {
-                    
+
                 }
                 if (index == 4) {
                     //   showForm(new Form5());
                 }
             }
         });
-        
+
         menu.addMenu(new Model_Menu("Trang chủ", new ImageIcon(Main.class.getResource("/com/g5/image/Home_2.png"))));
         menu.addMenu(new Model_Menu("Nhân viên", new ImageIcon(Main.class.getResource("/com/g5/image/Person_1.png"))));
         menu.addMenu(new Model_Menu("Hóa đơn", new ImageIcon(Main.class.getResource("/com/g5/image/Bill.png"))));
         menu.addMenu(new Model_Menu("Sản phẩm", new ImageIcon(Main.class.getResource("/com/g5/image/Box.png"))));
         menu.addMenu(new Model_Menu("Khuyến mãi", new ImageIcon(Main.class.getResource("/com/g5/image/Voucher_1.png"))));
         menu.addMenu(new Model_Menu("Thống kê", new ImageIcon(Main.class.getResource("/com/g5/image/Combo_Chart.png"))));
-        
+
         panelBody.add(menu, "w 62!");
         panelBody.add(main, "w 100%");
-        
+
         TimingTarget target = new TimingTargetAdapter() {
             @Override
             public void timingEvent(float fraction) {
@@ -165,7 +165,7 @@ public class Main extends javax.swing.JFrame {
                 layout.setComponentConstraints(menu, "w " + width + "!");
                 panelBody.revalidate();
             }
-            
+
             @Override
             public void end() {
                 if (menu.getWidth() > 63) {
@@ -182,9 +182,9 @@ public class Main extends javax.swing.JFrame {
                     menu.setEnableButtonExit(true);
                     return;
                 }
-                
+
             }
-            
+
         };
         animator = new Animator(500, target);
         animator.setResolution(0);
@@ -193,12 +193,16 @@ public class Main extends javax.swing.JFrame {
         //  menu.initMoving(Main.this);
         showForm(new TrangChuJPanel());
     }
-    
+
     private void showForm(Component com) {
         main.removeAll();
         main.add(com);
         main.repaint();
         main.revalidate();
+    }
+
+    void openDangNhap() {
+        new DangNhapJDialog(this, true).setVisible(true);
     }
 
     /**
@@ -208,17 +212,8 @@ public class Main extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                DangNhapJFrame dn = new DangNhapJFrame();
-                dn.setVisible(true);
-                if (dn.LoginOK()) {
-                    Main main = new Main();
-                    main.setVisible(true);
-                }
 
-//                  if (main.isVisible()) {
-//                  return;
-//                  }
-//                   main.setVisible(true);
+                new Main();
             }
         });
     }
