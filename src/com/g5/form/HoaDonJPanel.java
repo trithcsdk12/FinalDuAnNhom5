@@ -10,7 +10,7 @@ import com.g5.entity.SanPham;
 import com.g5.entityDAO.HoaDonChiTietDAO;
 import com.g5.entityDAO.HoaDonDAO;
 import com.g5.entityDAO.KhuyenMaiDAO;
-import com.g5.entityDAO.SanPhamDaoImpl;
+import com.g5.entityDAO.SanPhamDao;
 import com.g5.util.XDate;
 import java.text.DecimalFormat;
 import java.util.HashSet;
@@ -998,7 +998,7 @@ public class HoaDonJPanel extends javax.swing.JPanel {
         DefaultComboBoxModel model = (DefaultComboBoxModel) cboLoai.getModel();
         model.removeAllElements();
         try {
-            SanPhamDaoImpl spdao = new SanPhamDaoImpl();
+            SanPhamDao spdao = new SanPhamDao();
             List<SanPham> list = spdao.getAll();
             Set<String> unique = new HashSet<>();
             for (SanPham sanPham : list) {
@@ -1016,7 +1016,7 @@ public class HoaDonJPanel extends javax.swing.JPanel {
         DefaultComboBoxModel model = (DefaultComboBoxModel) cboTenSP.getModel();
         model.removeAllElements();
         try {
-            SanPhamDaoImpl spdao = new SanPhamDaoImpl();
+            SanPhamDao spdao = new SanPhamDao();
             List<String> sanPhamList = spdao.getTenSPByLoaiSP(MaLoai);
             for (String sanPham : sanPhamList) {
 
@@ -1033,7 +1033,7 @@ public class HoaDonJPanel extends javax.swing.JPanel {
         DefaultComboBoxModel model = (DefaultComboBoxModel) cboSizeSP.getModel();
         model.removeAllElements();
         try {
-            SanPhamDaoImpl spdao = new SanPhamDaoImpl();
+            SanPhamDao spdao = new SanPhamDao();
             List<String> list = spdao.getSize(MaSP);
             Set<String> unique = new HashSet<>();
             for (String size : list) {
@@ -1049,7 +1049,7 @@ public class HoaDonJPanel extends javax.swing.JPanel {
 
     void ShowInfo() {
         try {
-            SanPhamDaoImpl spdao = new SanPhamDaoImpl();
+            SanPhamDao spdao = new SanPhamDao();
             Object selectedItem = cboTenSP.getSelectedItem();
             System.out.println(selectedItem);
             if (selectedItem != null) {
@@ -1126,7 +1126,7 @@ public class HoaDonJPanel extends javax.swing.JPanel {
 
     void GiaSPBySize() {
         try {
-            SanPhamDaoImpl spdao = new SanPhamDaoImpl();
+            SanPhamDao spdao = new SanPhamDao();
             Object cbosize = cboSizeSP.getSelectedItem();
             if (cbosize != null) {
                 String size = cbosize.toString();

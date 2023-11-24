@@ -98,6 +98,40 @@ public class NhanVienJPanel extends javax.swing.JPanel {
         }
     }
 
+   NhanVien getTable() {
+        int i = tblNhanVien.getSelectedRow();
+        int MaNV = Integer.parseInt(tblNhanVien.getValueAt(i, 1).toString());
+        NhanVien nv = new NhanVien();
+        nv.setMaNV(MaNV);
+        nv.setHoTen(tblNhanVien.getValueAt(i, 2).toString());
+
+        
+        
+        int vt = 0;
+        if (tblNhanVien.getValueAt(i, 7).toString().equalsIgnoreCase("Chủ")) {
+            vt = 2;
+        }
+        if (tblNhanVien.getValueAt(i, 7).toString().equalsIgnoreCase("Quản lí")) {
+            vt = 1;
+        }
+        if (tblNhanVien.getValueAt(i, 7).toString().equalsIgnoreCase("Nhân viên")) {
+            vt = 0;
+        }
+
+        nv.setVaitro(vt);
+        nv.setTrangthai(rdoLamViec.isSelected() ? true : false);
+        nv.setSDT(tblNhanVien.getValueAt(i, 4).toString());
+      //  String date = XDate.ChuyenNgay(tblNhanVien.getValueAt(i, 8).toString());//  ngay/thang/nam
+    //    nv.setNgaysinh(XDate.toDate2(date, "dd/MM/yyyy"));
+
+        nv.setDiachi(txtDiaChi.getText().trim());
+        nv.setMatkhau("***");
+        nv.setEmail(tblNhanVien.getValueAt(i, 5).toString());
+        nv.setGioitinh((boolean) tblNhanVien.getValueAt(i, 6) ? true : false);
+        nv.setHinh(txtHinh.getText());
+        return nv;
+    }
+
     NhanVien getForm() {
         NhanVien nv = new NhanVien();
         nv.setMaNV(Integer.parseInt(txtMaNV.getText().trim()));
@@ -123,14 +157,14 @@ public class NhanVienJPanel extends javax.swing.JPanel {
         fillForm();
     }
 
-    void fillFormFromTable() {
+    void fillFormFromTable(NhanVien nv) {
         int i = tblNhanVien.getSelectedRow();
 
-        int MaNV = Integer.parseInt(tblNhanVien.getValueAt(i, 1).toString());
-        NhanVien nv = nvDAO.getByID(MaNV);
-        if (nv == null) {
-            return;
-        }
+//        int MaNV = Integer.parseInt(tblNhanVien.getValueAt(i, 1).toString());
+//        NhanVien nv = nvDAO.getByID(MaNV);
+//        if (nv == null) {
+//            return;
+//        }
         txtMaNV.setText(nv.getMaNV() + "");
         txtHoTen.setText(nv.getHoTen());
         txtMatKhau.setText("***");
@@ -173,7 +207,7 @@ public class NhanVienJPanel extends javax.swing.JPanel {
                     originalImage = ImageIO.read(inputStream);
                     txtHinh.setText(nv.getHinh());
                 } else {
-                    lblHinh.removeAll();    
+                    lblHinh.removeAll();
                     txtHinh.setText("Lỗi ảnh");
                     String imagePath2 = "/com/g5/logos/null.png";
                     inputStream2 = getClass().getResource(imagePath2).openStream();
@@ -644,7 +678,7 @@ public class NhanVienJPanel extends javax.swing.JPanel {
 
     private void tblNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNhanVienMouseClicked
         // TODO add your handling code here:
-        fillFormFromTable();
+        fillFormFromTable(getForm());
     }//GEN-LAST:event_tblNhanVienMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -668,7 +702,7 @@ public class NhanVienJPanel extends javax.swing.JPanel {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
         //  System.out.println(XDate.ChuyenNgay(txtNgaySinh.getDate()));// dd-MM-yyyy
-        System.out.println(XDate.toDate("22/2/2222", "dd/MM/yyyy"));
+
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void lblHinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHinhMouseClicked

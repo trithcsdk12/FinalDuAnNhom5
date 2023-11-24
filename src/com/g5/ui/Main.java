@@ -10,6 +10,8 @@ import com.g5.component.Setting;
 import com.g5.event.EventMenuSelected;
 import com.g5.form.HoaDonJPanel;
 import com.g5.form.NhanVienJPanel;
+import com.g5.form.SanPhamJPanel;
+import com.g5.form.ThongKeJPanel;
 import com.g5.form.TrangChuJPanel;
 import com.g5.model.Model_Menu;
 import com.g5.util.Auth;
@@ -130,7 +132,7 @@ public class Main extends javax.swing.JFrame {
                 if (TextMes.Comform(main, "Bạn có chắc muốn đổi mật khẩu?")) {
                     Main.this.dispose();
                 }
-           
+
             }
         });
 
@@ -157,10 +159,13 @@ public class Main extends javax.swing.JFrame {
                     showForm(new HoaDonJPanel());
                 }
                 if (index == 3) {
-                    
+                    showForm(new SanPhamJPanel());
                 }
                 if (index == 4) {
                     //   showForm(new Form5());
+                }
+                if (index == 5) {
+                    showForm(new ThongKeJPanel());
                 }
             }
         });

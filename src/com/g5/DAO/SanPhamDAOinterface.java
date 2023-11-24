@@ -10,6 +10,6 @@ import com.g5.entity.SanPham;
  *
  * @author Asus
  */
-public interface SanPhamDAO extends EntityDAOinterface<SanPham, Integer>{
+public interface SanPhamDAOinterface extends EntityDAOinterface<SanPham, Integer>{
     
 }

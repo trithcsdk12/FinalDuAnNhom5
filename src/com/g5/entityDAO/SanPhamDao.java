@@ -4,19 +4,20 @@
  */
 package com.g5.entityDAO;
 
-import com.g5.DAO.SanPhamDAO;
+import com.g5.entity.NhanVien;
 import com.g5.entity.SanPham;
 import com.g5.util.JDBCHelper;
+import java.sql.ResultSet;
 import java.sql.*;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import com.g5.DAO.SanPhamDAOinterface;
 
 /**
  *
  * @author Asus
  */
-public class SanPhamDaoImpl implements SanPhamDAO {
+public class SanPhamDao implements SanPhamDAOinterface {
 
     String selectByID = "select * from SanPham where MaSP = ?";
     String selectAll = "select * from SanPham";
@@ -35,12 +36,12 @@ public class SanPhamDaoImpl implements SanPhamDAO {
         String dburl = "jdbc:sqlserver://localhost:1433;encrypt=true;trustServerCertificate=true;database=a";
         String username = "sa";
         String password = "123";
-        try (Connection connection = DriverManager.getConnection(dburl, username, password); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try ( Connection connection = DriverManager.getConnection(dburl, username, password);  PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setInt(1, maSP);
             preparedStatement.setString(2, size);
 
-            try (ResultSet rs = preparedStatement.executeQuery()) {
+            try ( ResultSet rs = preparedStatement.executeQuery()) {
                 if (rs.next()) {
                     gia = rs.getFloat("Gia");
                 }
@@ -53,26 +54,6 @@ public class SanPhamDaoImpl implements SanPhamDAO {
         return gia;
     }
 
-    @Override
-    public SanPham getByID(Integer maSP) {
-        List<SanPham> list = select(selectByID, maSP);
-        return list.size() > 0 ? list.get(0) : null;
-    }
-    public List<String> getSize(int MaSP) {
-        List<String> sizeList = new ArrayList<>();
-        try {
-            ResultSet rs = JDBCHelper.executeQuery(Size, MaSP);
-            while (rs.next()) {
-                String SizeSP = rs.getString("Size");
-                sizeList.add(SizeSP);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return sizeList;
-    }
-
-    
     public List<String> getTenSPByLoaiSP(String loaiSP) {
         List<String> tenSPList = new ArrayList<>();
         try {
@@ -85,10 +66,6 @@ public class SanPhamDaoImpl implements SanPhamDAO {
             throw new RuntimeException(e);
         }
         return tenSPList;
-    }
-
-    public List<SanPham> getLoaiSPcbo() {
-        return select(LoaiSP);
     }
 
     public int getMaNVByTenSP(String tenSP) {
@@ -104,8 +81,24 @@ public class SanPhamDaoImpl implements SanPhamDAO {
         return -1;
     }
 
-    public List<SanPham> getLoaiSP(String loaiSP) {
-        return select(TenSP, loaiSP);
+    public List<String> getSize(int MaSP) {
+        List<String> sizeList = new ArrayList<>();
+        try {
+            ResultSet rs = JDBCHelper.executeQuery(Size, MaSP);
+            while (rs.next()) {
+                String SizeSP = rs.getString("Size");
+                sizeList.add(SizeSP);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return sizeList;
+    }
+
+    @Override
+    public SanPham getByID(Integer maSP) {
+        List<SanPham> list = select(selectByID, maSP);
+        return list.size() > 0 ? list.get(0) : null;
     }
 
     @Override
@@ -122,7 +115,9 @@ public class SanPhamDaoImpl implements SanPhamDAO {
                     sp.getMaNV(),
                     sp.getMoTa(),
                     sp.getHinh(),
-                    sp.getLoaiSP()
+                    sp.getLoaiSP(),
+                    sp.getGia(),
+                    sp.getGiaSizeLon()
             );
 
             return sp.getMaSP();
@@ -140,6 +135,8 @@ public class SanPhamDaoImpl implements SanPhamDAO {
                 sp.getMaNV(),
                 sp.getMoTa(),
                 sp.getHinh(),
+                sp.getGia(),
+                sp.getGiaSizeLon(),
                 sp.getMaNV());
     }
 
@@ -169,13 +166,15 @@ public class SanPhamDaoImpl implements SanPhamDAO {
 
     private SanPham readFromResultSet(ResultSet rs) throws SQLException {
         SanPham model = new SanPham();
-        model.setMaNV(rs.getInt("MaSP"));
+        model.setMaNV(rs.getInt("MaNV"));
         model.setTenSP(rs.getString("TenSP"));
         model.setTrangthai(rs.getBoolean("trangthai"));
         model.setMaNV(rs.getInt("MaNV"));
         model.setMoTa(rs.getString("MoTa"));
         model.setHinh(rs.getString("Hinh"));
         model.setLoaiSP(rs.getString("LoaiSP"));
+        model.setGia(rs.getFloat("Gia"));
+        model.setGiaSizeLon(rs.getFloat("GiaSizeLon"));
         return model;
     }
 
