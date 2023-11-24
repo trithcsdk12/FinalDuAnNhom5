@@ -9,8 +9,15 @@ import com.g5.entity.NhanVien;
 import com.g5.entityDAO.NhanVienDAOImpl;
 import com.g5.util.TextMes;
 import com.g5.util.XDate;
+import com.g5.util.XImage;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.List;
 import java.util.Locale;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -48,7 +55,7 @@ public class NhanVienJPanel extends javax.swing.JPanel {
                 vaitro = "Chủ";
             }
 
-            model.addRow(new Object[]{++i, nhanVien.getMaNV(), nhanVien.getHoTen(), "***", nhanVien.getSDT(), nhanVien.getEmail(), nhanVien.isGioitinh() ? "Nam" : "Nữ", vaitro, XDate.toString(nhanVien.getNgaysinh(), "dd-MM-yyyy"), nhanVien.getDiachi(), nhanVien.getTrangthai()  ? "Làm việc" : "Nghỉ việc", nhanVien.getHinh()});
+            model.addRow(new Object[]{++i, nhanVien.getMaNV(), nhanVien.getHoTen(), "***", nhanVien.getSDT(), nhanVien.getEmail(), nhanVien.isGioitinh() ? "Nam" : "Nữ", vaitro, XDate.toString(nhanVien.getNgaysinh(), "dd-MM-yyyy"), nhanVien.getDiachi(), nhanVien.getTrangthai() ? "Làm việc" : "Nghỉ việc", nhanVien.getHinh()});
 
         }
 
@@ -56,6 +63,33 @@ public class NhanVienJPanel extends javax.swing.JPanel {
 
     void fillForm() {
         txtMaNV.setText(String.valueOf(nvDAO.getByIDLast().getMaNV() + 1));
+    }
+
+    public void selectImage() {
+        JFileChooser fileChooser = new JFileChooser("src\\com\\g5\\image");
+        if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+            if (XImage.save(file)) {
+
+                try {
+                    BufferedImage originalImage = ImageIO.read(new File(file.toString()));
+
+                    ImageIcon icon = new ImageIcon(originalImage);
+
+                    Image image = icon.getImage();
+
+                    Image scaledImage = image.getScaledInstance(lblHinh.getWidth(), lblHinh.getHeight(), Image.SCALE_DEFAULT);
+
+                    ImageIcon scaledIcon = new ImageIcon(scaledImage);
+                    lblHinh.setToolTipText(file.getName());
+                    lblHinh.setIcon(scaledIcon);
+                    txtHinh.setText(file.getName());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
     }
 
     NhanVien getForm() {
@@ -66,9 +100,8 @@ public class NhanVienJPanel extends javax.swing.JPanel {
         nv.setTrangthai(rdoLamViec.isSelected() ? true : false);
         nv.setSDT(txtSDT.getText().trim());
         String date = XDate.ChuyenNgay(txtNgaySinh.getDate());//  ngay/thang/nam
-        nv.setNgaysinh(XDate.toDate2("22/2/2222", "dd/MM/yyyy"));
-        
-  
+        nv.setNgaysinh(XDate.toDate2(date, "dd/MM/yyyy"));
+
         nv.setDiachi(txtDiaChi.getText().trim());
         nv.setMatkhau(txtMatKhau.getText());
         nv.setEmail(txtEmail.getText().trim());
@@ -98,7 +131,7 @@ public class NhanVienJPanel extends javax.swing.JPanel {
         txtXNMatKhau.setText("***");
         txtEmail.setText(nv.getEmail());
         txtSDT.setText(nv.getSDT());
-        
+
         if (nv.isGioitinh()) {
             rdoNam.setSelected(true);
         } else {
@@ -113,15 +146,35 @@ public class NhanVienJPanel extends javax.swing.JPanel {
             rdoQL.setSelected(true);
         }
         txtDiaChi.setText(nv.getDiachi());
-        
+
         if (nv.getTrangthai()) {
             rdoLamViec.setSelected(true);
         } else {
             rdoNgi.setSelected(true);
         }
-        
-        txtNgaySinh.setDate(nv.getNgaysinh());
 
+        txtNgaySinh.setDate(nv.getNgaysinh());
+        lblHinh.setToolTipText(nv.getHinh());
+        if (nv.getHinh() != null) {
+            try {
+              
+                System.out.println("URL"+getClass().getResource("/com/g5/logos/")+nv.getHinh().trim());
+                BufferedImage originalImage = ImageIO.read(new File(getClass().getResource("/com/g5/logos/")+nv.getHinh().trim()));
+
+                ImageIcon icon = new ImageIcon(originalImage);
+
+                Image image = icon.getImage();
+
+                Image scaledImage = image.getScaledInstance(lblHinh.getWidth(), lblHinh.getHeight(), Image.SCALE_DEFAULT);
+
+                ImageIcon scaledIcon = new ImageIcon(scaledImage);
+
+                lblHinh.setIcon(scaledIcon);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 
     void deleteNV() {
@@ -156,7 +209,7 @@ public class NhanVienJPanel extends javax.swing.JPanel {
         btnTiemKiem = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lblHinh = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -257,18 +310,24 @@ public class NhanVienJPanel extends javax.swing.JPanel {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Quản lí", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 18))); // NOI18N
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel3.setPreferredSize(new java.awt.Dimension(200, 200));
 
-        jLabel1.setText("                    ");
+        lblHinh.setText("                    ");
+        lblHinh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblHinhMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+            .addComponent(lblHinh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+            .addComponent(lblHinh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
         );
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -308,6 +367,11 @@ public class NhanVienJPanel extends javax.swing.JPanel {
         txtHinh.setText("Chưa chọn ảnh");
 
         jButton2.setText("Chọn ảnh");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         buttonGroup2.add(rdoNV);
         rdoNV.setSelected(true);
@@ -476,7 +540,7 @@ public class NhanVienJPanel extends javax.swing.JPanel {
                                 .addComponent(rdoLamViec)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(rdoNgi)))))
-                .addContainerGap(267, Short.MAX_VALUE))
+                .addContainerGap(251, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -583,9 +647,20 @@ public class NhanVienJPanel extends javax.swing.JPanel {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-      //  System.out.println(XDate.ChuyenNgay(txtNgaySinh.getDate()));// dd-MM-yyyy
+        //  System.out.println(XDate.ChuyenNgay(txtNgaySinh.getDate()));// dd-MM-yyyy
         System.out.println(XDate.toDate("22/2/2222", "dd/MM/yyyy"));
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void lblHinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHinhMouseClicked
+        // TODO add your handling code here:
+        selectImage();
+
+    }//GEN-LAST:event_lblHinhMouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        selectImage();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -602,7 +677,6 @@ public class NhanVienJPanel extends javax.swing.JPanel {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -619,6 +693,7 @@ public class NhanVienJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane10;
+    private javax.swing.JLabel lblHinh;
     private javax.swing.JRadioButton rdoLamViec;
     private javax.swing.JRadioButton rdoNV;
     private javax.swing.JRadioButton rdoNam;

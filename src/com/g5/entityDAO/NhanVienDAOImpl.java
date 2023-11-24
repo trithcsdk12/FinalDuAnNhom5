@@ -69,7 +69,6 @@ public class NhanVienDAOImpl implements NhanVienDAOinterface {
     @Override
     public void update(NhanVien nhanVien) {
         JDBCHelper.executeUpdate(update,
-                nhanVien.getMaNV(),
                     nhanVien.getHoTen(),
                     nhanVien.getMatkhau(),
                     nhanVien.getSDT(),
@@ -79,7 +78,8 @@ public class NhanVienDAOImpl implements NhanVienDAOinterface {
                     nhanVien.getNgaysinh(),
                     nhanVien.getDiachi(),
                     nhanVien.getTrangthai(),
-                    nhanVien.getHinh()
+                    nhanVien.getHinh(),
+                    nhanVien.getMaNV()
         );
     }
 
