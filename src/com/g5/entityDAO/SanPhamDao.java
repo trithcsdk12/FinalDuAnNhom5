@@ -165,16 +165,15 @@ public class SanPhamDao implements SanPhamDAOinterface {
     }
 
     private SanPham readFromResultSet(ResultSet rs) throws SQLException {
-        SanPham model = new SanPham();
-        model.setMaNV(rs.getInt("MaNV"));
+           SanPham model = new SanPham();
+        model.setMaNV(rs.getInt("MaSP"));
         model.setTenSP(rs.getString("TenSP"));
         model.setTrangthai(rs.getBoolean("trangthai"));
         model.setMaNV(rs.getInt("MaNV"));
         model.setMoTa(rs.getString("MoTa"));
         model.setHinh(rs.getString("Hinh"));
         model.setLoaiSP(rs.getString("LoaiSP"));
-        model.setGia(rs.getFloat("Gia"));
-        model.setGiaSizeLon(rs.getFloat("GiaSizeLon"));
+    
         return model;
     }
 
