@@ -4,12 +4,22 @@
  */
 package com.g5.DAO;
 
-import com.g5.entity.NhanVien;
+import java.util.List;
 
 /**
  *
  * @author Asus
  */
-public interface NhanVienDAO extends EntityDAO<NhanVien, Integer>{
-    
+public interface EntityDAOinterface<Entity, ID> {
+
+    Entity getByID(ID id);
+
+    List<Entity> getAll();
+
+    ID create(Entity entity);
+
+    void update(Entity entity);
+
+    void deteleByID(ID id);
+
 }

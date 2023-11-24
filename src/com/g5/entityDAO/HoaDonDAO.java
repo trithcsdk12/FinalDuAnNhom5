@@ -4,7 +4,6 @@
  */
 package com.g5.entityDAO;
 
-import com.g5.DAO.HoaDonDAO;
 import com.g5.entity.HoaDon;
 import com.g5.entity.NhanVien;
 import com.g5.util.JDBCHelper;
@@ -12,24 +11,31 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import com.g5.DAO.HoaDonDAOinterface;
 
 /**
  *
  * @author Asus
  */
-public class HoaDonDAOImpl implements HoaDonDAO {
+public class HoaDonDAO implements HoaDonDAOinterface {
 
     String selectByID = "select * from HoaDon where maHD = ?";
     String selectAll = "select * from HoaDon";
-    String insert = "insert into HoaDon (NgayTao,MaNV,TienKhach,TongTien,DiaChi,TrangThai) "
-            + "values (?,?,?,?,?,?)";
-    String update = "Update HoaDon set NgayTao=?,MaNV=?, TienKhach=?, TongTien=?, DiaChi=?, TrangThai=? where MaSP =?";
+    String insert = "insert into HoaDon (NgayTao,MaNV,TienKhach,GhiChu,TrangThai) "
+            + "values (?,?,?,?,?)";
+    String update = "Update HoaDon set NgayTao=?,MaNV=?, TienKhach=?, GhiChu=?, TrangThai=? where MaHD =?";
     String delete = "Delete from HoaDon where MaHD = ?";
+    String last = "SELECT * FROM HoaDon ORDER BY MaHD DESC";
 
     @Override
     public HoaDon getByID(Integer id) {
         List<HoaDon> list = select(selectByID, id);
         return list.size() > 0 ? list.get(0) : null;
+    }
+
+    public String getLast() {
+        List<HoaDon> list = select(last);
+        return list.size() > 0 ? String.valueOf(list.get(0).getMaHD() + 1).trim() : "Lỗi truy vấn";
     }
 
     @Override
@@ -44,8 +50,7 @@ public class HoaDonDAOImpl implements HoaDonDAO {
                     hd.getNgayTao(),
                     hd.getMaNV(),
                     hd.getTienKhachTra(),
-                    hd.getTongTien(),
-                    hd.getDiaChi(),
+                    hd.getGhiChu(),
                     hd.isTrangthai()
             );
 
@@ -62,8 +67,7 @@ public class HoaDonDAOImpl implements HoaDonDAO {
                 hd.getNgayTao(),
                 hd.getMaNV(),
                 hd.getTienKhachTra(),
-                hd.getTongTien(),
-                hd.getDiaChi(),
+                hd.getGhiChu(),
                 hd.isTrangthai(),
                 hd.getMaHD());
     }
@@ -87,6 +91,7 @@ public class HoaDonDAOImpl implements HoaDonDAO {
                 rs.getStatement().getConnection().close();
             }
         } catch (SQLException ex) {
+            ex.printStackTrace();
             throw new RuntimeException(ex);
         }
         return list;
@@ -94,12 +99,11 @@ public class HoaDonDAOImpl implements HoaDonDAO {
 
     private HoaDon readFromResultSet(ResultSet rs) throws SQLException {
         HoaDon model = new HoaDon();
-        model.setMaHD(rs.getInt("MaNV"));
+        model.setMaHD(rs.getInt("MaHD"));
         model.setNgayTao(rs.getDate("NgayTao"));
         model.setMaNV(rs.getInt("MaNV"));
         model.setTienKhachTra(rs.getFloat("TienKhach"));
-        model.setTongTien(rs.getFloat("TongTien"));
-        model.setDiaChi(rs.getString("DiaChi"));
+        model.setGhiChu(rs.getString("GhiChu"));
         model.setTrangthai(rs.getBoolean("TrangThai"));
         return model;
     }

@@ -15,19 +15,17 @@ public class HoaDon {
     private Date NgayTao;
     private int maNV;
     private float TienKhachTra;
-    private float TongTien;
-    private String DiaChi;
+    private String GhiChu;
     private boolean trangthai;
 
     public HoaDon() {
     }
 
-    public HoaDon(Date NgayTao, int maNV, float TienKhachTra, float TongTien, String DiaChi, boolean trangthai) {
+    public HoaDon(Date NgayTao, int maNV, float TienKhachTra, String GhiChu, boolean trangthai) {
         this.NgayTao = NgayTao;
         this.maNV = maNV;
         this.TienKhachTra = TienKhachTra;
-        this.TongTien = TongTien;
-        this.DiaChi = DiaChi;
+        this.GhiChu = GhiChu;
         this.trangthai = trangthai;
     }
 
@@ -63,20 +61,14 @@ public class HoaDon {
         this.TienKhachTra = TienKhachTra;
     }
 
-    public float getTongTien() {
-        return TongTien;
+
+
+    public String getGhiChu() {
+        return GhiChu;
     }
 
-    public void setTongTien(float TongTien) {
-        this.TongTien = TongTien;
-    }
-
-    public String getDiaChi() {
-        return DiaChi;
-    }
-
-    public void setDiaChi(String DiaChi) {
-        this.DiaChi = DiaChi;
+    public void setGhiChu(String DiaChi) {
+        this.GhiChu = GhiChu;
     }
 
     public boolean isTrangthai() {

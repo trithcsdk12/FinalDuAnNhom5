@@ -13,7 +13,7 @@ import javax.swing.UIManager;
  *
  * @author anhba
  */
-public class Message {
+public class TextMes {
 
     public static void Alert(Component comp, String text) {
         JOptionPane.showMessageDialog(comp, text, "Thông báo", JOptionPane.INFORMATION_MESSAGE);

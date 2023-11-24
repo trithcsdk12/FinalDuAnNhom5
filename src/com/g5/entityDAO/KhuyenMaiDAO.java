@@ -4,7 +4,7 @@
  */
 package com.g5.entityDAO;
 
-import com.g5.DAO.KhuyenMaiDAO;
+import com.g5.DAO.KhuyenMaiDAOinterface;
 import com.g5.entity.HoaDon;
 import com.g5.entity.KhuyenMai;
 import com.g5.util.JDBCHelper;
@@ -17,7 +17,7 @@ import java.util.List;
  *
  * @author Asus
  */
-public class KhuyenMaiDAOImpl implements KhuyenMaiDAO {
+public class KhuyenMaiDAO implements KhuyenMaiDAOinterface {
 
     String selectByID = "select * from KhuyenMai where MaKM = ?";
     String selectAll = "select * from KhuyenMai";
@@ -25,6 +25,19 @@ public class KhuyenMaiDAOImpl implements KhuyenMaiDAO {
             + "values (?,?,?,?,?)";
     String update = "Update KhuyenMai set ThoiGianBD=?, ThoiGianKT=?, TenKM=?, PTKhuyenMai=?, MaNV=? where MaKM =?";
     String delete = "Delete from KhuyenMai where MaKM = ?";
+    String khuyenmai = "SELECT KM.PTKhuyenMai FROM KhuyenMaiChiTiet KMCT JOIN KhuyenMai KM ON KMCT.MaKM = KM.MaKM WHERE KMCT.MaSP = ?;";
+
+    public float getKhuyenMai(int maSP) {
+        try {
+            ResultSet rs = JDBCHelper.executeQuery(khuyenmai, maSP);
+            if (rs.next()) {
+                return rs.getFloat("PTKhuyenMai");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1.0f;
+    }
 
     @Override
     public KhuyenMai getByID(Integer id) {
@@ -69,7 +82,7 @@ public class KhuyenMaiDAOImpl implements KhuyenMaiDAO {
 
     @Override
     public void deteleByID(Integer id) {
-          JDBCHelper.executeUpdate(delete, id);
+        JDBCHelper.executeUpdate(delete, id);
     }
 
     private List<KhuyenMai> select(String sql, Object... args) {

@@ -4,22 +4,12 @@
  */
 package com.g5.DAO;
 
-import java.util.List;
+import com.g5.entity.HoaDon;
 
 /**
  *
  * @author Asus
  */
-public interface EntityDAO<Entity, ID> {
-
-    Entity getByID(ID id);
-
-    List<Entity> getAll();
-
-    ID create(Entity entity);
-
-    void update(Entity entity);
-
-    void deteleByID(ID id);
-
+public interface HoaDonDAOinterface extends EntityDAOinterface<HoaDon, Integer>{
+    
 }

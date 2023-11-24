@@ -4,12 +4,12 @@
  */
 package com.g5.DAO;
 
-import com.g5.entity.HoaDon;
+import com.g5.entity.NhanVien;
 
 /**
  *
  * @author Asus
  */
-public interface HoaDonDAO extends EntityDAO<HoaDon, Integer>{
+public interface NhanVienDAOinterface extends EntityDAOinterface<NhanVien, Integer>{
     
 }

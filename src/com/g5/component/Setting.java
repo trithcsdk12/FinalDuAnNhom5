@@ -6,7 +6,7 @@
 package com.g5.component;
 
 import com.g5.ui.Main;
-import com.g5.util.Message;
+import com.g5.util.TextMes;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -45,7 +45,7 @@ public class Setting extends javax.swing.JPanel {
         addEvenPassWordChange(new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                if (Message.Comform(null, "Bạn chắc chắn muốn đổi mật khẩu")) {
+                if (TextMes.Comform(null, "Bạn chắc chắn muốn đổi mật khẩu")) {
                     System.exit(0);
 
                 };
@@ -55,7 +55,7 @@ public class Setting extends javax.swing.JPanel {
         addEvenLogOut(new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                if (Message.Comform(null, "Bạn chắc chắn muốn thoát đăng xuất")) {
+                if (TextMes.Comform(null, "Bạn chắc chắn muốn thoát đăng xuất")) {
                     System.exit(0);
 
                 };

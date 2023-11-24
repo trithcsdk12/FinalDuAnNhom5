@@ -4,25 +4,25 @@
  */
 package com.g5.entityDAO;
 
-import com.g5.DAO.NhanVienDAO;
 import com.g5.entity.NhanVien;
 import com.g5.util.JDBCHelper;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import com.g5.DAO.NhanVienDAOinterface;
 
 /**
  *
  * @author Asus
  */
-public class NhanVienDAOImpl implements NhanVienDAO {
+public class NhanVienDAOImpl implements NhanVienDAOinterface {
 
     String selectByID = "select * from NhanVien where MaNV = ?";
     String selectAll = "select * from NhanVien";
-    String insert = "insert into NhanVien (MatKhau,HoTen,VaiTro,Email,SDT,NgaySinh,GioiTinh,Hinh,DiaChi,TrangThai) "
+    String insert = "insert into NhanVien (HoTen,MatKhau,SDT,Email,GioiTinh,VaiTro,NgaySinh,DiaChi,TrangThai,Hinh) "
             + "values (?,?,?,?,?,?,?,?,?,?)";
-    String update = "Update NhanVien set HoTen=?, Email=?, SDT=?, GioiTinh=?, VaiTro=?, MatKhau=?, Hinh=? where MaNV =?";
+    String update = "Update NhanVien set HoTen=?, MatKhau=?, SDT=?, Email=?, GioiTinh=?, VaiTro=?, NgaySinh=?, DiaChi =?, TrangThai =?, Hinh = ? where MaNV =?";
     String delete = "Delete from NhanVien where MaNV = ?";
     String selectLast = "select * from NhanVien order by MaNV desc";
 
@@ -44,18 +44,19 @@ public class NhanVienDAOImpl implements NhanVienDAO {
 
     @Override
     public Integer create(NhanVien nhanVien) {
+    
         try {
             JDBCHelper.executeUpdate(insert,
-                    nhanVien.getMatkhau(),
                     nhanVien.getHoTen(),
-                    nhanVien.getVaitro(),
-                    nhanVien.getEmail(),
+                    nhanVien.getMatkhau(),
                     nhanVien.getSDT(),
-                    nhanVien.getNgaysinh(),
+                    nhanVien.getEmail(),
                     nhanVien.isGioitinh(),
-                    nhanVien.getHinh(),
+                    nhanVien.getVaitro(),
+                    nhanVien.getNgaysinh(),
                     nhanVien.getDiachi(),
-                    nhanVien.getTrangthai()
+                    nhanVien.getTrangthai(),
+                    nhanVien.getHinh()
             );
 
             return nhanVien.getMaNV();
@@ -68,14 +69,17 @@ public class NhanVienDAOImpl implements NhanVienDAO {
     @Override
     public void update(NhanVien nhanVien) {
         JDBCHelper.executeUpdate(update,
-                nhanVien.getHoTen(),
-                nhanVien.getEmail(),
-                nhanVien.getSDT(),
-                nhanVien.isGioitinh(),
-                nhanVien.getVaitro(),
-                nhanVien.getMatkhau(),
-                nhanVien.getHinh(),
-                nhanVien.getMaNV());
+                    nhanVien.getHoTen(),
+                    nhanVien.getMatkhau(),
+                    nhanVien.getSDT(),
+                    nhanVien.getEmail(),
+                    nhanVien.isGioitinh(),
+                    nhanVien.getVaitro(),
+                    nhanVien.getNgaysinh(),
+                    nhanVien.getDiachi(),
+                    nhanVien.getTrangthai(),
+                    nhanVien.getHinh()
+        );
     }
 
     @Override
@@ -114,7 +118,7 @@ public class NhanVienDAOImpl implements NhanVienDAO {
         model.setVaitro(rs.getInt("VaiTro"));
         model.setNgaysinh(rs.getDate("NgaySinh"));
         model.setDiachi(rs.getString("DiaChi"));
-        model.setTrangthai(rs.getInt("TrangThai"));
+        model.setTrangthai(rs.getBoolean("TrangThai"));
         return model;
     }
 

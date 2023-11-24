@@ -8,7 +8,7 @@ package com.g5.component;
 import com.g5.event.EventMenuSelected;
 import com.g5.model.Model_Menu;
 import com.g5.ui.Main;
-import com.g5.util.Message;
+import com.g5.util.TextMes;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;

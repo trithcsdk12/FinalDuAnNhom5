@@ -13,7 +13,7 @@ import com.g5.form.NhanVienJPanel;
 import com.g5.form.TrangChuJPanel;
 import com.g5.model.Model_Menu;
 import com.g5.util.Auth;
-import com.g5.util.Message;
+import com.g5.util.TextMes;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Frame;
@@ -127,7 +127,7 @@ public class Main extends javax.swing.JFrame {
         menu.addEventButtonChangePass(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (Message.Comform(main, "Bạn có chắc muốn đổi mật khẩu?")) {
+                if (TextMes.Comform(main, "Bạn có chắc muốn đổi mật khẩu?")) {
                     Main.this.dispose();
                 }
            
@@ -137,7 +137,7 @@ public class Main extends javax.swing.JFrame {
         menu.addEventButtonLogOut(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (Message.Comform(main, "Bạn có chắc muốn đăng xuất?")) {
+                if (TextMes.Comform(main, "Bạn có chắc muốn đăng xuất?")) {
                     Main.this.dispose();
                 }
 
@@ -157,7 +157,7 @@ public class Main extends javax.swing.JFrame {
                     showForm(new HoaDonJPanel());
                 }
                 if (index == 3) {
-
+                    
                 }
                 if (index == 4) {
                     //   showForm(new Form5());

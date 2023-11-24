@@ -4,7 +4,6 @@
  */
 package com.g5.ui;
 
-import com.g5.DAO.NhanVienDAO;
 import com.g5.entity.NhanVien;
 import com.g5.entityDAO.NhanVienDAOImpl;
 import com.g5.util.Auth;
@@ -20,6 +19,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.swing.*;
+import com.g5.DAO.NhanVienDAOinterface;
 
 /**
  *
@@ -236,7 +236,7 @@ public class QuenMatKhauJDialog extends javax.swing.JDialog {
     private javax.swing.JTextField txtTaiKhoan;
     // End of variables declaration//GEN-END:variables
 
-    NhanVienDAO nvdao = new NhanVienDAOImpl();
+    NhanVienDAOinterface nvdao = new NhanVienDAOImpl();
     Random ranDom = new Random();
 
     void ketThuc() {

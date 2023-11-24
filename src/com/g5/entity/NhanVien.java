@@ -4,6 +4,7 @@
  */
 package com.g5.entity;
 
+import com.g5.util.XDate;
 import java.util.Date;
 
 /**
@@ -22,9 +23,9 @@ public class NhanVien {
     private boolean gioitinh;
     private String Hinh;
     private String diachi;
-    private int trangthai;
+    private boolean trangthai;
 
-    public NhanVien(String matkhau, String hoTen, Integer vaitro, String Email, String SDT, Date ngaysinh, boolean gioitinh, String Hinh, String diachi, int trangthai) {
+    public NhanVien(String matkhau, String hoTen, Integer vaitro, String Email, String SDT, Date ngaysinh, boolean gioitinh, String Hinh, String diachi, boolean trangthai) {
         this.matkhau = matkhau;
         this.hoTen = hoTen;
         this.vaitro = vaitro;
@@ -120,11 +121,11 @@ public class NhanVien {
         this.diachi = diachi;
     }
 
-    public int getTrangthai() {
+    public boolean getTrangthai() {
         return trangthai;
     }
 
-    public void setTrangthai(int trangthai) {
+    public void setTrangthai(boolean trangthai) {
         this.trangthai = trangthai;
     }
     

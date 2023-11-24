@@ -1,5 +1,6 @@
 package com.g5.util;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -7,6 +8,8 @@ import java.util.Date;
 public class XDate {
 
     static SimpleDateFormat formater = new SimpleDateFormat();
+
+    static final SimpleDateFormat DATE_FORMATER = new SimpleDateFormat("dd/MM/yyyy");
 
     /**
      * Chuyển đổi String sang Date
@@ -22,6 +25,41 @@ public class XDate {
         } catch (ParseException ex) {
             throw new RuntimeException(ex);
         }
+    }
+
+    public static Date toDate2(String date, String pattern) {
+        SimpleDateFormat format = new SimpleDateFormat(pattern);
+        try {
+            DATE_FORMATER.applyPattern(pattern);
+            return format.parse(date);
+        } catch (ParseException ex) {
+
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public static String chuyenDinhDangNgay(String ngay1, String format) {
+        DateFormat inputFormat = new SimpleDateFormat("E MMM dd HH:mm:ss z yyyy");
+        DateFormat outputFormat = new SimpleDateFormat(format);
+
+        try {
+            // Chuyển đổi ngày đầu vào thành đối tượng Date
+            Date date = inputFormat.parse(ngay1);
+
+            // Chuyển đổi đối tượng Date thành chuỗi ngày mới
+            String ngayMoi = outputFormat.format(date);
+
+            return ngayMoi;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static String getToDay() {
+        formater.applyPattern("dd/MM/yyyy");
+
+        return formater.format(new Date());
     }
 
     /**
@@ -49,7 +87,7 @@ public class XDate {
     }
 
     public static String ChuyenNgay(Date date) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         if (date == null) {
             return formatter.format(XDate.now());
         }

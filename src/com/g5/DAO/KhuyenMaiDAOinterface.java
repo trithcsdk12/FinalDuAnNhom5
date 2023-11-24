@@ -10,6 +10,6 @@ import com.g5.entity.KhuyenMai;
  *
  * @author Asus
  */
-public interface KhuyenMaiDAO extends EntityDAO<KhuyenMai, Integer>{
+public interface KhuyenMaiDAOinterface extends EntityDAOinterface<KhuyenMai, Integer>{
     
 }

@@ -5,7 +5,6 @@
  */
 package com.g5.ui;
 
-import com.g5.DAO.NhanVienDAO;
 import com.g5.entity.NhanVien;
 import com.g5.entityDAO.NhanVienDAOImpl;
 import com.g5.util.Auth;
@@ -15,6 +14,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
 import java.util.List;
 import javax.swing.JOptionPane;
+import com.g5.DAO.NhanVienDAOinterface;
 
 /**
  *
@@ -201,7 +201,7 @@ public class DangNhapJDialog extends javax.swing.JDialog {
         System.exit(0);
     }//GEN-LAST:event_jLabel4MouseClicked
 
-    NhanVienDAO dao = new NhanVienDAOImpl();
+    NhanVienDAOinterface dao = new NhanVienDAOImpl();
 
     void Login() {
         String account = txtMaNV1.getText().trim();

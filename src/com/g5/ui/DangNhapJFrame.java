@@ -4,7 +4,6 @@
  */
 package com.g5.ui;
 
-import com.g5.DAO.NhanVienDAO;
 import com.g5.component.Setting;
 import com.g5.entity.NhanVien;
 import com.g5.entityDAO.NhanVienDAOImpl;
@@ -15,6 +14,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
 import java.util.List;
 import javax.swing.JOptionPane;
+import com.g5.DAO.NhanVienDAOinterface;
 
 /**
  *
@@ -317,7 +317,7 @@ public class DangNhapJFrame extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtPass;
     // End of variables declaration//GEN-END:variables
   
-    NhanVienDAO dao = new NhanVienDAOImpl();
+    NhanVienDAOinterface dao = new NhanVienDAOImpl();
 
 
     void Login() {

@@ -16,7 +16,7 @@ import com.g5.entity.SanPham;
  */
 public class test {
     public static void main(String[] args) {
-        KhuyenMaiDAOImpl kmDAO = new KhuyenMaiDAOImpl();
+        KhuyenMaiDAO kmDAO = new KhuyenMaiDAO();
         KhuyenMai km = new KhuyenMai(XDate.toDate("1/1/2023", "dd/mm/yyyy"), XDate.toDate("1/2/2023", "dd/mm/yyyy"), "TetDuongLich", 20, 1);
         kmDAO.create(km);
     }

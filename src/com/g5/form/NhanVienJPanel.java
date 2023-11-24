@@ -7,9 +7,11 @@ package com.g5.form;
 
 import com.g5.entity.NhanVien;
 import com.g5.entityDAO.NhanVienDAOImpl;
+import com.g5.util.TextMes;
 import com.g5.util.XDate;
 import java.util.List;
 import java.util.Locale;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -46,9 +48,10 @@ public class NhanVienJPanel extends javax.swing.JPanel {
                 vaitro = "Chủ";
             }
 
-            model.addRow(new Object[]{++i, nhanVien.getTrangthai()==1?"Làm việc":"Nghỉ việc",nhanVien.getMaNV(), nhanVien.getHoTen(), "***", vaitro, nhanVien.getEmail(), nhanVien.getSDT(), nhanVien.isGioitinh() ? "Nam" : "Nữ", XDate.toString(nhanVien.getNgaysinh(), "dd-MM-yyyy"), nhanVien.getDiachi(), nhanVien.getHinh()});
-          
+            model.addRow(new Object[]{++i, nhanVien.getMaNV(), nhanVien.getHoTen(), "***", nhanVien.getSDT(), nhanVien.getEmail(), nhanVien.isGioitinh() ? "Nam" : "Nữ", vaitro, XDate.toString(nhanVien.getNgaysinh(), "dd-MM-yyyy"), nhanVien.getDiachi(), nhanVien.getTrangthai()  ? "Làm việc" : "Nghỉ việc", nhanVien.getHinh()});
+
         }
+
     }
 
     void fillForm() {
@@ -60,10 +63,12 @@ public class NhanVienJPanel extends javax.swing.JPanel {
         nv.setMaNV(Integer.parseInt(txtMaNV.getText().trim()));
         nv.setHoTen(txtHoTen.getText().trim());
         nv.setVaitro(rdoNV.isSelected() ? 0 : 1);
-        nv.setTrangthai(rdoLamViec.isSelected() ? 1 : 0);
+        nv.setTrangthai(rdoLamViec.isSelected() ? true : false);
         nv.setSDT(txtSDT.getText().trim());
         String date = XDate.ChuyenNgay(txtNgaySinh.getDate());//  ngay/thang/nam
-        nv.setNgaysinh(XDate.toDate(date, "dd-MM-yyyy"));
+        nv.setNgaysinh(XDate.toDate2("22/2/2222", "dd/MM/yyyy"));
+        
+  
         nv.setDiachi(txtDiaChi.getText().trim());
         nv.setMatkhau(txtMatKhau.getText());
         nv.setEmail(txtEmail.getText().trim());
@@ -78,34 +83,58 @@ public class NhanVienJPanel extends javax.swing.JPanel {
         fillTable();
         fillForm();
     }
-    
-    void fillFormFromTable(){
+
+    void fillFormFromTable() {
         int i = tblNhanVien.getSelectedRow();
-       
-        txtMaNV.setText(tblNhanVien.getValueAt(i, 1).toString());
-        txtHoTen.setText(tblNhanVien.getValueAt(i, 2).toString());
+
+        int MaNV = Integer.parseInt(tblNhanVien.getValueAt(i, 1).toString());
+        NhanVien nv = nvDAO.getByID(MaNV);
+        if (nv == null) {
+            return;
+        }
+        txtMaNV.setText(nv.getMaNV() + "");
+        txtHoTen.setText(nv.getHoTen());
+        txtMatKhau.setText("***");
+        txtXNMatKhau.setText("***");
+        txtEmail.setText(nv.getEmail());
+        txtSDT.setText(nv.getSDT());
         
-        tblNhanVien.getValueAt(i, 3);
-        tblNhanVien.getValueAt(i, 4);
-        tblNhanVien.getValueAt(i, 5);
-        tblNhanVien.getValueAt(i, 6);
-        tblNhanVien.getValueAt(i, 7);
-        tblNhanVien.getValueAt(i, 8);
-        tblNhanVien.getValueAt(i, 9);
-        tblNhanVien.getValueAt(i, 10);
+        if (nv.isGioitinh()) {
+            rdoNam.setSelected(true);
+        } else {
+            rdoNu.setSelected(false);
+        }
+
+        int vaitro = nv.getVaitro();
+
+        if (vaitro == 0) {
+            rdoNV.setSelected(true);
+        } else {
+            rdoQL.setSelected(true);
+        }
+        txtDiaChi.setText(nv.getDiachi());
         
+        if (nv.getTrangthai()) {
+            rdoLamViec.setSelected(true);
+        } else {
+            rdoNgi.setSelected(true);
+        }
+        
+        txtNgaySinh.setDate(nv.getNgaysinh());
+
     }
-    
-    void deleteNV(){
-    nvDAO.deteleByID(Integer.parseInt(txtMaNV.getText().trim()));
-    fillTable();
-    fillForm();
+
+    void deleteNV() {
+        nvDAO.deteleByID(Integer.parseInt(txtMaNV.getText().trim()));
+        fillTable();
+        fillForm();
     }
-    void updateNV(){
-    NhanVien nv = getForm();
-    nvDAO.update(nv);
-    fillTable();
-    fillForm();
+
+    void updateNV() {
+        NhanVien nv = getForm();
+        nvDAO.update(nv);
+        fillTable();
+        fillForm();
     }
 
     /**
@@ -169,13 +198,13 @@ public class NhanVienJPanel extends javax.swing.JPanel {
 
         tblNhanVien.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", null},
                 {null, null, null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "STT", "Trạng thái", "MÃ NV", "Tên NV", "Mật khẩu", "Vai trò", "Email", "SÐT", "Giới tính", "Ngày sinh", "Địa chỉ", "Hình"
+                "STT", "MÃ NV", "Tên NV", "Mật khẩu", "SÐT", "Email", "Giới tính", "Vai trò", "Ngày sinh", "Địa chỉ", "Trạng thái", "Hình"
             }
         ));
         tblNhanVien.setFocusable(false);
@@ -187,7 +216,7 @@ public class NhanVienJPanel extends javax.swing.JPanel {
         });
         jScrollPane10.setViewportView(tblNhanVien);
         if (tblNhanVien.getColumnModel().getColumnCount() > 0) {
-            tblNhanVien.getColumnModel().getColumn(6).setPreferredWidth(200);
+            tblNhanVien.getColumnModel().getColumn(5).setPreferredWidth(200);
         }
 
         txtTimKiem.addActionListener(new java.awt.event.ActionListener() {
@@ -295,6 +324,11 @@ public class NhanVienJPanel extends javax.swing.JPanel {
         rdoNu.setText("Nữ");
 
         jButton5.setText("Mới");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Xóa");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -532,17 +566,26 @@ public class NhanVienJPanel extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         insertNV();
+        TextMes.Alert(this, "Them thanh cong");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         updateNV();
+        TextMes.Alert(this, "Sua thanh cong");
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         deleteNV();
+        TextMes.Alert(this, "Xoa thanh cong");
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+      //  System.out.println(XDate.ChuyenNgay(txtNgaySinh.getDate()));// dd-MM-yyyy
+        System.out.println(XDate.toDate("22/2/2222", "dd/MM/yyyy"));
+    }//GEN-LAST:event_jButton5ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
