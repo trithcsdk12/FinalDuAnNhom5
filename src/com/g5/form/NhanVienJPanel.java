@@ -13,6 +13,7 @@ import com.g5.util.XImage;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Locale;
 import javax.imageio.ImageIO;
@@ -27,6 +28,9 @@ import javax.swing.table.DefaultTableModel;
  */
 public class NhanVienJPanel extends javax.swing.JPanel {
 
+    final int w = 198;
+    final int h = 198;
+
     /**
      * Creates new form Form1
      */
@@ -35,7 +39,9 @@ public class NhanVienJPanel extends javax.swing.JPanel {
         setOpaque(false);
         fillTable();
         fillForm();
+
     }
+
     NhanVienDAOImpl nvDAO = new NhanVienDAOImpl();
 
     void fillTable() {
@@ -78,7 +84,7 @@ public class NhanVienJPanel extends javax.swing.JPanel {
 
                     Image image = icon.getImage();
 
-                    Image scaledImage = image.getScaledInstance(lblHinh.getWidth(), lblHinh.getHeight(), Image.SCALE_DEFAULT);
+                    Image scaledImage = image.getScaledInstance(w, h, Image.SCALE_DEFAULT);
 
                     ImageIcon scaledIcon = new ImageIcon(scaledImage);
                     lblHinh.setToolTipText(file.getName());
@@ -157,19 +163,33 @@ public class NhanVienJPanel extends javax.swing.JPanel {
         lblHinh.setToolTipText(nv.getHinh());
         if (nv.getHinh() != null) {
             try {
-              
-                System.out.println("URL"+getClass().getResource("/com/g5/logos/")+nv.getHinh().trim());
-                BufferedImage originalImage = ImageIO.read(new File(getClass().getResource("/com/g5/logos/")+nv.getHinh().trim()));
+                String imagePath = "/com/g5/logos/" + nv.getHinh().trim();
+                InputStream inputStream2 = null;
+                InputStream inputStream = null;
+                BufferedImage originalImage = null;
+                System.out.println(getClass().getResource(imagePath));
+                if (getClass().getResource(imagePath) != null) {
+                    inputStream = getClass().getResource(imagePath).openStream();
+                    originalImage = ImageIO.read(inputStream);
+                    txtHinh.setText(nv.getHinh());
+                } else {
+                    lblHinh.removeAll();    
+                    txtHinh.setText("Lỗi ảnh");
+                    String imagePath2 = "/com/g5/logos/null.png";
+                    inputStream2 = getClass().getResource(imagePath2).openStream();
+                    originalImage = ImageIO.read(inputStream2);
+                }
 
                 ImageIcon icon = new ImageIcon(originalImage);
 
                 Image image = icon.getImage();
 
-                Image scaledImage = image.getScaledInstance(lblHinh.getWidth(), lblHinh.getHeight(), Image.SCALE_DEFAULT);
+                Image scaledImage = image.getScaledInstance(w, h, Image.SCALE_DEFAULT);
 
                 ImageIcon scaledIcon = new ImageIcon(scaledImage);
 
                 lblHinh.setIcon(scaledIcon);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
