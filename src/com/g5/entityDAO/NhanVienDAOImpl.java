@@ -99,7 +99,7 @@ public class NhanVienDAOImpl implements NhanVienDAOinterface {
                     list.add(model);
                 }
             } finally {
-                rs.getStatement().getConnection().close();
+            //    rs.getStatement().getConnection().close();
             }
         } catch (SQLException ex) {
             throw new RuntimeException(ex);

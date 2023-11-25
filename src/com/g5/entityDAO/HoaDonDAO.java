@@ -88,7 +88,7 @@ public class HoaDonDAO implements HoaDonDAOinterface {
                     list.add(model);
                 }
             } finally {
-                rs.getStatement().getConnection().close();
+              //  rs.getStatement().getConnection().close();
             }
         } catch (SQLException ex) {
             ex.printStackTrace();

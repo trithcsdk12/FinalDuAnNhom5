@@ -4,7 +4,7 @@
  */
 package com.g5.util;
 
-
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,24 +12,68 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class JDBCHelper {
 
-    private static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    private static String dburl = "jdbc:sqlserver://localhost:1433;encrypt=true;trustServerCertificate=true;database=cc";
-    private static String username = "sa";
-    private static String password = "1409";
+    public static final Properties props = JDBCHelper.loadDbProperties();
+    private static Connection connection = null;
+
+//    private static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+//    private static String dburl = "jdbc:sqlserver://localhost;encrypt=true;trustServerCertificate=true;database=Polypro";
+//    private static String username = "sa";
+//    private static String password = "123";
 //;encrypt=true;trustServerCertificate=true
     // 1433
+
     /*
 * Nạp driver
      */
     static {
+        String driver = props.getProperty("driver");
         try {
             Class.forName(driver);
+            connection = openConnection();
         } catch (ClassNotFoundException ex) {
             throw new RuntimeException(ex);
         }
+    }
+
+    public static Connection openConnection() {
+        Connection con = null;
+        String url = props.getProperty("url")+props.getProperty("dtbname");
+        String user = props.getProperty("user");
+        String pass = props.getProperty("pass");
+        try {
+            con = DriverManager.getConnection(url, user, pass);
+        } catch (Exception e) {
+        }
+
+        try {
+            return DriverManager.getConnection(url, user, pass);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return con;
+    }
+
+    public static void closeConnection() {
+        try {
+            connection.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static Properties loadDbProperties() {
+        try {
+            Properties props = new Properties();
+            props.load(JDBCHelper.class.getResource("Jdbc.properties").openStream());
+            return props;
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 
 //    /**
@@ -43,9 +87,10 @@ public class JDBCHelper {
 //     * @throws java.sql.SQLException lỗi sai cú pháp
 //     */
     public static PreparedStatement prepareStatement(String sql, Object... args) throws SQLException {
-        Connection connection = DriverManager.getConnection(dburl, username, password);
+        //Connection connection = DriverManager.getConnection(dburl, username, password);
         PreparedStatement pstmt = null;
-        if (sql.trim().startsWith("{")) {
+        
+        if (sql.trim().contains("{")) {
             pstmt = connection.prepareCall(sql);
         } else {
             pstmt = connection.prepareStatement(sql);
@@ -55,7 +100,6 @@ public class JDBCHelper {
         }
         return pstmt;
     }
-
 
 //    /**
 //     * Thực hiện câu lệnh SQL thao tác (INSERT, UPDATE, DELETE) hoặc thủ tục lưu
@@ -90,7 +134,7 @@ public class JDBCHelper {
 //     * @param args là danh sách các giá trị được cung cấp cho các tham số trong
 //     * câu lệnh sql
 //     */
-    public  static ResultSet executeQuery(String sql, Object... args) {
+    public static ResultSet executeQuery(String sql, Object... args) {
         try {
             PreparedStatement stmt = prepareStatement(sql, args);
             return stmt.executeQuery();
@@ -100,10 +144,9 @@ public class JDBCHelper {
     }
 
     public static void main(String[] args) {
-        try {
-            Connection connection = DriverManager.getConnection(dburl, username, password);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+        Connection c = connection;
+
+        //    System.out.println(props.getProperty("url"));
     }
 }

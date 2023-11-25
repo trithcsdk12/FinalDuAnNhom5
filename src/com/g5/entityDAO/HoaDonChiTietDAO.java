@@ -60,7 +60,7 @@ public class HoaDonChiTietDAO {
                     list.add(model);
                 }
             } finally {
-                rs.getStatement().getConnection().close();
+             //   rs.getStatement().getConnection().close();
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
