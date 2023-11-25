@@ -16,9 +16,9 @@ import java.util.List;
 public class JDBCHelper {
 
     private static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    private static String dburl = "jdbc:sqlserver://localhost:1433;encrypt=true;trustServerCertificate=true;database=a";
+    private static String dburl = "jdbc:sqlserver://localhost:1433;encrypt=true;trustServerCertificate=true;database=cc";
     private static String username = "sa";
-    private static String password = "123";
+    private static String password = "1409";
 //;encrypt=true;trustServerCertificate=true
     // 1433
     /*

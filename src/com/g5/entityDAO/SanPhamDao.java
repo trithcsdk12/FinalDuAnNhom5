@@ -4,14 +4,14 @@
  */
 package com.g5.entityDAO;
 
-import com.g5.entity.NhanVien;
+import com.g5.entityDAO.SanPhamDao;
 import com.g5.entity.SanPham;
 import com.g5.util.JDBCHelper;
-import java.sql.ResultSet;
+import com.g5.DAO.SanPhamDAOinterface;
 import java.sql.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import com.g5.DAO.SanPhamDAOinterface;
 
 /**
  *
@@ -32,55 +32,23 @@ public class SanPhamDao implements SanPhamDAOinterface {
 
     public float getGiaByMaSPAndSize(int maSP, String size) {
         float gia = -1.0f;
-        String query = "SELECT Gia FROM GiaSanPham WHERE MaSP = ? AND Size = ?";
-        String dburl = "jdbc:sqlserver://localhost:1433;encrypt=true;trustServerCertificate=true;database=a";
-        String username = "sa";
-        String password = "123";
-        try ( Connection connection = DriverManager.getConnection(dburl, username, password);  PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-
-            preparedStatement.setInt(1, maSP);
-            preparedStatement.setString(2, size);
-
-            try ( ResultSet rs = preparedStatement.executeQuery()) {
+        try {
+            ResultSet rs = JDBCHelper.executeQuery("SELECT Gia FROM GiaSanPham WHERE MaSP = ? AND Size = ?", maSP, size);
                 if (rs.next()) {
                     gia = rs.getFloat("Gia");
-                }
             }
-
         } catch (SQLException e) {
-            e.printStackTrace(); // Thay bằng xử lý lỗi phù hợp trong ứng dụng thực tế
+            e.printStackTrace(); 
         }
 
         return gia;
     }
 
-    public List<String> getTenSPByLoaiSP(String loaiSP) {
-        List<String> tenSPList = new ArrayList<>();
-        try {
-            ResultSet rs = JDBCHelper.executeQuery(TenSP, loaiSP);
-            while (rs.next()) {
-                String tenSP = rs.getString("TenSP");
-                tenSPList.add(tenSP);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return tenSPList;
+    @Override
+    public SanPham getByID(Integer maSP) {
+        List<SanPham> list = select(selectByID, maSP);
+        return list.size() > 0 ? list.get(  0) : null;
     }
-
-    public int getMaNVByTenSP(String tenSP) {
-        try {
-            ResultSet rs = JDBCHelper.executeQuery(MaSP, tenSP);
-            if (rs.next()) {
-                return rs.getInt("MaSP");
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return -1;
-    }
-
     public List<String> getSize(int MaSP) {
         List<String> sizeList = new ArrayList<>();
         try {
@@ -95,10 +63,19 @@ public class SanPhamDao implements SanPhamDAOinterface {
         return sizeList;
     }
 
-    @Override
-    public SanPham getByID(Integer maSP) {
-        List<SanPham> list = select(selectByID, maSP);
-        return list.size() > 0 ? list.get(0) : null;
+
+
+    public int getMaNVByTenSP(String tenSP) {
+        try {
+            ResultSet rs = JDBCHelper.executeQuery(MaSP, tenSP);
+            if (rs.next()) {
+                return rs.getInt("MaSP");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 
     @Override
@@ -115,9 +92,7 @@ public class SanPhamDao implements SanPhamDAOinterface {
                     sp.getMaNV(),
                     sp.getMoTa(),
                     sp.getHinh(),
-                    sp.getLoaiSP(),
-                    sp.getGia(),
-                    sp.getGiaSizeLon()
+                    sp.getLoaiSP()
             );
 
             return sp.getMaSP();
@@ -135,8 +110,6 @@ public class SanPhamDao implements SanPhamDAOinterface {
                 sp.getMaNV(),
                 sp.getMoTa(),
                 sp.getHinh(),
-                sp.getGia(),
-                sp.getGiaSizeLon(),
                 sp.getMaNV());
     }
 
@@ -165,16 +138,15 @@ public class SanPhamDao implements SanPhamDAOinterface {
     }
 
     private SanPham readFromResultSet(ResultSet rs) throws SQLException {
-           SanPham model = new SanPham();
-        model.setMaNV(rs.getInt("MaSP"));
+        SanPham model = new SanPham();
+        model.setMaSP(rs.getInt("MaSP"));
         model.setTenSP(rs.getString("TenSP"));
         model.setTrangthai(rs.getBoolean("trangthai"));
         model.setMaNV(rs.getInt("MaNV"));
         model.setMoTa(rs.getString("MoTa"));
         model.setHinh(rs.getString("Hinh"));
         model.setLoaiSP(rs.getString("LoaiSP"));
-    
         return model;
     }
-
+ 
 }
