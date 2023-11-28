@@ -616,7 +616,7 @@ public class NhanVienJPanel extends javax.swing.JPanel {
                                 .addComponent(rdoLamViec)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(rdoNgi)))))
-                .addContainerGap(251, Short.MAX_VALUE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
