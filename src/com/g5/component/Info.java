@@ -7,6 +7,7 @@ package com.g5.component;
 
 import com.g5.entity.NhanVien;
 import com.g5.entityDAO.NhanVienDAOImpl;
+import com.g5.ui.Main;
 import com.g5.util.Auth;
 import com.g5.util.XImage;
 import java.awt.AlphaComposite;
@@ -49,28 +50,48 @@ public class Info extends javax.swing.JPanel {
 
     public void setInfo() {
         NhanVienDAOImpl nvDAO = new NhanVienDAOImpl();
-        if (Auth.isLogin()) {
-            NhanVien nv = nvDAO.getByID(Auth.user.getMaNV());
-            if (nv != null) {
-                String vaitro = "";
-                if (nv.getVaitro() == 0) {
-                    vaitro = "Nhân viên";
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0;;) {
+                    if (!Auth.isLogin()) {
+                        txtMaNV.setText("Mã NV: Xin chờ...");
+                        txtName.setText("Tên: Xin chờ...");
+                        txtRole.setText("Chức vụ: Xin chờ...");
+                    }
+                    try {
+                        Thread.sleep(2000);
+                    } catch (Exception e) {
+                    }
+                    if (Auth.isLogin()) {
+                        NhanVien nv = nvDAO.getByID(Auth.user.getMaNV());
+                        if (nv != null) {
+                            String vaitro = "";
+                            if (nv.getVaitro() == 0) {
+                                vaitro = "Nhân viên";
+                            }
+                            if (nv.getVaitro() == 1) {
+                                vaitro = "Quản lí";
+                            }
+                            if (nv.getVaitro() == 2) {
+                                vaitro = "Chủ";
+                            }
+                            txtMaNV.setText("Mã NV: " + nv.getMaNV());
+                            txtName.setText("Tên: " + nv.getHoTen());
+                            txtRole.setText("Chức vụ: " + vaitro);
+
+                        }
+                    } else {
+                        txtMaNV.setText("Mã NV: 999");
+                        txtName.setText("Tên: Anhbao5cm");
+                        txtRole.setText("Chức vụ: Nhân viên");
+                    }
+
                 }
-                if (nv.getVaitro() == 1) {
-                    vaitro = "Quản lí";
-                }
-                if (nv.getVaitro() == 2) {
-                    vaitro = "Chủ";
-                }
-                txtMaNV.setText("Mã NV: " + nv.getMaNV());
-                txtName.setText("Tên: " + nv.getHoTen());
-                txtRole.setText("Chức vụ: " + vaitro);
-                return;
+
+                // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
-        }
-        txtMaNV.setText("Mã NV: 1");
-        txtName.setText("Tên: Anhbao5cm");
-        txtRole.setText("Chức vụ: Nhân viên");
+        }).start();
 
     }
 

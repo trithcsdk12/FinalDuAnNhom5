@@ -57,13 +57,13 @@ public class JDBCHelper {
         return con;
     }
 
-    public static void closeConnection() {
-        try {
-            connection.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
+//    public static void closeConnection() {
+//        try {
+//            connection.close();
+//        } catch (SQLException ex) {
+//            ex.printStackTrace();
+//        }
+//    }
 
     public static Properties loadDbProperties() {
         try {
@@ -117,6 +117,7 @@ public class JDBCHelper {
             try {
                 stmt.executeUpdate();
             } finally {
+                System.out.println("dong ket noi");
                 stmt.getConnection().close();
             }
         } catch (SQLException e) {

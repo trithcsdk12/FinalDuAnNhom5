@@ -16,6 +16,9 @@ import javax.swing.JOptionPane;
  */
 public class DoiMatKhauJDialog extends javax.swing.JDialog {
 
+    private static DoiMatKhauJDialog dmkJDialog = new DoiMatKhauJDialog(new javax.swing.JFrame(), true);
+    NhanVienDAOImpl nvDao = new NhanVienDAOImpl();
+
     /**
      * Creates new form DoiMatKhauJDialog
      */
@@ -24,6 +27,38 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Đổi mật khẩu");
+        loadTK();
+    }
+
+    static void setStatus(boolean bl) {
+        if (!bl) {
+            dmkJDialog.dispose();
+        }
+        dmkJDialog.setVisible(bl);
+    }
+
+    void loadTK() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0;;) {
+                    try {
+                        Thread.sleep(2000);
+                    } catch (Exception e) {
+                    }
+                    if (!Auth.isLogin()) {
+                        txtTaiKhoan.setText("Vui lòng đăng nhập");
+                        btnHoanThanh.setEnabled(false);
+                    } else {
+                        NhanVien nv = nvDao.getByID(Auth.user.getMaNV());
+                        txtTaiKhoan.setText(("" + nv.getMaNV() + "").trim());
+                        btnHoanThanh.setEnabled(true);
+                    }
+                }
+                // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        }).start();
+
     }
 
     /**
@@ -41,9 +76,10 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         btnHoanThanh = new javax.swing.JButton();
         btnThoat = new javax.swing.JButton();
-        txtMkCu = new javax.swing.JTextField();
+        txtTaiKhoan = new javax.swing.JTextField();
         txtMKMoi = new javax.swing.JTextField();
         txtXNMK = new javax.swing.JTextField();
+        btnTroLai = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(204, 204, 255));
@@ -53,7 +89,7 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
         jLabel2.setText("Đổi Mật Khẩu");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel3.setText("Mật khẩu cũ");
+        jLabel3.setText("Tài khoản");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setText("Mật khẩu mới");
@@ -78,37 +114,55 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
             }
         });
 
+        txtTaiKhoan.setEditable(false);
+        txtTaiKhoan.setText("Đang lấy thông tin. . .");
+
+        btnTroLai.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnTroLai.setText("Trở lại");
+        btnTroLai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTroLaiActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(57, 57, 57)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnHoanThanh, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnThoat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel3)
-                    .addComponent(txtMkCu, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtMKMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtXNMK, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(57, 57, 57)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnHoanThanh, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnThoat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel3)
+                            .addComponent(txtTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)
+                            .addComponent(txtMKMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtXNMK, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
+                        .addGap(1, 1, 1)
+                        .addComponent(btnTroLai)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel2)))
                 .addContainerGap(59, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2))
+                    .addComponent(btnTroLai, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtMkCu, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -133,7 +187,14 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
 
     private void btnThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoatActionPerformed
         // TODO add your handling code here:
+        System.exit(0);
     }//GEN-LAST:event_btnThoatActionPerformed
+
+    private void btnTroLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTroLaiActionPerformed
+        // TODO add your handling code here:
+        setStatus(false);
+        Main.setStatus(true);
+    }//GEN-LAST:event_btnTroLaiActionPerformed
 
     /**
      * @param args the command line arguments
@@ -168,14 +229,14 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                DoiMatKhauJDialog dialog = new DoiMatKhauJDialog(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
+                dmkJDialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
                     }
                 });
-                dialog.setVisible(true);
+                dmkJDialog.setVisible(true);
             }
         });
     }
@@ -183,33 +244,31 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHoanThanh;
     private javax.swing.JButton btnThoat;
+    private javax.swing.JButton btnTroLai;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JTextField txtMKMoi;
-    private javax.swing.JTextField txtMkCu;
+    private javax.swing.JTextField txtTaiKhoan;
     private javax.swing.JTextField txtXNMK;
     // End of variables declaration//GEN-END:variables
-    NhanVienDAOImpl nvdao = new NhanVienDAOImpl();
 
     void PasswordChange() {
-        String mkcu = txtMkCu.getText().trim(); // Giả sử txtMKCu là ô nhập mật khẩu cũ
+
         String mkmoi = txtMKMoi.getText().trim();
         String XNMK = txtXNMK.getText().trim();
 
-        if (mkcu.length() == 0 || mkmoi.length() == 0 || XNMK.length() == 0) {
+        if (mkmoi.length() == 0 || XNMK.length() == 0) {
             JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin.");
             return;
         }
 
-        if (!Auth.user.getMatkhau().equals(mkcu)) {
-            JOptionPane.showMessageDialog(null, "Sai mật khẩu.");
-        } else if (!mkmoi.equals(XNMK)) {
+        if (!mkmoi.equals(XNMK)) {
             JOptionPane.showMessageDialog(null, "Mật khẩu xác nhận không đúng.");
         } else {
             Auth.user.setMatkhau(mkmoi);
-            nvdao.update(Auth.user);
+            nvDao.update(Auth.user);
             JOptionPane.showMessageDialog(null, "Thay đổi mật khẩu thành công.");
             System.out.println("Thay đổi thành công");
         }

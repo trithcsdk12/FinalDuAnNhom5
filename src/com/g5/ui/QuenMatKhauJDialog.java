@@ -9,6 +9,10 @@ import com.g5.DAO.NhanVienDAOinterface;
 import com.g5.entity.NhanVien;
 import com.g5.entityDAO.NhanVienDAOImpl;
 import com.g5.util.Auth;
+import java.awt.Cursor;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
@@ -28,8 +32,7 @@ import javax.swing.JOptionPane;
  */
 public class QuenMatKhauJDialog extends javax.swing.JDialog {
 
-    private JFrame frame;
-    XacNhanMatKhauJDiaLog doiMatKhauDialog = new XacNhanMatKhauJDiaLog(frame, true);
+    private static QuenMatKhauJDialog qmkJDialog = new QuenMatKhauJDialog(new javax.swing.JFrame(), true);
 
     /**
      * Creates new form NewJDialog
@@ -38,6 +41,23 @@ public class QuenMatKhauJDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        btnTroLai.setOpaque(false);
+        setResizable(false);
+//        addEvenBack(new MouseAdapter() {
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                qmkJDialog.dispose();
+//                qmkJDialog.setVisible(false);
+//                DangNhapJDialog.setStatus(true);
+//            }
+//        });
+    }
+
+    static void setStatus(boolean bl) {
+        if (!bl) {
+            qmkJDialog.dispose();
+        }
+        qmkJDialog.setVisible(bl);
     }
 
     /**
@@ -59,6 +79,7 @@ public class QuenMatKhauJDialog extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnGuiMaXN = new javax.swing.JButton();
+        btnTroLai = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(204, 204, 255));
@@ -105,36 +126,50 @@ public class QuenMatKhauJDialog extends javax.swing.JDialog {
             }
         });
 
+        btnTroLai.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnTroLai.setText("Trở lại");
+        btnTroLai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTroLaiActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(62, 62, 62)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel3)
-                    .addComponent(txtTaiKhoan)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtMaXN, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnGuiMaXN))
+                        .addGap(62, 62, 62)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel3)
+                            .addComponent(txtTaiKhoan)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtMaXN, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnGuiMaXN))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnTiepTuc, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnThoat))
+                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnTiepTuc, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnThoat))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jLabel2))
-                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnTroLai)
+                        .addGap(25, 25, 25)
+                        .addComponent(jLabel2)))
                 .addContainerGap(61, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2))
+                    .addComponent(btnTroLai, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -172,11 +207,23 @@ public class QuenMatKhauJDialog extends javax.swing.JDialog {
         System.exit(0);
     }//GEN-LAST:event_btnThoatActionPerformed
 
+    private void btnTroLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTroLaiActionPerformed
+        // TODO add your handling code here:
+
+        setStatus(false);
+        DangNhapJDialog.setStatus(true);
+    }//GEN-LAST:event_btnTroLaiActionPerformed
+
     NhanVienDAOinterface nvdao = new NhanVienDAOImpl();
     Random ranDom = new Random();
 
     String gmail = "";
     String tk = "";
+
+    void addEvenBack(MouseListener evt) {
+
+        btnTroLai.addMouseListener(evt);
+    }
 
     void layLaiTK() {
         if (txtEmail.getText().trim().isEmpty() || txtTaiKhoan.getText().trim().isEmpty()) {
@@ -194,7 +241,7 @@ public class QuenMatKhauJDialog extends javax.swing.JDialog {
         for (NhanVien nhanVien : nvList) {
             if (tk.equalsIgnoreCase(Auth.accountNV(String.valueOf(nhanVien.getMaNV())))) {
                 String xnmk = Auth.accountXNNV(String.valueOf(nhanVien.getMaNV()));
-                doiMatKhauDialog.setmaNV(xnmk);
+                //  doiMatKhauDialog.setmaNV(xnmk);
                 if (gmail.equalsIgnoreCase(nhanVien.getEmail())) {
                     System.out.println("qq");
                     send();
@@ -252,7 +299,7 @@ public class QuenMatKhauJDialog extends javax.swing.JDialog {
         String maXN = txtMaXN.getText().trim();
         if (maXN.equalsIgnoreCase(String.valueOf(OTP))) {
 
-            doiMatKhauDialog.setVisible(true);
+            //   doiMatKhauDialog.setVisible(true);
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(null, "Mã xác nhận không đúng");
@@ -291,14 +338,14 @@ public class QuenMatKhauJDialog extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                QuenMatKhauJDialog dialog = new QuenMatKhauJDialog(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
+                qmkJDialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
                     }
                 });
-                dialog.setVisible(true);
+                qmkJDialog.setVisible(true);
             }
         });
     }
@@ -307,6 +354,7 @@ public class QuenMatKhauJDialog extends javax.swing.JDialog {
     private javax.swing.JButton btnGuiMaXN;
     private javax.swing.JButton btnThoat;
     private javax.swing.JButton btnTiepTuc;
+    private javax.swing.JButton btnTroLai;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

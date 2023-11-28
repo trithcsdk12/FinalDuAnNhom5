@@ -36,6 +36,7 @@ import org.jdesktop.animation.timing.TimingTargetAdapter;
  */
 public class Main extends javax.swing.JFrame {
 
+    private static Main mainFrame = new Main();
     private Menu menu = new Menu();
     private JPanel main = new JPanel();
     private MigLayout layout;
@@ -46,8 +47,20 @@ public class Main extends javax.swing.JFrame {
         this.setUndecorated(true);
         initComponents();
         init();
-        openDangNhap();
 
+        //  System.out.println("a");
+    }
+
+    static void setStatus(boolean bl) {
+        if (!bl) {
+            mainFrame.dispose();
+            mainFrame.setVisible(bl);
+        }
+        mainFrame.setVisible(bl);
+    }
+
+    static boolean isOpen() {
+        return mainFrame.isVisible();
     }
 
     @SuppressWarnings("unchecked")
@@ -131,7 +144,8 @@ public class Main extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (TextMes.Comform(main, "Bạn có chắc muốn đổi mật khẩu?")) {
-                    Main.this.dispose();
+                    setStatus(false);
+                    DoiMatKhauJDialog.setStatus(true);
                 }
 
             }
@@ -141,7 +155,8 @@ public class Main extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (TextMes.Comform(main, "Bạn có chắc muốn đăng xuất?")) {
-                    Main.this.dispose();
+                    setStatus(false);
+                    DangNhapJDialog.setStatus(true);
                 }
 
             }
@@ -163,7 +178,7 @@ public class Main extends javax.swing.JFrame {
                     showForm(new SanPhamJPanel());
                 }
                 if (index == 4) {
-                       showForm(new KhuyenMai());
+                    showForm(new KhuyenMai());
                 }
                 if (index == 5) {
                     showForm(new ThongKeJPanel());
@@ -235,12 +250,12 @@ public class Main extends javax.swing.JFrame {
         main.revalidate();
     }
 
-    void openDangNhap() {
-        if (Auth.isLogin()) {
-
-            return;
-        }
-        new DangNhapJDialog(this, true).setVisible(true);
+    private static boolean openDangNhap() {
+//        if (Auth.isLogin()) {
+//            return true;
+//        }
+        DangNhapJDialog.setStatus(true);
+        return Auth.isLogin();
     }
 
     /**
@@ -250,8 +265,9 @@ public class Main extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-
-                new Main();
+                if (openDangNhap()) {
+                    setStatus(true);
+                };
             }
         });
     }
