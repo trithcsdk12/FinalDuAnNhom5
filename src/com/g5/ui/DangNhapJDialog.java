@@ -15,6 +15,7 @@ import java.awt.event.MouseListener;
 import java.util.List;
 import javax.swing.JOptionPane;
 import com.g5.DAO.NhanVienDAOinterface;
+import javax.swing.JFrame;
 
 /**
  *
@@ -22,18 +23,23 @@ import com.g5.DAO.NhanVienDAOinterface;
  */
 public class DangNhapJDialog extends javax.swing.JDialog {
 
+    private JFrame frame;
+    private QuenMatKhauJDialog qmk = new QuenMatKhauJDialog(frame, true);
+
     /**
      * Creates new form DangNhapJDialog
      */
     public DangNhapJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        getContentPane().setBackground(new Color(0, 0, 0, 0));
+        this.frame = (JFrame) parent;
+
         setLocationRelativeTo(null);
-        addEvenPassWordChange(new MouseAdapter() {
+        addEvenPassForgot(new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                System.out.println("PassWord Change");
+                frame.dispose();
+                qmk.setVisible(true);
             }
 
         });
@@ -57,12 +63,11 @@ public class DangNhapJDialog extends javax.swing.JDialog {
         jLabel12 = new javax.swing.JLabel();
         btnDangNhap1 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setBackground(new java.awt.Color(204, 204, 255));
         setUndecorated(true);
 
         jLabel10.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
@@ -107,15 +112,6 @@ public class DangNhapJDialog extends javax.swing.JDialog {
             }
         });
 
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/g5/image/an.jpg"))); // NOI18N
-
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/g5/image/close.jpg"))); // NOI18N
-        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel4MouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -124,11 +120,7 @@ public class DangNhapJDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jSeparator3)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 57, Short.MAX_VALUE)
@@ -149,15 +141,8 @@ public class DangNhapJDialog extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel9)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(7, 7, 7)
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -196,11 +181,6 @@ public class DangNhapJDialog extends javax.swing.JDialog {
         new QuenMatKhauJDialog(null, true).setVisible(true);
     }//GEN-LAST:event_jLabel8MouseClicked
 
-    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-        // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_jLabel4MouseClicked
-
     NhanVienDAOinterface dao = new NhanVienDAOImpl();
 
     void Login() {
@@ -220,10 +200,10 @@ public class DangNhapJDialog extends javax.swing.JDialog {
                 Auth.user = nhanVien;
                 JOptionPane.showMessageDialog(null, "Đăng nhập thành công");
                 DangNhapJDialog.this.dispose();
-          
+
                 if (Auth.isLogin()) {
                     new Main().setVisible(true);
-            
+
                 }
 
                 found = true;
@@ -237,7 +217,7 @@ public class DangNhapJDialog extends javax.swing.JDialog {
 
     }
 
-    public void addEvenPassWordChange(MouseListener evt) {
+    public void addEvenPassForgot(MouseListener evt) {
         jLabel8.setCursor(new Cursor(Cursor.HAND_CURSOR));
         jLabel8.addMouseListener(evt);
     }
@@ -289,11 +269,9 @@ public class DangNhapJDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTextField txtMaNV1;
