@@ -986,7 +986,7 @@ public class HoaDonJPanel extends javax.swing.JPanel {
     void ShowHoaDonChiTiet(int MaHD) {
         HoaDonChiTietDAO hdctdao = new HoaDonChiTietDAO();
         List<HoaDonChiTiet> ls = hdctdao.getByHD(MaHD);
-//        System.out.println(ls);
+
         DefaultTableModel model = (DefaultTableModel) tblHoaDonChiTiet.getModel();
         model.setRowCount(0);
         for (HoaDonChiTiet hd : ls) {
@@ -1022,7 +1022,7 @@ public class HoaDonJPanel extends javax.swing.JPanel {
     void insertHDCT(HoaDonChiTiet hdct) {
         try {
             HoaDon hoadon = hdDao.getByID(Integer.parseInt(txtMAHD.getText().trim()));
-            System.out.println(hoadon);
+       
 //            System.out.println(hoadon);
             if (hoadon != null && !hoadon.isTrangthai()) {
                 hdctdao.create(hdct);
@@ -1117,7 +1117,7 @@ public class HoaDonJPanel extends javax.swing.JPanel {
                 String loaiSP = sanPham.getLoaiSP();
                 String tenSP = sanPham.getTenSP();
                 int maSP = sanPham.getMaSP();
-                System.out.println(maSP);
+          
                 if (loaiSP.equals(cboLoai.getSelectedItem())) {
                     modelTen.addElement(tenSP);
                 }

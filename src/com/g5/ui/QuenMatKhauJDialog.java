@@ -227,7 +227,6 @@ public class QuenMatKhauJDialog extends javax.swing.JDialog {
 
     void layLaiTK() {
         if (txtEmail.getText().trim().isEmpty() || txtTaiKhoan.getText().trim().isEmpty()) {
-            System.out.println("Vui lòng nhập");
             return;
         }
 
@@ -235,7 +234,6 @@ public class QuenMatKhauJDialog extends javax.swing.JDialog {
         tk = txtTaiKhoan.getText().trim();
         List<NhanVien> nvList = nvdao.getAll();
         if (nvList.size() <= 0) {
-            System.out.println("qq");
             return;
         }
         for (NhanVien nhanVien : nvList) {
@@ -243,7 +241,7 @@ public class QuenMatKhauJDialog extends javax.swing.JDialog {
                 String xnmk = Auth.accountXNNV(String.valueOf(nhanVien.getMaNV()));
                 //  doiMatKhauDialog.setmaNV(xnmk);
                 if (gmail.equalsIgnoreCase(nhanVien.getEmail())) {
-                    System.out.println("qq");
+   
                     send();
 
                 }
@@ -288,7 +286,7 @@ public class QuenMatKhauJDialog extends javax.swing.JDialog {
 
             Transport.send(message);
 
-            System.out.println("Done");
+        
 
         } catch (MessagingException e) {
             e.printStackTrace();

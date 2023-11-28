@@ -6,6 +6,7 @@
 package com.g5.component;
 
 import com.g5.event.EventMenuSelected;
+import com.g5.util.Auth;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -56,7 +57,6 @@ public class MenuItem extends javax.swing.JPanel {
         lblIcon.setIcon(icon);
         lblName.setText(name);
         this.index = index;
-  
 
         addMouseListener(new MouseAdapter() {
             @Override
@@ -73,7 +73,13 @@ public class MenuItem extends javax.swing.JPanel {
             public void mouseReleased(MouseEvent e) {
                 if (SwingUtilities.isLeftMouseButton(e)) {
                     if (mouseOver) {
-                        selected = true;
+                        if (Auth.isLogin() && (Auth.user.getVaitro() == 0 && index == 1)) {
+                            selected = false;
+
+                        } else {
+                            selected = true;
+                        }
+
                         repaint();
                         // even
                         runEvent();
@@ -104,7 +110,6 @@ public class MenuItem extends javax.swing.JPanel {
             event.selected(index);
         }
     }
-
 
     public void addEvent(EventMenuSelected event) {
         events.add(event);

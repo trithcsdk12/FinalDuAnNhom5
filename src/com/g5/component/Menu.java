@@ -8,6 +8,7 @@ package com.g5.component;
 import com.g5.event.EventMenuSelected;
 import com.g5.model.Model_Menu;
 import com.g5.ui.Main;
+import com.g5.util.Auth;
 import com.g5.util.TextMes;
 import java.awt.Color;
 import java.awt.Component;
@@ -99,14 +100,39 @@ public class Menu extends javax.swing.JPanel {
         item.addEvent(new EventMenuSelected() {
             @Override
             public void selected(int index) {
+                if (Auth.isLogin() && Auth.user.getVaitro() == 0 && index == 1) {
+                    TrangChu(0);
+                    repaint();
+                    return;
+                }
+
                 clearMenu(index);
                 repaint();
+
             }
         });
         item.addEvent(eventMenuSelected);
         panelMenu.add(item);
         if (item.getIndex() == 0) {
             item.setSelected(true);
+        }
+
+    }
+
+    void TrangChu(int index) {
+        for (Component com : panelMenu.getComponents()) {
+            try {
+                MenuItem item = (MenuItem) com;
+                if (item.getIndex() == index) {
+                    item.setSelected(true);
+                }
+                if (item.getIndex() != index) {
+                    item.setSelected(false);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         }
 
     }
@@ -240,6 +266,27 @@ public class Menu extends javax.swing.JPanel {
         super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
     }
 
+//    void checkVaiTro() {
+//        MenuItem[] menu = new MenuItem[panelMenu.getComponentCount()];
+//        int i = 0;
+//        for (Component com : panelMenu.getComponents()) {
+//            try {
+//                MenuItem item = (MenuItem) com;
+//                if (item.getIndex() == 1) {
+//                    item.setSelected(false);
+//                }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//
+//        }
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//            }
+//        }).start();
+//    }
     private void clearMenu(int index) {
         for (Component com : panelMenu.getComponents()) {
             try {

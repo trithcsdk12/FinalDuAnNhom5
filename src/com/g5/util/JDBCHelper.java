@@ -87,7 +87,8 @@ public class JDBCHelper {
 //     * @throws java.sql.SQLException lỗi sai cú pháp
 //     */
     public static PreparedStatement prepareStatement(String sql, Object... args) throws SQLException {
-        //Connection connection = DriverManager.getConnection(dburl, username, password);
+        
+        Connection connection = openConnection();
         PreparedStatement pstmt = null;
         
         if (sql.trim().contains("{")) {
@@ -117,7 +118,6 @@ public class JDBCHelper {
             try {
                 stmt.executeUpdate();
             } finally {
-                System.out.println("dong ket noi");
                 stmt.getConnection().close();
             }
         } catch (SQLException e) {

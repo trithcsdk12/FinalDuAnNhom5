@@ -6,6 +6,7 @@
 package com.g5.ui;
 
 import com.g5.component.Menu;
+import com.g5.component.MenuItem;
 import com.g5.component.Setting;
 import com.g5.event.EventMenuSelected;
 import com.g5.form.HoaDonJPanel;
@@ -48,7 +49,6 @@ public class Main extends javax.swing.JFrame {
         initComponents();
         init();
 
-        //  System.out.println("a");
     }
 
     static void setStatus(boolean bl) {
@@ -169,6 +169,11 @@ public class Main extends javax.swing.JFrame {
                     showForm(new TrangChuJPanel());
                 }
                 if (index == 1) {
+                    if (Auth.user.getVaitro() == 0) {
+                        showForm(new TrangChuJPanel());
+                        TextMes.Alert(null, "Bạn không có quyền truy cập");
+                        return;
+                    }
                     showForm(new NhanVienJPanel());
                 }
                 if (index == 2) {
@@ -186,12 +191,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        menu.addMenu(new Model_Menu("Trang chủ", new ImageIcon(Main.class.getResource("/com/g5/image/Home_2.png"))));
-        menu.addMenu(new Model_Menu("Nhân viên", new ImageIcon(Main.class.getResource("/com/g5/image/Person_1.png"))));
-        menu.addMenu(new Model_Menu("Hóa đơn", new ImageIcon(Main.class.getResource("/com/g5/image/Bill.png"))));
-        menu.addMenu(new Model_Menu("Sản phẩm", new ImageIcon(Main.class.getResource("/com/g5/image/Box.png"))));
-        menu.addMenu(new Model_Menu("Khuyến mãi", new ImageIcon(Main.class.getResource("/com/g5/image/Voucher_1.png"))));
-        menu.addMenu(new Model_Menu("Thống kê", new ImageIcon(Main.class.getResource("/com/g5/image/Combo_Chart.png"))));
+        loadFormMenu();
 
         panelBody.add(menu, "w 62!");
         panelBody.add(main, "w 100%");
@@ -243,11 +243,47 @@ public class Main extends javax.swing.JFrame {
         showForm(new TrangChuJPanel());
     }
 
+    private void loadFormMenu() {
+        menu.addMenu(new Model_Menu("Trang chủ", new ImageIcon(Main.class.getResource("/com/g5/image/Home_2.png"))));
+        menu.addMenu(new Model_Menu("Nhân viên", new ImageIcon(Main.class.getResource("/com/g5/image/Person_1.png"))));
+        menu.addMenu(new Model_Menu("Hóa đơn", new ImageIcon(Main.class.getResource("/com/g5/image/Bill.png"))));
+        menu.addMenu(new Model_Menu("Sản phẩm", new ImageIcon(Main.class.getResource("/com/g5/image/Box.png"))));
+        menu.addMenu(new Model_Menu("Khuyến mãi", new ImageIcon(Main.class.getResource("/com/g5/image/Voucher_1.png"))));
+        menu.addMenu(new Model_Menu("Thống kê", new ImageIcon(Main.class.getResource("/com/g5/image/Combo_Chart.png"))));
+
+    }
+
     private void showForm(Component com) {
+        if (!Auth.isLogin()) {
+            main.removeAll();
+            main.add(new TrangChuJPanel());
+            main.repaint();
+            main.revalidate();
+            return;
+        }
         main.removeAll();
         main.add(com);
         main.repaint();
         main.revalidate();
+    }
+
+    void checkVaiTro() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0;;) {
+                    try {
+                        Thread.sleep(500);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    if (Auth.isLogin() && Auth.user.getVaitro() == 0) {
+
+                    }
+                }
+
+            }
+        }).start();
     }
 
     private static boolean openDangNhap() {
@@ -266,6 +302,7 @@ public class Main extends javax.swing.JFrame {
             @Override
             public void run() {
                 if (openDangNhap()) {
+
                     setStatus(true);
                 };
             }

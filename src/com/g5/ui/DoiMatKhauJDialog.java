@@ -100,6 +100,7 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
         btnHoanThanh.setBackground(new java.awt.Color(51, 255, 255));
         btnHoanThanh.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnHoanThanh.setText("Hoàn Thành ");
+        btnHoanThanh.setEnabled(false);
         btnHoanThanh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHoanThanhActionPerformed(evt);
@@ -270,7 +271,6 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
             Auth.user.setMatkhau(mkmoi);
             nvDao.update(Auth.user);
             JOptionPane.showMessageDialog(null, "Thay đổi mật khẩu thành công.");
-            System.out.println("Thay đổi thành công");
         }
     }
 
