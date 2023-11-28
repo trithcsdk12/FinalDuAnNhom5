@@ -18,17 +18,31 @@ import java.util.List;
  */
 public class HoaDonChiTietDAO {
 
-    String selectAll = "select * from HoaDonChiTiet where MaHD = ?";
+    String selectByID = "select * from HoaDonChiTiet where MaHD = ?";
+    String selectALL = "select * from HoaDonChiTiet";
     String insert = "insert into HoaDonChiTiet (MaHD, MaSP, SoLuong, Gia, Size, PTKhuyenMai) "
             + "values (?,?,?,?,?,?)";
+    String update = "Update HoaDonChiTiet set MaHD=?, MaSP=?, SoLuong=?, Gia=?, Size=?,PTKhuyenMai=? where MaSP =?";
+    String selectByIDHD = "select * from HoaDonChiTiet where MaSP = ?";
+    String delete = "Delete from HoaDonChiTiet where MaSP = ?";
 
-    public HoaDonChiTiet getByID(Integer id) {
-        List<HoaDonChiTiet> list = select(selectAll, id);
+    public List<HoaDonChiTiet> getByID(int MaHD) {
+        return select(selectByID, MaHD);
+
+    }
+
+    public HoaDonChiTiet getByIDHD(Integer id) {
+        List<HoaDonChiTiet> list = select(selectByID, id);
+        return list.size() > 0 ? list.get(0) : null;
+    }
+
+    public HoaDonChiTiet getByIDSP(Integer id) {
+        List<HoaDonChiTiet> list = select(selectByIDHD, id);
         return list.size() > 0 ? list.get(0) : null;
     }
 
     public Integer create(HoaDonChiTiet hd) {
-      
+
         try {
             JDBCHelper.executeUpdate(insert,
                     hd.getMaHD(),
@@ -45,8 +59,29 @@ public class HoaDonChiTietDAO {
         }
     }
 
-    public List<HoaDonChiTiet> getByHD(int MaHD) {
-        return select(selectAll, MaHD);
+    public void update(HoaDonChiTiet hd) {
+
+        try {
+            JDBCHelper.executeUpdate(update,
+                    hd.getMaHD(),
+                    hd.getMaSP(),
+                    hd.getSoluong(),
+                    hd.getGia(),
+                    hd.getSize(),
+                    hd.getPTkhuyenmai(),
+                    hd.getMaSP()
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deteleByID(Integer id) {
+        JDBCHelper.executeUpdate(delete, id);
+    }
+
+    public List<HoaDonChiTiet> getALL() {
+        return select(selectALL);
     }
 
     private List<HoaDonChiTiet> select(String sql, Object... args) {
@@ -60,7 +95,7 @@ public class HoaDonChiTietDAO {
                     list.add(model);
                 }
             } finally {
-             //   rs.getStatement().getConnection().close();
+                //   rs.getStatement().getConnection().close();
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
