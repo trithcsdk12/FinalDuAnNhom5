@@ -48,6 +48,7 @@ public class NhanVienDAOImpl implements NhanVienDAOinterface {
         try {
             JDBCHelper.executeUpdate(insert,
                     nhanVien.getHoTen(),
+              
                     nhanVien.getMatkhau(),
                     nhanVien.getSDT(),
                     nhanVien.getEmail(),
@@ -57,6 +58,7 @@ public class NhanVienDAOImpl implements NhanVienDAOinterface {
                     nhanVien.getDiachi(),
                     nhanVien.getTrangthai(),
                     nhanVien.getHinh()
+                          
             );
 
             return nhanVien.getMaNV();

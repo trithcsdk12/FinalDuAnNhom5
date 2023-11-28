@@ -42,6 +42,8 @@ public class NhanVienJPanel extends javax.swing.JPanel {
         setOpaque(false);
         fillTable();
         fillForm();
+        btnXoa.setEnabled(false);
+        btnSua.setEnabled(false);
     }
 
     NhanVienDAOImpl nvDAO = new NhanVienDAOImpl();
@@ -76,6 +78,9 @@ public class NhanVienJPanel extends javax.swing.JPanel {
     void fillForm() {
         txtMaNV.setText(String.valueOf(nvDAO.getByIDLast().getMaNV() + 1));
         rdoChu.setVisible(false);
+        if (Auth.user.getVaitro() == 2) {
+            rdoQL.setVisible(true);
+        }
     }
 
     public void selectImage() {
@@ -128,7 +133,17 @@ public class NhanVienJPanel extends javax.swing.JPanel {
         NhanVien nv = new NhanVien();
         nv.setMaNV(Integer.parseInt(txtMaNV.getText().trim()));
         nv.setHoTen(txtHoTen.getText().trim());
-        nv.setVaitro(rdoNV.isSelected() ? 0 : 1);
+        int vt = 0;
+        if (rdoChu.isSelected()) {
+            vt = 2;
+        }
+        if (rdoQL.isSelected()) {
+            vt = 1;
+        }
+        if (rdoNV.isSelected()) {
+            vt = 0;
+        }
+        nv.setVaitro(vt);
         nv.setTrangthai(rdoLamViec.isSelected() ? true : false);
         nv.setSDT(txtSDT.getText().trim());
         String date = XDate.ChuyenNgay(txtNgaySinh.getDate());//  ngay/thang/nam
@@ -167,6 +182,51 @@ public class NhanVienJPanel extends javax.swing.JPanel {
         txtSDT.setText(nv.getSDT());
         txtXNMatKhau.setText("");
 
+        rdoNV.setEnabled(true);
+        rdoQL.setEnabled(false);
+        rdoChu.setVisible(false);
+        rdoNV.setSelected(true);
+        btnSua.setEnabled(false);
+        btnThem.setEnabled(true);
+        btnXoa.setEnabled(false);
+        rdoLamViec.setSelected(true);
+        rdoNam.setSelected(true);
+    }
+
+    int vaitro;
+    int manv;
+
+    void setBTN() {
+
+        btnThem.setEnabled(false);
+        btnXoa.setEnabled(false);
+        btnSua.setEnabled(false);
+
+        if (vaitro == 0 && ((Auth.user.getVaitro() == 1 || Auth.user.getVaitro() == 2) && Auth.user.getTrangthai())) {
+            btnXoa.setEnabled(true);
+            btnSua.setEnabled(true);
+        }
+
+        if (vaitro == 1 && (Auth.user.getVaitro() == 1 && Auth.user.getTrangthai())) {// vai trò trên form là quản lí và tài khoản quản lí và con hoạt động
+            if (manv == Auth.user.getMaNV()) {
+                btnSua.setEnabled(true);
+                btnXoa.setEnabled(false);
+                btnThem.setEnabled(false);
+            } else {
+                btnSua.setEnabled(false);
+                btnXoa.setEnabled(false);
+                btnThem.setEnabled(false);
+            }
+        }
+
+        if (vaitro == 2 && (Auth.user.getVaitro() == 2 && Auth.user.getTrangthai())) { // vai trò trên form là chủ và tài khoản chủ và con hoạt động
+            if (manv == Auth.user.getMaNV()) {
+                btnSua.setEnabled(true);
+            } else {
+                btnSua.setEnabled(false);
+            }
+        }
+
     }
 
     void setForm(NhanVien nv) {
@@ -176,6 +236,8 @@ public class NhanVienJPanel extends javax.swing.JPanel {
 //        if (nv == null) {
 //            return;
 //        }
+        vaitro = nv.getVaitro();
+        manv = nv.getMaNV();
         txtMaNV.setText(nv.getMaNV() + "");
         txtHoTen.setText(nv.getHoTen());
         txtMatKhau.setText(nv.getMatkhau());
@@ -192,15 +254,45 @@ public class NhanVienJPanel extends javax.swing.JPanel {
         int vaitro = nv.getVaitro();
 
         if (vaitro == 2) {
+            setBTN();
+
             rdoChu.setVisible(true);
+            rdoNV.setEnabled(false);
+            rdoQL.setEnabled(false);
             rdoChu.setSelected(true);
+
         } else if (vaitro == 1) {
-            rdoQL.setSelected(true);
-            rdoChu.setVisible(false);
-        } else {
-            rdoNV.setSelected(true);
-            rdoChu.setVisible(false);
+            setBTN();
+            if (Auth.user.getVaitro() == 1) {
+                rdoQL.setEnabled(true);
+                rdoNV.setEnabled(false);
+                rdoQL.setSelected(true);
+                rdoChu.setVisible(false);
+            }
+            if (Auth.user.getVaitro() == 2) {
+                rdoQL.setEnabled(true);
+                rdoNV.setEnabled(true);
+                rdoQL.setSelected(true);
+                rdoChu.setVisible(false);
+            }
+
+        } else if (vaitro == 0) {
+            setBTN();
+
+            if (Auth.user.getVaitro() == 1) {
+                rdoNV.setEnabled(true);
+                rdoQL.setEnabled(false);
+                rdoNV.setSelected(true);
+                rdoChu.setVisible(false);
+            }
+            if (Auth.user.getVaitro() == 2) {
+                rdoNV.setEnabled(true);
+                rdoQL.setEnabled(true);
+                rdoNV.setSelected(true);
+                rdoChu.setVisible(false);
+            }
         }
+
         txtDiaChi.setText(nv.getDiachi());
 
         if (nv.getTrangthai()) {
@@ -273,7 +365,7 @@ public class NhanVienJPanel extends javax.swing.JPanel {
         if (nv == null) {
             return;
         }
-        if (Auth.user.getVaitro() != 2 && (nv.getVaitro() == 2 || nv.getVaitro() == 1) ) {
+        if (Auth.user.getVaitro() != 2 && (nv.getVaitro() == 2 || nv.getVaitro() == 1)) {
             TextMes.Alert(this, "Bạn không đủ quyền đề làm điều này");
             return;
         }
@@ -342,10 +434,10 @@ public class NhanVienJPanel extends javax.swing.JPanel {
         rdoNam = new javax.swing.JRadioButton();
         rdoNu = new javax.swing.JRadioButton();
         jPanel4 = new javax.swing.JPanel();
-        jButton5 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnMoi = new javax.swing.JButton();
+        btnXoa = new javax.swing.JButton();
+        btnSua = new javax.swing.JButton();
+        btnThem = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
@@ -497,31 +589,31 @@ public class NhanVienJPanel extends javax.swing.JPanel {
         buttonGroup1.add(rdoNu);
         rdoNu.setText("Nữ");
 
-        jButton5.setText("Mới");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnMoi.setText("Mới");
+        btnMoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnMoiActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Xóa");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnXoaActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Sửa");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnSua.setText("Sửa");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnSuaActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Thêm");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnThem.setText("Thêm");
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnThemActionPerformed(evt);
             }
         });
 
@@ -545,13 +637,13 @@ public class NhanVienJPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btnThem)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)
+                        .addComponent(btnSua)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4)
+                        .addComponent(btnXoa)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton5))
+                        .addComponent(btnMoi))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jButton6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -567,10 +659,10 @@ public class NhanVienJPanel extends javax.swing.JPanel {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton3)
-                    .addComponent(jButton5)
-                    .addComponent(jButton4))
+                    .addComponent(btnThem)
+                    .addComponent(btnSua)
+                    .addComponent(btnMoi)
+                    .addComponent(btnXoa))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton6)
@@ -779,29 +871,29 @@ public class NhanVienJPanel extends javax.swing.JPanel {
         setForm(getTable());
     }//GEN-LAST:event_tblNhanVienMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
         insertNV();
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnThemActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
         updateNV();
 
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnSuaActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
         deleteNV();
 
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnXoaActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btnMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoiActionPerformed
         // TODO add your handling code here:
         clear(new NhanVien());
 
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_btnMoiActionPerformed
 
     private void lblHinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHinhMouseClicked
         // TODO add your handling code here:
@@ -816,15 +908,15 @@ public class NhanVienJPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnMoi;
+    private javax.swing.JButton btnSua;
+    private javax.swing.JButton btnThem;
     private javax.swing.JButton btnTiemKiem;
+    private javax.swing.JButton btnXoa;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
