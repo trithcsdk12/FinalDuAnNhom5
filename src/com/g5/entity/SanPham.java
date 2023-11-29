@@ -17,12 +17,14 @@ public class SanPham {
     private String Hinh;
     private String LoaiSP;
     private float Gia;
-    private float GiaSizeLon;
+    private int MaGSP;
+    private String Size;
 
     public SanPham() {
     }
 
-    public SanPham(String tenSP, boolean trangthai, int MaNV, String MoTa, String Hinh, String LoaiSP, float Gia, float GiaSizeLon) {
+    public SanPham(int maSP, String tenSP, boolean trangthai, int MaNV, String MoTa, String Hinh, String LoaiSP, float Gia, int MaGSP, String Size) {
+        this.maSP = maSP;
         this.tenSP = tenSP;
         this.trangthai = trangthai;
         this.MaNV = MaNV;
@@ -30,8 +32,10 @@ public class SanPham {
         this.Hinh = Hinh;
         this.LoaiSP = LoaiSP;
         this.Gia = Gia;
-        this.GiaSizeLon = GiaSizeLon;
+        this.MaGSP = MaGSP;
+        this.Size = Size;
     }
+
 
     public int getMaSP() {
         return maSP;
@@ -97,14 +101,22 @@ public class SanPham {
         this.Gia = Gia;
     }
 
-    public float getGiaSizeLon() {
-        return GiaSizeLon;
+    public int getMaGSP() {
+        return MaGSP;
     }
 
-    public void setGiaSizeLon(float GiaSizeLon) {
-        this.GiaSizeLon = GiaSizeLon;
+    public void setMaGSP(int MaGSP) {
+        this.MaGSP = MaGSP;
     }
 
-   
+    public String getSize() {
+        return Size;
+    }
+
+    public void setSize(String Size) {
+        this.Size = Size;
+    }
+
+
     
 }
