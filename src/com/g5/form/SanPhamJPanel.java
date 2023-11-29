@@ -49,6 +49,8 @@ public class SanPhamJPanel extends javax.swing.JPanel {
         cboLoaiSP();
         first();
         fillForm();
+        cboSP();
+        cboSize();
     }
 
     void fillTableDSSP() {
@@ -148,10 +150,9 @@ public class SanPhamJPanel extends javax.swing.JPanel {
     }
 
     void editCT() {
-        Integer maSP = (Integer) tblChiTiet.getValueAt(this.row, 0);
-        SanPham sp = dao.getByID(maSP);
-        this.setFormCT(sp);
-        this.updateStatusSP();
+        Integer maGSP = (Integer) tblChiTiet.getValueAt(this.row, 0);
+        SanPham gsp = daoCT.getByID(maGSP);
+        this.setFormCT(gsp);
     }
 
     void setFormCT(SanPham sp) {
@@ -319,7 +320,7 @@ public class SanPhamJPanel extends javax.swing.JPanel {
             TextMes.Alert(this, "Lỗi xóa SP");
         }
     }
-    
+
     void deleteCT() {
         try {
             daoCT.deteleByID(Integer.valueOf(txtMaGSP.getText().trim()));
@@ -347,7 +348,6 @@ public class SanPhamJPanel extends javax.swing.JPanel {
         }
     }
 
-    
     void updateCT() {
         kiemLoi();
         try {
@@ -361,7 +361,7 @@ public class SanPhamJPanel extends javax.swing.JPanel {
             TextMes.Alert(this, "Lỗi cập nhật sản phẩm");
         }
     }
-    
+
     void cboLoaiSP() {
         DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) cboLoaiSP.getModel();
         model.removeAllElements();
@@ -379,10 +379,44 @@ public class SanPhamJPanel extends javax.swing.JPanel {
         }
     }
 
-    
-    void fillForm() {
-        txtMaSP.setText(String.valueOf(dao.getByIDLast().getMaSP()+ 1));
+    void cboSP() {
+        DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) cboMaSP.getModel();
+        model.removeAllElements();
+        try {
+            List<SanPham> list = daoCT.getAll();
+            Set<String> uniqueMaSP = new HashSet<>();
+            for (SanPham sanPham : list) {
+                String MaSP = String.valueOf(sanPham.getMaSP());
+                if (uniqueMaSP.add(MaSP)) {
+                    model.addElement(MaSP);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
+    void cboSize() {
+        DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) cboSize.getModel();
+        model.removeAllElements();
+        try {
+            List<SanPham> list = daoCT.getAll();
+            Set<String> uniqueSize = new HashSet<>();
+            for (SanPham sanPham : list) {
+                String Size = String.valueOf(sanPham.getSize());
+                if (uniqueSize.add(Size)) {
+                    model.addElement(Size);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    void fillForm() {
+        txtMaSP.setText(String.valueOf(dao.getByIDLast().getMaSP() + 1));
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -490,6 +524,12 @@ public class SanPhamJPanel extends javax.swing.JPanel {
         buttonGroup1.add(rdoHet);
         rdoHet.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         rdoHet.setText("Hết");
+
+        cboLoaiSP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboLoaiSPActionPerformed(evt);
+            }
+        });
 
         txtMoTa.setColumns(20);
         txtMoTa.setRows(5);
@@ -1038,6 +1078,10 @@ public class SanPhamJPanel extends javax.swing.JPanel {
     private void btnSua1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSua1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSua1ActionPerformed
+
+    private void cboLoaiSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboLoaiSPActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboLoaiSPActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
