@@ -7,12 +7,14 @@ package com.g5.entityDAO;
 import com.g5.util.JDBCHelper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Month;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ThongKeDAO {
 
-    public List<Object[]> getHoaDon(int ngay) {
+    public List<Object[]> getHoaDon(Date ngay) {
         List<Object[]> list = new ArrayList<>();
         try {
             ResultSet rs = null;
@@ -21,14 +23,14 @@ public class ThongKeDAO {
                 rs = JDBCHelper.executeQuery(sql, ngay);
                 while (rs.next()) {
                     Object[] model = {
+                        rs.getDate("ngaytao"),
                         rs.getString("MaHD"),
-                        rs.getDate("Ngay"),
                         rs.getInt("Gia")
                     };
                     list.add(model);
                 }
             } finally {
-            //    rs.getStatement().getConnection().close();
+//                rs.getStatement().getConnection().close();
 
             }
         } catch (SQLException e) {
@@ -37,7 +39,7 @@ public class ThongKeDAO {
         return list;
     }
 
-    public List<Object[]> getTheoThang(int thang) {
+    public List<Object[]> getTheoThang(Date thang) {
         List<Object[]> list = new ArrayList<>();
         try {
             ResultSet rs = null;
@@ -46,13 +48,13 @@ public class ThongKeDAO {
                 rs = JDBCHelper.executeQuery(sql, thang);
                 while (rs.next()) {
                     Object[] model = {
-                        rs.getString("MaHD"),
-                        rs.getDate("Ngay"),
+                        rs.getString("ngaytao"),
+                        rs.getDate("MaHD"),
                         rs.getInt("Gia")
                     };
                 }
             } finally {
-              //  rs.getStatement().getConnection().close();
+                //     rs.getStatement().getConnection().close();
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -65,7 +67,7 @@ public class ThongKeDAO {
         try {
             ResultSet rs = null;
             try {
-                String sql = "{call sp_ThongKeSP (?) (?)}";
+                String sql = "{call sp_ThongKeSP (?, ?)}";
                 rs = JDBCHelper.executeQuery(sql, tu, den);
                 while (rs.next()) {
                     Object[] model = {
@@ -76,7 +78,7 @@ public class ThongKeDAO {
                     };
                 }
             } finally {
-             //   rs.getStatement().getConnection().close();
+                //    rs.getStatement().getConnection().close();
             }
         } catch (SQLException e) {
             throw new RuntimeException();
@@ -89,7 +91,7 @@ public class ThongKeDAO {
         try {
             ResultSet rs = null;
             try {
-                String sql = "{call sp_ThongKeTheoTG (?) (?)}";
+                String sql = "{call sp_ThongKeTheoTG (? ,?)}";
                 rs = JDBCHelper.executeQuery(sql, tu, den);
                 while (rs.next()) {
                     Object[] model = {
@@ -99,7 +101,7 @@ public class ThongKeDAO {
                     };
                 }
             } finally {
-             //   rs.getStatement().getConnection().close();
+                //   rs.getStatement().getConnection().close();
             }
         } catch (SQLException e) {
             throw new RuntimeException();

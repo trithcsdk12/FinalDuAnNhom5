@@ -36,33 +36,60 @@ import org.jdesktop.animation.timing.TimingTargetAdapter;
  * @author anhba
  */
 public class Main extends javax.swing.JFrame {
-
+    
     private static Main mainFrame = new Main();
     private Menu menu = new Menu();
     private JPanel main = new JPanel();
     private MigLayout layout;
     private Animator animator;
     private boolean menuShow;
-
+    public static boolean logOut = false;
+    
     public Main() {
         this.setUndecorated(true);
         initComponents();
         init();
-
+        setHome();
+        
     }
-
+    
+    
+    
+    void setHome() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0;;) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    if(logOut){
+                        showForm(new TrangChuJPanel());
+                        menu.TrangChu(0);
+                        logOut = false;
+                        
+                    }
+                }
+            }
+        }).start();
+    }
+    
     static void setStatus(boolean bl) {
         if (!bl) {
+            logOut = true;
             mainFrame.dispose();
-            mainFrame.setVisible(bl);
+            //   mainFrame.setVisible(bl);
         }
+      //  logOut = false;
         mainFrame.setVisible(bl);
     }
-
+    
     static boolean isOpen() {
         return mainFrame.isVisible();
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -100,8 +127,8 @@ public class Main extends javax.swing.JFrame {
         //setSize(1000, 800);
         setLocationRelativeTo(null);
         this.setExtendedState(this.MAXIMIZED_BOTH);
-
-        layout = new MigLayout("fill", "0[]3[]0", "0[fill]0"); // layout cua form chinh "giản cách bên trái[]giản cách ở giữ[] giản cách bên phải
+        
+        layout = new MigLayout("fill", "0[]8[]0", "0[fill]0"); // layout cua form chinh "giản cách bên trái[]giản cách ở giữ[] giản cách bên phải
         panelBody.setLayout(layout); // set layout cho form chinh
 
         main.setOpaque(false);
@@ -116,7 +143,7 @@ public class Main extends javax.swing.JFrame {
                     menu.setEnableButtonChangePass(false);
                     menu.setEnableButtonLogOut(false);
                     animator.start();
-
+                    
                 }
             }
         });
@@ -147,10 +174,10 @@ public class Main extends javax.swing.JFrame {
                     setStatus(false);
                     DoiMatKhauJDialog.setStatus(true);
                 }
-
+                
             }
         });
-
+        
         menu.addEventButtonLogOut(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -158,10 +185,10 @@ public class Main extends javax.swing.JFrame {
                     setStatus(false);
                     DangNhapJDialog.setStatus(true);
                 }
-
+                
             }
         });
-
+        
         menu.setEventMenuSelected(new EventMenuSelected() {
             @Override
             public void selected(int index) {
@@ -190,12 +217,12 @@ public class Main extends javax.swing.JFrame {
                 }
             }
         });
-
+        
         loadFormMenu();
-
+        
         panelBody.add(menu, "w 62!");
         panelBody.add(main, "w 100%");
-
+        
         TimingTarget target = new TimingTargetAdapter() {
             @Override
             public void timingEvent(float fraction) {
@@ -210,7 +237,7 @@ public class Main extends javax.swing.JFrame {
                 layout.setComponentConstraints(menu, "w " + width + "!");
                 panelBody.revalidate();
             }
-
+            
             @Override
             public void end() {
                 if (menu.getWidth() > 63) {
@@ -231,9 +258,9 @@ public class Main extends javax.swing.JFrame {
                     menu.setEnableButtonLogOut(true);
                     return;
                 }
-
+                
             }
-
+            
         };
         animator = new Animator(500, target);
         animator.setResolution(0);
@@ -242,7 +269,7 @@ public class Main extends javax.swing.JFrame {
         //  menu.initMoving(Main.this);
         showForm(new TrangChuJPanel());
     }
-
+    
     private void loadFormMenu() {
         menu.addMenu(new Model_Menu("Trang chủ", new ImageIcon(Main.class.getResource("/com/g5/image/Home_2.png"))));
         menu.addMenu(new Model_Menu("Nhân viên", new ImageIcon(Main.class.getResource("/com/g5/image/Person_1.png"))));
@@ -250,9 +277,9 @@ public class Main extends javax.swing.JFrame {
         menu.addMenu(new Model_Menu("Sản phẩm", new ImageIcon(Main.class.getResource("/com/g5/image/Box.png"))));
         menu.addMenu(new Model_Menu("Khuyến mãi", new ImageIcon(Main.class.getResource("/com/g5/image/Voucher_1.png"))));
         menu.addMenu(new Model_Menu("Thống kê", new ImageIcon(Main.class.getResource("/com/g5/image/Combo_Chart.png"))));
-
+        
     }
-
+    
     private void showForm(Component com) {
         if (!Auth.isLogin()) {
             main.removeAll();
@@ -266,7 +293,7 @@ public class Main extends javax.swing.JFrame {
         main.repaint();
         main.revalidate();
     }
-
+    
     void checkVaiTro() {
         new Thread(new Runnable() {
             @Override
@@ -278,14 +305,14 @@ public class Main extends javax.swing.JFrame {
                         e.printStackTrace();
                     }
                     if (Auth.isLogin() && Auth.user.getVaitro() == 0) {
-
+                        
                     }
                 }
-
+                
             }
         }).start();
     }
-
+    
     private static boolean openDangNhap() {
 //        if (Auth.isLogin()) {
 //            return true;
@@ -302,7 +329,7 @@ public class Main extends javax.swing.JFrame {
             @Override
             public void run() {
                 if (openDangNhap()) {
-
+                    
                     setStatus(true);
                 };
             }

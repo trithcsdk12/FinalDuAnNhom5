@@ -102,9 +102,10 @@ public class Menu extends javax.swing.JPanel {
             public void selected(int index) {
                 if (Auth.isLogin() && Auth.user.getVaitro() == 0 && index == 1) {
                     TrangChu(0);
-                    repaint();
+                
                     return;
                 }
+                
 
                 clearMenu(index);
                 repaint();
@@ -118,8 +119,10 @@ public class Menu extends javax.swing.JPanel {
         }
 
     }
+    
 
-    void TrangChu(int index) {
+
+    public void TrangChu(int index) {
         for (Component com : panelMenu.getComponents()) {
             try {
                 MenuItem item = (MenuItem) com;
@@ -134,6 +137,7 @@ public class Menu extends javax.swing.JPanel {
             }
 
         }
+        repaint();
 
     }
 

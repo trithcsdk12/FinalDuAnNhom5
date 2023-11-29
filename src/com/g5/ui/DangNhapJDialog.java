@@ -78,7 +78,7 @@ public class DangNhapJDialog extends javax.swing.JDialog {
         jPanel1.setBackground(new java.awt.Color(204, 204, 255));
 
         jLabel10.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setForeground(new java.awt.Color(51, 51, 255));
         jLabel10.setText("Đăng nhập");
 
         jLabel12.setForeground(new java.awt.Color(255, 0, 51));
