@@ -10,7 +10,7 @@ import com.g5.component.MenuItem;
 import com.g5.component.Setting;
 import com.g5.event.EventMenuSelected;
 import com.g5.form.HoaDonJPanel;
-import com.g5.form.KhuyenMai;
+import com.g5.form.KhuyenMaiJpanel;
 import com.g5.form.NhanVienJPanel;
 import com.g5.form.SanPhamJPanel;
 import com.g5.form.ThongKeJPanel;
@@ -210,7 +210,7 @@ public class Main extends javax.swing.JFrame {
                     showForm(new SanPhamJPanel());
                 }
                 if (index == 4) {
-                    showForm(new KhuyenMai());
+                    showForm(new KhuyenMaiJpanel());
                 }
                 if (index == 5) {
                     showForm(new ThongKeJPanel());

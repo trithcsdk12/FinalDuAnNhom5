@@ -7,6 +7,7 @@ package com.g5.entityDAO;
 import com.g5.DAO.KhuyenMaiDAOinterface;
 import com.g5.entity.HoaDon;
 import com.g5.entity.KhuyenMai;
+import com.g5.entity.SanPhamKM;
 import com.g5.util.JDBCHelper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,7 +27,10 @@ public class KhuyenMaiDAO implements KhuyenMaiDAOinterface {
     String update = "Update KhuyenMai set ThoiGianBD=?, ThoiGianKT=?, TenKM=?, PTKhuyenMai=?, MaNV=? where MaKM =?";
     String delete = "Delete from KhuyenMai where MaKM = ?";
     String khuyenmai = "SELECT KM.PTKhuyenMai FROM KhuyenMaiChiTiet KMCT JOIN KhuyenMai KM ON KMCT.MaKM = KM.MaKM WHERE KMCT.MaSP = ?;";
-
+   
+    
+    
+    
     public float getKhuyenMai(int maSP) {
         try {
             ResultSet rs = JDBCHelper.executeQuery(khuyenmai, maSP);
@@ -44,6 +48,7 @@ public class KhuyenMaiDAO implements KhuyenMaiDAOinterface {
         List<KhuyenMai> list = select(selectByID, id);
         return list.size() > 0 ? list.get(0) : null;
     }
+   
 
     @Override
     public List<KhuyenMai> getAll() {
@@ -96,7 +101,7 @@ public class KhuyenMaiDAO implements KhuyenMaiDAOinterface {
                     list.add(model);
                 }
             } finally {
-             //   rs.getStatement().getConnection().close();
+                rs.getStatement().getConnection().close();
             }
         } catch (SQLException ex) {
             throw new RuntimeException(ex);

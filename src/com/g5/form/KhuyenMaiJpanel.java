@@ -4,20 +4,34 @@
  */
 package com.g5.form;
 
+import com.g5.entity.SanPhamKM;
+import com.g5.entityDAO.KhuyenMaiDAO;
+import com.g5.entityDAO.KhuyenMaiSPDAO;
+import com.g5.util.Auth;
+import java.util.Date;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import com.g5.entity.*;
+import static java.lang.Math.round;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author sora6
  */
-public class KhuyenMai extends javax.swing.JPanel {
+public class KhuyenMaiJpanel extends javax.swing.JPanel {
+
+    KhuyenMaiDAO kmDAO = new KhuyenMaiDAO();
+    KhuyenMaiSPDAO kmspDAO = new KhuyenMaiSPDAO();
     int choose;
+
     /**
      * Creates new form KhuyenMai
      */
-    public KhuyenMai() {
+    public KhuyenMaiJpanel() {
         initComponents();
+        txtManv.setText(Auth.user.getMaNV() + "");
+        fillTable();
     }
 
     /**
@@ -62,16 +76,16 @@ public class KhuyenMai extends javax.swing.JPanel {
         jLabel4.setText("Chiết khấu (%): ");
 
         txtManv.setEditable(false);
-        txtManv.setEnabled(false);
+        txtManv.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
         jLabel5.setText("Ngày bắt đầu");
 
         jLabel6.setText("Ngày kết thúc");
 
-        txtBatdau.setDateFormatString("yyyy-mm-dd");
+        txtBatdau.setDateFormatString("yyyy-MM-dd");
         //txtBatdau.setLocale(new Locale("vi", "VN"));
 
-        txtKetthuc.setDateFormatString("dd/MM/yyyy");
+        txtKetthuc.setDateFormatString("yyyy-MM-dd");
         //txtKetthuc.setLocale(new Locale("vi", "VN"));
 
         btnAdd.setText("Thêm");
@@ -82,10 +96,25 @@ public class KhuyenMai extends javax.swing.JPanel {
         });
 
         btnUpdate.setText("Cập nhật");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
         btnNew.setText("Làm mới");
+        btnNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewActionPerformed(evt);
+            }
+        });
 
         btnDel.setText("Xóa");
+        btnDel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDelActionPerformed(evt);
+            }
+        });
 
         tblSP.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -110,13 +139,29 @@ public class KhuyenMai extends javax.swing.JPanel {
             new String [] {
                 "Mã khuyến mãi", "Tên khuyến mãi", "Ngày bắt đầu", "Ngày kết thúc", "Mã nhân viên", "Chiết khấu"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblKM.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblKMMouseClicked(evt);
             }
         });
         jScrollPane5.setViewportView(tblKM);
+        if (tblKM.getColumnModel().getColumnCount() > 0) {
+            tblKM.getColumnModel().getColumn(0).setResizable(false);
+            tblKM.getColumnModel().getColumn(1).setResizable(false);
+            tblKM.getColumnModel().getColumn(2).setResizable(false);
+            tblKM.getColumnModel().getColumn(3).setResizable(false);
+            tblKM.getColumnModel().getColumn(4).setResizable(false);
+            tblKM.getColumnModel().getColumn(5).setResizable(false);
+        }
 
         jButton1.setText("Thêm sản phẩm");
 
@@ -135,8 +180,8 @@ public class KhuyenMai extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtManv, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(txtManv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(971, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
@@ -144,10 +189,10 @@ public class KhuyenMai extends javax.swing.JPanel {
                                     .addComponent(jLabel2)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                                        .addComponent(txtChietkhau, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(txtKM))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 194, Short.MAX_VALUE)
+                                        .addGap(8, 8, 8)
+                                        .addComponent(txtChietkhau))
+                                    .addComponent(txtKM, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 136, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6)
                                     .addComponent(jLabel5))
@@ -221,32 +266,130 @@ public class KhuyenMai extends javax.swing.JPanel {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
+        try {
+            insertKM(getForm());
+            JOptionPane.showMessageDialog(this, "Them thanh cong!!!");
+            fillTable();
+            clearForm();
+            btnDel.setEnabled(false);
+            btnUpdate.setEnabled(false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void tblKMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKMMouseClicked
         // TODO add your handling code here:
         choose = tblKM.getSelectedRow();
-        lbChoosen.setText("Mã KM : "+ tblKM.getValueAt(choose, 0));
-//        fillform();
-        //fillTableSp();
+        lbChoosen.setText("Mã KM : " + tblKM.getValueAt(choose, 0));
+        fillform();
+        fillTableSp((int) tblKM.getValueAt(choose, 0));
+        btnDel.setEnabled(true);
+        btnUpdate.setEnabled(true);
     }//GEN-LAST:event_tblKMMouseClicked
-//void fillTable(){
-//        DefaultTableModel model  = (DefaultTableModel) tblKM.getModel();
-//        model.setRowCount(0);
-//        List<com.Entity.KhuyenMai> list = kmDAO.getAll();
-//        
-//        for (com.Entity.KhuyenMai km : list) {
-//            model.addRow(new Object[]{km.getMaKM(),km.getTenKM(),km.getTGBatDau(),km.getTGKetThuc(),km.getMaNV(),km.getPhanTramKM()});
-//        }
-//    }
-//    void fillform(){
-//        
-//        txtKM.setText((String) tblKM.getValueAt(choose, 1));
-//     //   txtBatdau.setCalendar((Calendar) tblKM.getValueAt(choose, 2));
-//     //   txtKetthuc.setCalendar((Calendar) tblKM.getValueAt(choose, 3));
-//        txtManv.setText(tblKM.getValueAt(choose, 4)+"");
-//        txtChietkhau.setText(tblKM.getValueAt(choose, 5)+"");
-//    }
+
+    private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
+        // TODO add your handling code here:
+        clearForm();
+    }//GEN-LAST:event_btnNewActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+        try {
+            updateKM(getForm());
+            JOptionPane.showMessageDialog(this, "Sua thanh cong!!!");
+            fillTable();
+            clearForm();
+            btnDel.setEnabled(false);
+            btnUpdate.setEnabled(false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
+        // TODO add your handling code here:
+        try {
+            deleteKM((Integer) tblKM.getValueAt(choose, 0));
+            JOptionPane.showMessageDialog(this, "Xoa thanh cong khuyen mai so " + tblKM.getValueAt(choose, 0));
+            fillTable();
+            clearForm();
+            btnDel.setEnabled(false);
+            btnUpdate.setEnabled(false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnDelActionPerformed
+
+    void clearForm() {
+        txtKM.setText("");
+        txtChietkhau.setText("");
+        txtBatdau.setDate(new Date());
+        txtKetthuc.setDate(new Date());
+        fillTableSp(0);
+        lbChoosen.setText("Mã KM : ");
+        txtManv.setText(Auth.user.getMaNV() + "");
+        btnDel.setEnabled(false);
+        btnUpdate.setEnabled(false);
+    }
+
+    void deleteKM(int id) {
+        kmDAO.deteleByID(id);
+    }
+
+    KhuyenMai getForm() {
+        KhuyenMai km = new KhuyenMai();
+        km.setTenKM(txtKM.getText());
+        km.setTGBatDau(txtBatdau.getDate());
+        km.setTGKetThuc(txtKetthuc.getDate());
+        km.setMaNV(Auth.user.getMaNV());
+       float PTkm = Math.round(Float.parseFloat(txtChietkhau.getText()) * 100) / 100.0f;
+        km.setPhanTramKM(PTkm);
+        km.setMaKM((int) tblKM.getValueAt(choose, 0));
+        return km;
+    }
+
+    void insertKM(KhuyenMai km) {
+        kmDAO.create(km);
+    }
+
+    void updateKM(KhuyenMai km) {
+        kmDAO.update(km);
+    }
+
+    void fillTable() {
+        btnDel.setEnabled(false);
+        btnUpdate.setEnabled(false);
+        DefaultTableModel model = (DefaultTableModel) tblKM.getModel();
+        model.setRowCount(0);
+        List<KhuyenMai> list = kmDAO.getAll();
+        for (KhuyenMai km : list) {
+            model.addRow(new Object[]{km.getMaKM(), km.getTenKM(), km.getTGBatDau(), km.getTGKetThuc(), km.getMaNV(), km.getPhanTramKM()});
+        }
+    }
+
+    void fillTableSp(int id) {
+        DefaultTableModel modelSp = (DefaultTableModel) tblSP.getModel();
+        modelSp.setRowCount(0);
+        List<SanPhamKM> list = (List<SanPhamKM>) kmspDAO.getByCondition("SELECT * FROM KhuyenMaiChiTiet KMCT JOIN SanPham SP ON KMCT.MaSP = SP.MaSP JOIN GiaSanPham GSP ON SP.MaSP = GSP.MaSP JOIN KhuyenMai KM ON KM.MaKM = KMCT.MaKM WHERE KMCT.MaKM = ?;", id);
+        for (SanPhamKM sp : list) {
+            modelSp.addRow(new Object[]{sp.getMaSP(), sp.getTenSP(), sp.getGia(), sp.getGia() * (1 - sp.getChietkhau())});
+        }
+
+    }
+
+    void fillform() {
+        txtKM.setText((String) tblKM.getValueAt(choose, 1));
+        txtBatdau.setDate((Date) tblKM.getValueAt(choose, 2));
+        txtKetthuc.setDate((Date) tblKM.getValueAt(choose, 3));
+        txtManv.setText(tblKM.getValueAt(choose, 4) + "");
+        txtChietkhau.setText(tblKM.getValueAt(choose, 5) + "");
+
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
