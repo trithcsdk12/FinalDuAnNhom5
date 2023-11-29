@@ -33,8 +33,8 @@ public class SanPhamJPanel extends javax.swing.JPanel {
     int row = -1;
     SanPhamDao dao = new SanPhamDao();
     SanPhamChiTietDAO daoCT = new SanPhamChiTietDAO();
-    int w = 265;
-    int h = 191;
+    int h = 265;
+    int w = 191;
     String img;
 
     /**
@@ -48,6 +48,7 @@ public class SanPhamJPanel extends javax.swing.JPanel {
         fillTableSPCT();
         cboLoaiSP();
         first();
+        fillForm();
     }
 
     void fillTableDSSP() {
@@ -152,20 +153,12 @@ public class SanPhamJPanel extends javax.swing.JPanel {
         this.setFormCT(sp);
         this.updateStatusSP();
     }
-    
+
     void setFormCT(SanPham sp) {
-        txtMaSP.setText(String.valueOf(sp.getMaSP()));
-        txtTenSP.setText(sp.getTenSP());
-        txtMaNV.setText(String.valueOf(sp.getMaNV()));
-        cboLoaiSP.setSelectedItem(sp.getLoaiSP());
-        txtMoTa.setText(sp.getMoTa());
-        if (sp.isTrangthai() == true) {
-            rdoCon.setSelected(true);
-        } else if (sp.isTrangthai() == false) {
-            rdoHet.setSelected(true);
-        }
-        txtHinh.setText(sp.getHinh());
-        lblHinh.setToolTipText(sp.getHinh());
+        txtMaGSP.setText(String.valueOf(sp.getMaGSP()));
+        cboMaSP.setSelectedIndex(sp.getMaSP());
+        cboSize.setSelectedItem(sp.getSize());
+        txtGia.setText(String.valueOf(sp.getGia()));
     }
 
     void setFormSP(SanPham sp) {
@@ -182,18 +175,16 @@ public class SanPhamJPanel extends javax.swing.JPanel {
         txtHinh.setText(sp.getHinh());
         lblHinh.setToolTipText(sp.getHinh());
 
-        
         try {
             BufferedImage originalImage = null;
             originalImage = ImageIO.read(new File("src//com//g5//logos//" + sp.getHinh().trim()));
             ImageIcon icon = new ImageIcon(originalImage);
-        Image image = icon.getImage();
-        Image scaledImage = image.getScaledInstance(w, h, Image.SCALE_DEFAULT);
-        ImageIcon scaledIcon = new ImageIcon(scaledImage);
-        lblHinh.setIcon(scaledIcon);
+            Image image = icon.getImage();
+            Image scaledImage = image.getScaledInstance(w, h, Image.SCALE_DEFAULT);
+            ImageIcon scaledIcon = new ImageIcon(scaledImage);
+            lblHinh.setIcon(scaledIcon);
         } catch (IOException ex) {
         }
-        
 
     }
 
@@ -247,6 +238,14 @@ public class SanPhamJPanel extends javax.swing.JPanel {
         return sp;
     }
 
+    SanPham getFormCT() {
+        SanPham sp = new SanPham();
+        sp.setMaSP(Integer.parseInt((String) cboMaSP.getSelectedItem()));
+        sp.setSize((String) cboSize.getSelectedItem());
+        sp.setGia(Float.parseFloat(txtGia.getText()));
+        return sp;
+    }
+
     void clearSP() {
         txtMaSP.setText("");
         txtTenSP.setText("");
@@ -254,12 +253,36 @@ public class SanPhamJPanel extends javax.swing.JPanel {
         cboLoaiSP.setSelectedItem(0);
         txtMoTa.setText("");
         rdoCon.setSelected(true);
+        fillForm();
+    }
+
+    void clearCT() {
+        txtMaGSP.setText("");
+        cboMaSP.setSelectedItem(0);
+        cboSize.setSelectedItem(0);
+        txtMoTa.setText("");
     }
 
     void insertSP() {
+        fillForm();
         kiemLoi();
         try {
             SanPham sp = this.getFormSP();
+            dao.create(sp);
+            fillTableDSSP();
+            fillTableSPCT();
+            updateStatusSP();
+            clearSP();
+        } catch (Exception e) {
+            e.printStackTrace();
+            TextMes.Alert(this, "Lỗi thêm sản phẩm");
+        }
+    }
+
+    void insertCT() {
+        kiemLoi();
+        try {
+            SanPham sp = this.getFormCT();
             dao.create(sp);
             fillTableDSSP();
             fillTableSPCT();
@@ -285,6 +308,7 @@ public class SanPhamJPanel extends javax.swing.JPanel {
     }
 
     void deleteSP() {
+        fillForm();
         try {
             dao.deteleByID(Integer.valueOf(txtMaSP.getText().trim()));
             fillTableDSSP();
@@ -295,8 +319,21 @@ public class SanPhamJPanel extends javax.swing.JPanel {
             TextMes.Alert(this, "Lỗi xóa SP");
         }
     }
+    
+    void deleteCT() {
+        try {
+            daoCT.deteleByID(Integer.valueOf(txtMaGSP.getText().trim()));
+            fillTableDSSP();
+            fillTableSPCT();
+            clearSP();
+        } catch (Exception e) {
+            e.printStackTrace();
+            TextMes.Alert(this, "Lỗi xóa SP");
+        }
+    }
 
     void updateSP() {
+        fillForm();
         kiemLoi();
         try {
             SanPham sp = this.getFormSP();
@@ -310,6 +347,21 @@ public class SanPhamJPanel extends javax.swing.JPanel {
         }
     }
 
+    
+    void updateCT() {
+        kiemLoi();
+        try {
+            SanPham sp = this.getFormCT();
+            sp.setMaGSP(Integer.parseInt(txtMaGSP.getText()));
+            dao.update(sp);
+            fillTableDSSP();
+            fillTableSPCT();
+        } catch (Exception e) {
+            e.printStackTrace();
+            TextMes.Alert(this, "Lỗi cập nhật sản phẩm");
+        }
+    }
+    
     void cboLoaiSP() {
         DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) cboLoaiSP.getModel();
         model.removeAllElements();
@@ -327,6 +379,10 @@ public class SanPhamJPanel extends javax.swing.JPanel {
         }
     }
 
+    
+    void fillForm() {
+        txtMaSP.setText(String.valueOf(dao.getByIDLast().getMaSP()+ 1));
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -546,6 +602,11 @@ public class SanPhamJPanel extends javax.swing.JPanel {
 
         btnSua1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnSua1.setText("Sửa");
+        btnSua1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSua1ActionPerformed(evt);
+            }
+        });
 
         btnXoa1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnXoa1.setText("Xóa");
@@ -880,14 +941,18 @@ public class SanPhamJPanel extends javax.swing.JPanel {
 
     private void btnMoi1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoi1ActionPerformed
         // TODO add your handling code here:
+        clearCT();
+        txtMaGSP.requestFocus();
     }//GEN-LAST:event_btnMoi1ActionPerformed
 
     private void btnThem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem1ActionPerformed
         // TODO add your handling code here:
+        insertCT();
     }//GEN-LAST:event_btnThem1ActionPerformed
 
     private void btnXoa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoa1ActionPerformed
         // TODO add your handling code here:
+        deleteCT();
     }//GEN-LAST:event_btnXoa1ActionPerformed
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
@@ -969,6 +1034,10 @@ public class SanPhamJPanel extends javax.swing.JPanel {
         this.row = tblChiTiet.getSelectedRow();
         this.editCT();
     }//GEN-LAST:event_tblChiTietMousePressed
+
+    private void btnSua1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSua1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSua1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
