@@ -11,7 +11,7 @@ package com.g5.entity;
 public class SanPham {
     private int maSP;
     private String tenSP;
-    private boolean trangthai;
+    private int soLuong;
     private int MaNV;
     private String MoTa;
     private String Hinh;
@@ -23,10 +23,10 @@ public class SanPham {
     public SanPham() {
     }
 
-    public SanPham(int maSP, String tenSP, boolean trangthai, int MaNV, String MoTa, String Hinh, String LoaiSP, float Gia, int MaGSP, String Size) {
+    public SanPham(int maSP, String tenSP, int soLuong, int MaNV, String MoTa, String Hinh, String LoaiSP, float Gia, int MaGSP, String Size) {
         this.maSP = maSP;
         this.tenSP = tenSP;
-        this.trangthai = trangthai;
+        this.soLuong = soLuong;
         this.MaNV = MaNV;
         this.MoTa = MoTa;
         this.Hinh = Hinh;
@@ -53,12 +53,12 @@ public class SanPham {
         this.tenSP = tenSP;
     }
 
-    public boolean isTrangthai() {
-        return trangthai;
+    public int getSoLuong() {
+        return soLuong;
     }
 
-    public void setTrangthai(boolean trangthai) {
-        this.trangthai = trangthai;
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
     }
 
     public int getMaNV() {

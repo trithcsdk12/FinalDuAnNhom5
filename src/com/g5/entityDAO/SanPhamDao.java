@@ -22,20 +22,16 @@ public class SanPhamDao implements SanPhamDAOinterface {
 
     String selectByID = "select * from SanPham where MaSP = ?";
     String selectAll = "select * from SanPham";
-    String insert = "insert into SanPham (TenSP,TrangThai,MaNV,MoTa,Hinh,LoaiSP) "
+    String insert = "insert into SanPham (TenSP,SoLuong,MaNV,MoTa,Hinh,LoaiSP) "
             + "values (?,?,?,?,?,?)";
-    String update = "Update SanPham set TenSP=?, TrangThai=?, MaNV=?, MoTa=?, Hinh=?, LoaiSP=? where MaSP =?";
+    String update = "Update SanPham set TenSP=?, SoLuong=?, MaNV=?, MoTa=?, Hinh=?, LoaiSP=? where MaSP =?";
     String delete = "Delete from SanPham where MaSP = ?";
     String TenSP = "Select TenSP from SanPham where LoaiSP = ?";
     String MaSP = "Select MaSP from SanPham where TenSP = ?";
     String LoaiSP = "Select distinct LoaiSP from SanPham";
     String Size = "select size from GiaSanPham where MaSP = ?";
-    String selectLast = "select * from SanPham order by MaSP desc";
+    String resetIdentity = "DBCC CHECKIDENT (SanPham,RESEED,?)";
 
-    public SanPham getByIDLast() {
-        List<SanPham> list = select(selectLast);
-        return list.size() > 0 ? list.get(0) : null;
-    }
 
     public float getGiaByMaSPAndSize(int maSP, String size) {
         float gia = -1.0f;
@@ -55,6 +51,7 @@ public class SanPhamDao implements SanPhamDAOinterface {
         List<SanPham> list = select(selectByID, maSP);
         return list.size() > 0 ? list.get(0) : null;
     }
+    
 
     public List<String> getSize(int MaSP) {
         List<String> sizeList = new ArrayList<>();
@@ -93,7 +90,7 @@ public class SanPhamDao implements SanPhamDAOinterface {
         try {
             JDBCHelper.executeUpdate(insert,
                     sp.getTenSP(),
-                    sp.isTrangthai(),
+                    sp.getSoLuong(),
                     sp.getMaNV(),
                     sp.getMoTa(),
                     sp.getHinh(),
@@ -110,7 +107,7 @@ public class SanPhamDao implements SanPhamDAOinterface {
     public void update(SanPham sp) {
         JDBCHelper.executeUpdate(update,
                 sp.getTenSP(),
-                sp.isTrangthai(),
+                sp.getSoLuong(),
                 sp.getMaNV(),
                 sp.getMoTa(),
                 sp.getHinh(),
@@ -142,11 +139,15 @@ public class SanPhamDao implements SanPhamDAOinterface {
         return list;
     }
 
+    public void resetIdentity( int colum) {
+        JDBCHelper.executeUpdate(resetIdentity, colum);
+    }
+
     private SanPham readFromResultSet(ResultSet rs) throws SQLException {
         SanPham model = new SanPham();
         model.setMaSP(rs.getInt("MaSP"));
         model.setTenSP(rs.getString("TenSP"));
-        model.setTrangthai(rs.getBoolean("trangthai"));
+        model.setSoLuong(rs.getInt("SoLuong"));
         model.setMaNV(rs.getInt("MaNV"));
         model.setMoTa(rs.getString("MoTa"));
         model.setHinh(rs.getString("Hinh"));

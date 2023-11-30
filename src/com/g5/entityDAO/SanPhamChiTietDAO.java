@@ -21,12 +21,16 @@ public class SanPhamChiTietDAO {
     String selectByID = "select * from GiaSanPham where MaSP = ?";
     String insert = "insert into GiaSanPham (MaSP,Size,Gia)"
             + "values (?,?,?)";
-    String update = "Update GiaSanPham set MaSP=?, Size=?, Gia=? where MaGSP =?";
-    String delete = "Delete from SanPham where MaGSP = ?";
+    String update = "Update GiaSanPham set Gia = ? where Ten SP = ? and Size = ?";
+    String delete = "Delete from SanPham where Size = ? and TenSP = ?";
 
-    public SanPham getByID(Integer maGSP) {
-        List<SanPham> list = select(selectByID, maGSP);
+    public SanPham getByID(Integer maSP) {
+        List<SanPham> list = select(selectByID, maSP);
         return list.size() > 0 ? list.get(0) : null;
+    }
+    
+    public List<SanPham> selectByID(Integer maSP) {
+        return this.select(selectByID, maSP);
     }
 
     private List<SanPham> select(String sql, Object... args) {
@@ -50,7 +54,6 @@ public class SanPhamChiTietDAO {
 
     private SanPham readFromResultSet(ResultSet rs) throws SQLException {
         SanPham model = new SanPham();
-        model.setMaGSP(rs.getInt("MaGSP"));
         model.setMaSP(rs.getInt("MaSP"));
         model.setSize(rs.getString("Size"));
         model.setGia(rs.getFloat("Gia"));
@@ -84,7 +87,7 @@ public class SanPhamChiTietDAO {
         );
     }
 
-    public void deteleByID(Integer id) {
-        JDBCHelper.executeUpdate(delete, id);
+    public void deteleByID(String size, String tenSP ) {
+        JDBCHelper.executeUpdate(delete, size, tenSP);
     }
 }
