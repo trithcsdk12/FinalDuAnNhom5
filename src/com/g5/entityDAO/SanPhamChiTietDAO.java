@@ -4,6 +4,7 @@
  */
 package com.g5.entityDAO;
 
+import com.g5.entity.GiaSP;
 import com.g5.entity.SanPham;
 import com.g5.util.JDBCHelper;
 import java.sql.ResultSet;
@@ -18,33 +19,43 @@ import java.util.List;
 public class SanPhamChiTietDAO {
 
     String selectAll = "select * from GiaSanPham";
-    String selectByID = "select * from GiaSanPham where MaSP = ?";
+    String selectByID = "select * from giasanpham  where MaSP = ?";
+    String selectBySize = "select * from giasanpham  where MaSP = ? and Size = ?";
     String insert = "insert into GiaSanPham (MaSP,Size,Gia)"
             + "values (?,?,?)";
     String update = "Update GiaSanPham set Gia = ? where Ten SP = ? and Size = ?";
-    String delete = "Delete from SanPham where Size = ? and TenSP = ?";
+    String delete = "Delete from GiaSanPham where MaSP = ? and Size = ?";
+    
+    SanPhamDao spDAO = new SanPhamDao();
 
-    public SanPham getByID(Integer maSP) {
-        List<SanPham> list = select(selectByID, maSP);
+    public GiaSP getByID(Integer maSP) {
+        List<GiaSP> list = select(selectByID, maSP);
         return list.size() > 0 ? list.get(0) : null;
     }
     
-    public List<SanPham> selectByID(Integer maSP) {
+    public GiaSP getBySize(Integer maSP, String Size) {
+        List<GiaSP> list = select(selectBySize, maSP, Size);
+        return list.size() > 0 ? list.get(0) : null;
+    }
+
+    public List<GiaSP> selectByID(Integer maSP) {
         return this.select(selectByID, maSP);
     }
 
-    private List<SanPham> select(String sql, Object... args) {
-        List<SanPham> list = new ArrayList<>();
+
+
+    private List<GiaSP> select(String sql, Object... args) {
+        List<GiaSP> list = new ArrayList<>();
         try {
             ResultSet rs = null;
             try {
                 rs = JDBCHelper.executeQuery(sql, args);
                 while (rs.next()) {
-                    SanPham model = readFromResultSet(rs);
+                    GiaSP model = readFromResultSet(rs);
                     list.add(model);
                 }
             } finally {
-                   //rs.getStatement().getConnection().close();
+                //rs.getStatement().getConnection().close();
             }
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
@@ -52,22 +63,21 @@ public class SanPhamChiTietDAO {
         return list;
     }
 
-    private SanPham readFromResultSet(ResultSet rs) throws SQLException {
-        SanPham model = new SanPham();
+    private GiaSP readFromResultSet(ResultSet rs) throws SQLException {
+        GiaSP model = new GiaSP();
         model.setMaSP(rs.getInt("MaSP"));
         model.setSize(rs.getString("Size"));
         model.setGia(rs.getFloat("Gia"));
         return model;
     }
 
-    public List<SanPham> getAll() {
+    public List<GiaSP> getAll() {
         return select(selectAll);
     }
 
-    public Integer create(SanPham sp) {
+    public Integer create(GiaSP sp) {
         try {
             JDBCHelper.executeUpdate(insert,
-                    sp.getMaGSP(),
                     sp.getMaSP(),
                     sp.getSize(),
                     sp.getGia()
@@ -79,7 +89,7 @@ public class SanPhamChiTietDAO {
         }
     }
 
-    public void update(SanPham sp) {
+    public void update(GiaSP sp) {
         JDBCHelper.executeUpdate(update,
                 sp.getMaSP(),
                 sp.getSize(),
@@ -87,7 +97,7 @@ public class SanPhamChiTietDAO {
         );
     }
 
-    public void deteleByID(String size, String tenSP ) {
-        JDBCHelper.executeUpdate(delete, size, tenSP);
+    public void deteleByID( int maSP, String size) {
+        JDBCHelper.executeUpdate(delete, maSP, size);
     }
 }

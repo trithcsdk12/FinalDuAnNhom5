@@ -31,6 +31,7 @@ public class SanPhamDao implements SanPhamDAOinterface {
     String LoaiSP = "Select distinct LoaiSP from SanPham";
     String Size = "select size from GiaSanPham where MaSP = ?";
     String resetIdentity = "DBCC CHECKIDENT (SanPham,RESEED,?)";
+    String tensp = "Select tensp from sanpham where masp = ?";
 
 
     public float getGiaByMaSPAndSize(int maSP, String size) {
@@ -49,6 +50,11 @@ public class SanPhamDao implements SanPhamDAOinterface {
     @Override
     public SanPham getByID(Integer maSP) {
         List<SanPham> list = select(selectByID, maSP);
+        return list.size() > 0 ? list.get(0) : null;
+    }
+    
+        public SanPham getTenSP(Integer maSP) {
+        List<SanPham> list = select(tensp, maSP);
         return list.size() > 0 ? list.get(0) : null;
     }
     

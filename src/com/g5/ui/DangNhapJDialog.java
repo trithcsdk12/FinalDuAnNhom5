@@ -112,7 +112,7 @@ public class DangNhapJDialog extends javax.swing.JDialog {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setText("Mật khẩu");
 
-        txtPass.setText("123");
+        txtPass.setText("password1");
         txtPass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPassActionPerformed(evt);
