@@ -20,29 +20,34 @@ public class SanPhamChiTietDAO {
 
     String selectAll = "select * from GiaSanPham";
     String selectByID = "select * from giasanpham  where MaSP = ?";
-    String selectBySize = "select * from giasanpham  where MaSP = ? and Size = ?";
+    String selectBySize = "select * from GiaSanPham  where MaSP = ? and Size = '?'";
     String insert = "insert into GiaSanPham (MaSP,Size,Gia)"
             + "values (?,?,?)";
-    String update = "Update GiaSanPham set Gia = ? where Ten SP = ? and Size = ?";
+    String update = "Update GiaSanPham set Size = ?,Gia = ? where MaGSP = ?";
     String delete = "Delete from GiaSanPham where MaSP = ? and Size = ?";
+    String count = "Select Count(MaGSP) as SoLuong from GiaSanPham";
+    String deleteByMaSP = "Delete from GiaSanPham where MaSP = ?";
+    String resetIdentity = "DBCC CHECKIDENT (GiaSanPham,RESEED,?)";
     
     SanPhamDao spDAO = new SanPhamDao();
+
+    public List<GiaSP> countID() {
+        return this.select(count);
+    }
 
     public GiaSP getByID(Integer maSP) {
         List<GiaSP> list = select(selectByID, maSP);
         return list.size() > 0 ? list.get(0) : null;
     }
-    
-    public GiaSP getBySize(Integer maSP, String Size) {
-        List<GiaSP> list = select(selectBySize, maSP, Size);
+
+    public GiaSP getBySize(Integer masp, String Size) {
+        List<GiaSP> list = select(selectBySize, masp, Size);
         return list.size() > 0 ? list.get(0) : null;
     }
 
     public List<GiaSP> selectByID(Integer maSP) {
         return this.select(selectByID, maSP);
     }
-
-
 
     private List<GiaSP> select(String sql, Object... args) {
         List<GiaSP> list = new ArrayList<>();
@@ -65,12 +70,17 @@ public class SanPhamChiTietDAO {
 
     private GiaSP readFromResultSet(ResultSet rs) throws SQLException {
         GiaSP model = new GiaSP();
+        model.setMaGSP(rs.getInt("MaGSP"));
         model.setMaSP(rs.getInt("MaSP"));
         model.setSize(rs.getString("Size"));
         model.setGia(rs.getFloat("Gia"));
         return model;
     }
 
+     public void resetIdentity(int colum) {
+        JDBCHelper.executeUpdate(resetIdentity, colum);
+    }
+    
     public List<GiaSP> getAll() {
         return select(selectAll);
     }
@@ -91,13 +101,17 @@ public class SanPhamChiTietDAO {
 
     public void update(GiaSP sp) {
         JDBCHelper.executeUpdate(update,
-                sp.getMaSP(),
                 sp.getSize(),
-                sp.getGia()
+                sp.getGia(),
+                sp.getMaGSP()
         );
     }
 
-    public void deteleByID( int maSP, String size) {
+    public void deteleByID(int maSP, String size) {
         JDBCHelper.executeUpdate(delete, maSP, size);
+    }
+
+    public void deteleByMaSP(int maSP) {
+        JDBCHelper.executeUpdate(deleteByMaSP, maSP);
     }
 }

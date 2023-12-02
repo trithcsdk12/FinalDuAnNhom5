@@ -22,9 +22,9 @@ public class SanPhamDao implements SanPhamDAOinterface {
 
     String selectByID = "select * from SanPham where MaSP = ?";
     String selectAll = "select * from SanPham";
-    String insert = "insert into SanPham (TenSP,SoLuong,MaNV,MoTa,Hinh,LoaiSP) "
-            + "values (?,?,?,?,?,?)";
-    String update = "Update SanPham set TenSP=?, SoLuong=?, MaNV=?, MoTa=?, Hinh=?, LoaiSP=? where MaSP =?";
+    String insert = "insert into SanPham (TenSP,SoLuong,MaNV,MoTa,Hinh,LoaiSP,GiaNguyenLieu) "
+            + "values (?,?,?,?,?,?,?)";
+    String update = "Update SanPham set TenSP=?, SoLuong=?, MaNV=?, MoTa=?, Hinh=?, LoaiSP=?, GiaNguyenLieu = ? where MaSP =?";
     String delete = "Delete from SanPham where MaSP = ?";
     String TenSP = "Select TenSP from SanPham where LoaiSP = ?";
     String MaSP = "Select MaSP from SanPham where TenSP = ?";
@@ -32,7 +32,6 @@ public class SanPhamDao implements SanPhamDAOinterface {
     String Size = "select size from GiaSanPham where MaSP = ?";
     String resetIdentity = "DBCC CHECKIDENT (SanPham,RESEED,?)";
     String tensp = "Select tensp from sanpham where masp = ?";
-
 
     public float getGiaByMaSPAndSize(int maSP, String size) {
         float gia = -1.0f;
@@ -52,12 +51,11 @@ public class SanPhamDao implements SanPhamDAOinterface {
         List<SanPham> list = select(selectByID, maSP);
         return list.size() > 0 ? list.get(0) : null;
     }
-    
-        public SanPham getTenSP(Integer maSP) {
+
+    public SanPham getTenSP(Integer maSP) {
         List<SanPham> list = select(tensp, maSP);
         return list.size() > 0 ? list.get(0) : null;
     }
-    
 
     public List<String> getSize(int MaSP) {
         List<String> sizeList = new ArrayList<>();
@@ -100,7 +98,8 @@ public class SanPhamDao implements SanPhamDAOinterface {
                     sp.getMaNV(),
                     sp.getMoTa(),
                     sp.getHinh(),
-                    sp.getLoaiSP()
+                    sp.getLoaiSP(),
+                    sp.getGiaNguyenLieu()
             );
             return sp.getMaSP();
         } catch (Exception e) {
@@ -118,6 +117,7 @@ public class SanPhamDao implements SanPhamDAOinterface {
                 sp.getMoTa(),
                 sp.getHinh(),
                 sp.getLoaiSP(),
+                sp.getGiaNguyenLieu(),
                 sp.getMaSP());
     }
 
@@ -145,7 +145,7 @@ public class SanPhamDao implements SanPhamDAOinterface {
         return list;
     }
 
-    public void resetIdentity( int colum) {
+    public void resetIdentity(int colum) {
         JDBCHelper.executeUpdate(resetIdentity, colum);
     }
 
@@ -158,6 +158,7 @@ public class SanPhamDao implements SanPhamDAOinterface {
         model.setMoTa(rs.getString("MoTa"));
         model.setHinh(rs.getString("Hinh"));
         model.setLoaiSP(rs.getString("LoaiSP"));
+        model.setGiaNguyenLieu(rs.getFloat("GiaNguyenLieu"));
         return model;
     }
 

@@ -24,6 +24,7 @@ public class NhanVien {
     private String Hinh;
     private String diachi;
     private boolean trangthai;
+    public Integer getMaNV;
 
     public NhanVien(String matkhau, String hoTen, Integer vaitro, String Email, String SDT, Date ngaysinh, boolean gioitinh, String Hinh, String diachi, boolean trangthai) {
         this.matkhau = matkhau;

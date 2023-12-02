@@ -9,6 +9,7 @@ package com.g5.entity;
  * @author Asus
  */
 public class SanPham {
+
     private int maSP;
     private String tenSP;
     private int soLuong;
@@ -16,12 +17,12 @@ public class SanPham {
     private String MoTa;
     private String Hinh;
     private String LoaiSP;
-
+    private float giaNguyenLieu;
 
     public SanPham() {
     }
 
-    public SanPham(int maSP, String tenSP, int soLuong, int MaNV, String MoTa, String Hinh, String LoaiSP) {
+    public SanPham(int maSP, String tenSP, int soLuong, int MaNV, String MoTa, String Hinh, String LoaiSP, float giaNguyenLieu) {
         this.maSP = maSP;
         this.tenSP = tenSP;
         this.soLuong = soLuong;
@@ -29,9 +30,8 @@ public class SanPham {
         this.MoTa = MoTa;
         this.Hinh = Hinh;
         this.LoaiSP = LoaiSP;
-
+        this.giaNguyenLieu = giaNguyenLieu;
     }
-
 
     public int getMaSP() {
         return maSP;
@@ -87,6 +87,14 @@ public class SanPham {
 
     public void setLoaiSP(String LoaiSP) {
         this.LoaiSP = LoaiSP;
+    }
+
+    public float getGiaNguyenLieu() {
+        return giaNguyenLieu;
+    }
+
+    public void setGiaNguyenLieu(float giaNguyenLieu) {
+        this.giaNguyenLieu = giaNguyenLieu;
     }
 
 }
